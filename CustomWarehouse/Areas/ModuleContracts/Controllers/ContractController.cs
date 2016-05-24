@@ -21,6 +21,7 @@ namespace CustomWarehouse.Areas.ModuleContracts.Controllers
                 // test thử cái
                 // abc
                 // 123
+                // 456
                 string _url = Request.RawUrl;
                 string _ok = CommonFunc.Nvs_Redirect_QuyenTruyCapUser(_url);
                 if (_ok != "")
