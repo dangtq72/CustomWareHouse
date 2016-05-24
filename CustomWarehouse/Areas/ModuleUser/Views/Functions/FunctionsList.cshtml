@@ -1,0 +1,171 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Danh sách chức năng ";
+    //List<NaviObjectInfo.AllcodeInfo> lstApplication = Administrator.CommonFunc.GetAllCodeByType("APLICATION");
+}
+
+<style>
+    .dktimkiem_row {
+        padding: 5px 20px;
+        width: 100%;
+    }
+
+    .dktimkiem_cell_title {
+        width: 120px !important;
+    }
+
+    #d_page {
+        margin: 5px 0 0 0;
+    }
+
+    #d_number_of_page {
+        margin: 0;
+    }
+
+    .dktimkiem_cell_content {
+        width: 80%;
+    }
+</style>
+
+
+@Html.Partial("PartialViewMenuUser")
+
+<div class="classWrapperContent col-9-plus">
+    <p class="p_title">DANH SÁCH CHỨC NĂNG</p>
+
+    <div style="padding: 10px 0px; border-bottom: 1px solid #c6c6c6">
+
+        <div hidden="hidden" class="divBigCtrlTitle">Người tạo</div>
+        <div hidden="hidden" class="divBigCtrlContent">
+            <select id="cboNguoiTao" style="width: 50% !important">
+                <option value="" selected="selected">--Tất cả-- </option>
+            </select>
+        </div>
+
+        <div class="dktimkiem_row">
+            <div class="dktimkiem_cell_title">Tên chức năng</div>
+            <div class="dktimkiem_cell_content">
+                <input type="text" id="txtTenChucNang" style="width: 100%" />
+            </div>
+        </div>
+
+        <div class="dktimkiem_row">
+            <div class="dktimkiem_cell_title">Tên hàm</div>
+            <div class="dktimkiem_cell_content">
+                <input type="text" id="txtTenHam" style="width: 100%" />
+            </div>
+        </div>
+        <div class="dktimkiem_row">
+            <div class="dktimkiem_cell_title">
+            </div>
+            <div class="dktimkiem_cell_content">
+                <input type="submit" id="btnSubmit" value="Tìm kiếm" onclick="return SearchFunctionList()" />
+            </div>
+        </div>
+    </div>
+    <div class="divDataList">
+        <div style="display: block;" id="divLstFunctions">
+            @Html.Partial("PartialTableListFunctions")
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(function() {
+        $('#txtTenChucNang').focus();
+    });
+    $("#txtTenChucNang").keypress(function (e) {
+        if (e.keyCode == 13) {
+            SearchFunctionList();
+        }
+    });
+
+    $("#txtTenHam").keypress(function (e) {
+        if (e.keyCode == 13) {
+            SearchFunctionList();
+        }
+    });
+    //TIM KIEM CHUC NANG
+    function SearchFunctionList() {
+        try {
+            var app = $("#cboUngDung").val();
+            var createby = $("#cboNguoiTao").val();
+            var functionName = $("#txtTenChucNang").val();
+            var objName = $("#txtTenHam").val();
+            var FunctionInfo = {
+                App_Code: app,
+                CreateBy: createby,
+                Fun_Name: functionName,
+                ObjName: objName
+            };
+            $.ajax({
+                type: "POST",
+                data: FunctionInfo,
+                url: "/ModuleUserRoles/Functions/SearchFunctionsList",
+                success: function (data) {
+                    if (data != null) {
+                        $("#divLstFunctions").html(data);
+                    }
+                }
+            });
+
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+    //HÀM XỬ LÝ KHI NEXT TRANG
+    function page(_pagenum) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            var _currpage = $(".a-active").attr('id');
+            if (_pagenum == "next") {
+                _pagenum = _currpage / 1 + 1;
+            }
+            else if (_pagenum == "prew") {
+                _pagenum = _currpage / 1 - 1;
+            }
+            $.ajax({
+                type: "POST",
+                data: { pCurrentPage: _pagenum },
+                url: "/ModuleUserRoles/Functions/NextPage",
+                success: function (data) {
+                    if (data != null) {
+                        $("#divLstFunctions").html(data);
+                    }
+                }
+            });
+        } catch (e) {
+        }
+    }
+
+    function ConfirmDeleteFunction(pId) {
+        try {
+            MessageBoxConfirm("Thông báo", "Bạn có chắc chắn muốn xóa chức năng này không?",
+                function () {
+                    if (CheckSessionTimeOut() == false) {
+                        return false;
+                    }
+                    $.post("/ModuleUserRoles/Functions/FunctionsDelete", { pId: pId },
+                        function (data) {
+                            if (data != null && data.success >= 0) {
+                                alert("Xóa chức năng thành công");
+                                window.location.href = data.url;
+                            } else if (data != null && data.success == -2) {
+                                MessageBox("Thông báo", "Chức năng đang nằm trong nhóm chức năng không được phép xóa");
+                            } else {
+                                alert('Có lỗi trong quá trình xóa chức năng, kiểm tra kết nối tới server');
+                            }
+                        });
+                }, function () {
+
+                });
+
+        } catch (e) {
+            alert(e.message);
+        }
+    }
+</script>

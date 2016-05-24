@@ -1,0 +1,27 @@
+﻿@using CW_Info;
+@using CW_Business;
+@{
+  
+    List<Product_Declaration_Info> ListProduct = new List<Product_Declaration_Info>();
+    if (ViewBag.ListProduct != null)
+    {
+        ListProduct = ViewBag.ListProduct;
+    }
+}
+ @foreach (Product_Declaration_Info item in ListProduct)
+{
+    <tr class="" id="@item.Product_Id"> 
+    <td style='display:none' class='tdproduct' >@item.Product_Id</td> 
+    <td style='display:none'> @item.Package_Quantity</td> 
+    <td style='display:none'> @item.Quantity  </td> 
+    <td style='display:none'>@item.Made_In </td> 
+    <td style='display:none'>@item.Value</td> 
+    <td class='tdLeftAlign PRODUCT_CODE' >@item.Product_Code</td> 
+    <td class='tdCenterAlign'>  @string.Format("{0:#,##0}", item.Package_Quantity)  </td>
+    <td class='tdCenterAlign'> @string.Format("{0:#,##0}", item.Quantity)  </td>
+    <td class='tdLeftAlign MADEIN' >@item.Made_In </td> 
+    <td class='tdCenterAlign'> @string.Format("{0:#,##0}", item.Value) </td>
+    <td class='clssCenter tdaction'><a href='javascript:;'   onclick="return DelItem('@item.Product_Id')"> Xóa </a> 
+    </td>
+    </tr> 
+}

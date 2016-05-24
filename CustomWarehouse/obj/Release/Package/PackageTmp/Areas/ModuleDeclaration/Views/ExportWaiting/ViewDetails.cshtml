@@ -1,0 +1,158 @@
+﻿@using CW_Info;
+@using CW_Business; 
+@{
+    Declaration_Info _DecrationInfo = new Declaration_Info();
+    if(ViewBag.DecrationInfo != null)
+    {
+        _DecrationInfo = ViewBag.DecrationInfo;
+    }
+    int IsApprove = 0;
+    if (ViewBag.IsApprove != null)
+    {
+        IsApprove = ViewBag.IsApprove;
+    }
+}
+<style>
+    .dNoDisplay {
+     display:none;
+    }
+</style>
+<div class="tabmenu" style="width: 100%">
+        <ul style="padding-left: 20px">
+            <li class="ttab tabselected" id="tab1"><a href="javascript:;" onclick="funChangetab(1)">Thông tin chung</a></li>
+            <li class="ttab"  id="tab2"><a href="javascript:;" onclick="funChangetab(2)">Sản phẩm</a></li>
+        </ul>
+    </div>
+<div id="ViewInfo" class="DetailInfo">
+    <div id="dktimkiem_table">
+    <table class=" clsTableForView ">
+        <tbody>
+            <tr>
+                <td>Số phiếu xuất</td>
+                <td>@_DecrationInfo.Declaration_Code</td>
+            </tr>
+            <tr>
+                <td style="vertical-align:top">Số tờ khai nhập</td>
+                <td style="white-space:normal">@_DecrationInfo.Declaration_Refence_Code </td>
+            </tr>
+             <tr>
+                <td style="vertical-align:top">Hợp đồng</td>
+                <td style="white-space:normal">@_DecrationInfo.Contract_Code </td>
+            </tr>
+            <tr>
+                <td style="vertical-align:top">Ngày đăng ký</td>
+                <td style="white-space:normal">@_DecrationInfo.Register_Date.ToString("dd/MM/yyyy")</td>
+            </tr>
+            <tr>
+                <td style="vertical-align:top">Tổng giá trị</td>
+                <td style="white-space:normal">
+                     @string.Format("{0:#,##0}", _DecrationInfo.Total_Value)
+                </td>
+            </tr>
+            <tr>
+                 <td style="vertical-align:top">Kho</td>
+                <td style="white-space:normal">@_DecrationInfo.WareHouse_Name</td>
+            </tr>
+            <tr>
+                <td style="vertical-align:top">Cửa khẩu xuất</td>
+                <td style="white-space:normal">@_DecrationInfo.Gate</td>
+            </tr>
+
+             <tr>
+                <td> Số tiếp nhận</td>
+                <td>@_DecrationInfo.Receive_Number</td>
+            </tr>
+            <tr>
+                <td> Năm tiếp nhận</td>
+                <td>@_DecrationInfo.Receive_Year</td>
+            </tr>
+            <tr>
+                <td style="vertical-align:top">Hải quan đăng ký</td>
+                <td style="white-space:normal">@_DecrationInfo.Custom_Register</td>
+            </tr>
+            <tr>
+                <td style="vertical-align:top">Loại hình</td>
+                <td style="white-space:normal">@_DecrationInfo.Declaration_Type_Name</td>
+            </tr>
+
+            @if (_DecrationInfo.Status == (decimal)NaviCommon.Enum_Contract_Status.Huy_Duyet)
+            {
+                <tr>
+                    <td> Lý do từ chối duyệt</td>
+                    <td>@_DecrationInfo.Reason</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+</div>
+</div>
+<div id="ViewProduct"  class="DetailInfo dNoDisplay" style="padding:0px 5px">
+    <table id="_tableDatas" class="_tablelist">
+    <thead>
+        <tr>
+            <th>Mã sản phẩm
+            </th>
+            <th>Số kiện
+            </th>
+            <th>Số lượng
+            </th> 
+            <th>Giá trị
+            </th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Product_Declaration_Info item in _DecrationInfo.ListProduct)
+        {
+            <tr>
+                <td class="tdLeftAlign">
+                    @item.Product_Code
+                </td>              
+                <td class="tdRightAlign">
+                   @string.Format("{0:#,##0}", item.Package_Quantity)
+                </td>
+                <td class="tdRightAlign">
+                   @string.Format("{0:#,##0}", item.Quantity)
+                </td>
+                
+                <td class="tdRightAlign">
+                  @string.Format("{0:#,##0}", item.Value)
+                </td>
+            </tr>
+        }
+    </tbody>
+        </table>
+
+</div>
+
+@if(IsApprove == 1)
+{
+    <div style="text-align:right; padding:5px;  float: right">
+        <input type="button"value="Duyệt" onclick="FuncApprove(@_DecrationInfo.Declaration_Id)"/>
+       <input type="button"value="Hủy" onclick="CloseDivAllStock('divWrapperViewInfo')"/>
+    </div>
+}
+
+<script>
+    function funChangetab(_type)
+    {
+        try {
+            $(".ttab").removeClass("tabselected");
+            $(".DetailInfo").addClass("dNoDisplay");
+            if (_type == 1) {
+                //info
+                $("#tab1").addClass("tabselected");
+                $("#ViewInfo").removeClass("dNoDisplay");
+            }
+            else
+            {
+                $("#tab2").addClass("tabselected");
+                $("#ViewProduct").removeClass("dNoDisplay");
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+</script>

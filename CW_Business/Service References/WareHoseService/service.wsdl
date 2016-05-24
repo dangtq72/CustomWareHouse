@@ -1,0 +1,1728 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="CWService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBinding_CWContractService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1">
+        </msb:BinaryEncoding>
+        <wsaw:UsingAddressing>
+        </wsaw:UsingAddressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="CWContractService_WareHouse_Search_InputMessage">
+    <wsdl:part name="parameters" element="tns:WareHouse_Search" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_WareHouse_Search_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WareHouse_SearchResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_WareHouse_Delete_InputMessage">
+    <wsdl:part name="parameters" element="tns:WareHouse_Delete" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_WareHouse_Delete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WareHouse_DeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_WareHouse_Insert_InputMessage">
+    <wsdl:part name="parameters" element="tns:WareHouse_Insert" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_WareHouse_Insert_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WareHouse_InsertResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_WareHouse_Update_InputMessage">
+    <wsdl:part name="parameters" element="tns:WareHouse_Update" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_WareHouse_Update_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WareHouse_UpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_BUSINESS_GET_ALL_InputMessage">
+    <wsdl:part name="parameters" element="tns:BUSINESS_GET_ALL" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_BUSINESS_GET_ALL_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BUSINESS_GET_ALLResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Category_GetAll_InputMessage">
+    <wsdl:part name="parameters" element="tns:Category_GetAll" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Category_GetAll_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Category_GetAllResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Category_GetById_InputMessage">
+    <wsdl:part name="parameters" element="tns:Category_GetById" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Category_GetById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Category_GetByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Category_GetByCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:Category_GetByCode" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Category_GetByCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Category_GetByCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Category_Search_InputMessage">
+    <wsdl:part name="parameters" element="tns:Category_Search" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Category_Search_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Category_SearchResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Category_Delete_InputMessage">
+    <wsdl:part name="parameters" element="tns:Category_Delete" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Category_Delete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Category_DeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Category_Insert_InputMessage">
+    <wsdl:part name="parameters" element="tns:Category_Insert" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Category_Insert_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Category_InsertResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Category_Update_InputMessage">
+    <wsdl:part name="parameters" element="tns:Category_Update" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Category_Update_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Category_UpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_DBMem_Get_HashInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:DBMem_Get_HashInfo" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_DBMem_Get_HashInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DBMem_Get_HashInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_FunctionsGetAll_InputMessage">
+    <wsdl:part name="parameters" element="tns:FunctionsGetAll" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_FunctionsGetAll_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FunctionsGetAllResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_GetUserFuncByUserID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserFuncByUserID" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_GetUserFuncByUserID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserFuncByUserIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_FunctionsGetBy_Type_InputMessage">
+    <wsdl:part name="parameters" element="tns:FunctionsGetBy_Type" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_FunctionsGetBy_Type_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FunctionsGetBy_TypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_FunctionInGroupsGetAll_InputMessage">
+    <wsdl:part name="parameters" element="tns:FunctionInGroupsGetAll" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_FunctionInGroupsGetAll_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FunctionInGroupsGetAllResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_FunctionGroupsGetAll_InputMessage">
+    <wsdl:part name="parameters" element="tns:FunctionGroupsGetAll" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_FunctionGroupsGetAll_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FunctionGroupsGetAllResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_FunctionNotInGroupsGetAll_InputMessage">
+    <wsdl:part name="parameters" element="tns:FunctionNotInGroupsGetAll" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_FunctionNotInGroupsGetAll_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FunctionNotInGroupsGetAllResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_FunctionNotInGroupsByAppGetAll_InputMessage">
+    <wsdl:part name="parameters" element="tns:FunctionNotInGroupsByAppGetAll" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_FunctionNotInGroupsByAppGetAll_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FunctionNotInGroupsByAppGetAllResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_GroupFunctionInsert_InputMessage">
+    <wsdl:part name="parameters" element="tns:GroupFunctionInsert" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_GroupFunctionInsert_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GroupFunctionInsertResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_GroupInfoGetAll_InputMessage">
+    <wsdl:part name="parameters" element="tns:GroupInfoGetAll" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_GroupInfoGetAll_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GroupInfoGetAllResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_GroupInfoInsert_InputMessage">
+    <wsdl:part name="parameters" element="tns:GroupInfoInsert" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_GroupInfoInsert_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GroupInfoInsertResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_GroupInfoUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:GroupInfoUpdate" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_GroupInfoUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GroupInfoUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_GroupInfoDelete_InputMessage">
+    <wsdl:part name="parameters" element="tns:GroupInfoDelete" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_GroupInfoDelete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GroupInfoDeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_GroupUserGetByUserID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GroupUserGetByUserID" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_GroupUserGetByUserID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GroupUserGetByUserIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_GroupUserGetNotInUserID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GroupUserGetNotInUserID" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_GroupUserGetNotInUserID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GroupUserGetNotInUserIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_GroupUserInsert_InputMessage">
+    <wsdl:part name="parameters" element="tns:GroupUserInsert" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_GroupUserInsert_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GroupUserInsertResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_GroupUserDeleted_InputMessage">
+    <wsdl:part name="parameters" element="tns:GroupUserDeleted" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_GroupUserDeleted_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GroupUserDeletedResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_GetUserOfGroupByIDGroup_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserOfGroupByIDGroup" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_GetUserOfGroupByIDGroup_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserOfGroupByIDGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UserInfo_GetById_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserInfo_GetById" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UserInfo_GetById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserInfo_GetByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UserInfo_GetByType_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserInfo_GetByType" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UserInfo_GetByType_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserInfo_GetByTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UserInfo_GetByName_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserInfo_GetByName" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UserInfo_GetByName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserInfo_GetByNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UserInfo_Search_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserInfo_Search" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UserInfo_Search_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserInfo_SearchResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UserInfo_Insert_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserInfo_Insert" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UserInfo_Insert_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserInfo_InsertResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UserInfo_SetPassword_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserInfo_SetPassword" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UserInfo_SetPassword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserInfo_SetPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UserInfo_SetStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserInfo_SetStatus" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UserInfo_SetStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserInfo_SetStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UserInfo_Delete_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserInfo_Delete" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UserInfo_Delete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserInfo_DeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UserInfo_Update_Pass_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserInfo_Update_Pass" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UserInfo_Update_Pass_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserInfo_Update_PassResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UserFunctionInsert_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserFunctionInsert" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UserFunctionInsert_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserFunctionInsertResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UserFunctionDeleted_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserFunctionDeleted" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UserFunctionDeleted_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserFunctionDeletedResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UserFunctionGetAll_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserFunctionGetAll" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UserFunctionGetAll_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserFunctionGetAllResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Custom_GetAll_InputMessage">
+    <wsdl:part name="parameters" element="tns:Custom_GetAll" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Custom_GetAll_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Custom_GetAllResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Custom_Insert_InputMessage">
+    <wsdl:part name="parameters" element="tns:Custom_Insert" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Custom_Insert_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Custom_InsertResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Custom_Delete_InputMessage">
+    <wsdl:part name="parameters" element="tns:Custom_Delete" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Custom_Delete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Custom_DeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_User_WareHouse_GetByUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:User_WareHouse_GetByUser" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_User_WareHouse_GetByUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:User_WareHouse_GetByUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_User_WareHouse_Insert_InputMessage">
+    <wsdl:part name="parameters" element="tns:User_WareHouse_Insert" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_User_WareHouse_Insert_OutputMessage">
+    <wsdl:part name="parameters" element="tns:User_WareHouse_InsertResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_WareHouse_DeleteByUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:WareHouse_DeleteByUser" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_WareHouse_DeleteByUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WareHouse_DeleteByUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Product_GetAll_InputMessage">
+    <wsdl:part name="parameters" element="tns:Product_GetAll" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Product_GetAll_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Product_GetAllResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Product_GetById_InputMessage">
+    <wsdl:part name="parameters" element="tns:Product_GetById" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Product_GetById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Product_GetByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Product_GetByCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:Product_GetByCode" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Product_GetByCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Product_GetByCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Product_Delete_InputMessage">
+    <wsdl:part name="parameters" element="tns:Product_Delete" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Product_Delete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Product_DeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Product_Search_InputMessage">
+    <wsdl:part name="parameters" element="tns:Product_Search" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Product_Search_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Product_SearchResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Product_Insert_InputMessage">
+    <wsdl:part name="parameters" element="tns:Product_Insert" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Product_Insert_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Product_InsertResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Product_Update_InputMessage">
+    <wsdl:part name="parameters" element="tns:Product_Update" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Product_Update_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Product_UpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Product_Declaration_GetById_InputMessage">
+    <wsdl:part name="parameters" element="tns:Product_Declaration_GetById" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Product_Declaration_GetById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Product_Declaration_GetByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Delete_Product_Declaration_ById_InputMessage">
+    <wsdl:part name="parameters" element="tns:Delete_Product_Declaration_ById" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Delete_Product_Declaration_ById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Delete_Product_Declaration_ByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Delete_Product_Declaration_ByDeclaration_Id_InputMessage">
+    <wsdl:part name="parameters" element="tns:Delete_Product_Declaration_ByDeclaration_Id" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Delete_Product_Declaration_ByDeclaration_Id_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Delete_Product_Declaration_ByDeclaration_IdResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Product_Declaration_Insert_InputMessage">
+    <wsdl:part name="parameters" element="tns:Product_Declaration_Insert" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Product_Declaration_Insert_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Product_Declaration_InsertResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UpdateQuantity_Delivery_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateQuantity_Delivery" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_UpdateQuantity_Delivery_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateQuantity_DeliveryResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Declaration_GetAll_InputMessage">
+    <wsdl:part name="parameters" element="tns:Declaration_GetAll" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Declaration_GetAll_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Declaration_GetAllResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Declaration_GetByCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:Declaration_GetByCode" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Declaration_GetByCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Declaration_GetByCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Declaration_GetByContract_InputMessage">
+    <wsdl:part name="parameters" element="tns:Declaration_GetByContract" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Declaration_GetByContract_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Declaration_GetByContractResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Declaration_Delete_InputMessage">
+    <wsdl:part name="parameters" element="tns:Declaration_Delete" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Declaration_Delete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Declaration_DeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Declaration_Update_Status_InputMessage">
+    <wsdl:part name="parameters" element="tns:Declaration_Update_Status" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Declaration_Update_Status_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Declaration_Update_StatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Declaration_Insert_InputMessage">
+    <wsdl:part name="parameters" element="tns:Declaration_Insert" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Declaration_Insert_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Declaration_InsertResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Declaration_Update_InputMessage">
+    <wsdl:part name="parameters" element="tns:Declaration_Update" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Declaration_Update_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Declaration_UpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_DeclarationTableSearch_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeclarationTableSearch" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_DeclarationTableSearch_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeclarationTableSearchResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_DeclarationLiquidationSearch_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeclarationLiquidationSearch" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_DeclarationLiquidationSearch_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeclarationLiquidationSearchResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_DeclarationGetById_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeclarationGetById" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_DeclarationGetById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeclarationGetByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Contract_GetAll_InputMessage">
+    <wsdl:part name="parameters" element="tns:Contract_GetAll" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Contract_GetAll_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Contract_GetAllResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Contract_GetByCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:Contract_GetByCode" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Contract_GetByCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Contract_GetByCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Contract_GetById_InputMessage">
+    <wsdl:part name="parameters" element="tns:Contract_GetById" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Contract_GetById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Contract_GetByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Contract_GetBy_WareHouse_InputMessage">
+    <wsdl:part name="parameters" element="tns:Contract_GetBy_WareHouse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Contract_GetBy_WareHouse_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Contract_GetBy_WareHouseResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Contract_GetBy_User_InputMessage">
+    <wsdl:part name="parameters" element="tns:Contract_GetBy_User" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Contract_GetBy_User_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Contract_GetBy_UserResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Contract_Delete_InputMessage">
+    <wsdl:part name="parameters" element="tns:Contract_Delete" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Contract_Delete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Contract_DeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Contract_Update_Status_InputMessage">
+    <wsdl:part name="parameters" element="tns:Contract_Update_Status" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Contract_Update_Status_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Contract_Update_StatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Contract_Insert_InputMessage">
+    <wsdl:part name="parameters" element="tns:Contract_Insert" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Contract_Insert_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Contract_InsertResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Contract_Update_InputMessage">
+    <wsdl:part name="parameters" element="tns:Contract_Update" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Contract_Update_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Contract_UpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_TableSearch_InputMessage">
+    <wsdl:part name="parameters" element="tns:TableSearch" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_TableSearch_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TableSearchResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Contract_Search_ThanhKhoan_InputMessage">
+    <wsdl:part name="parameters" element="tns:Contract_Search_ThanhKhoan" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Contract_Search_ThanhKhoan_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Contract_Search_ThanhKhoanResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Contract_GetByStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:Contract_GetByStatus" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Contract_GetByStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Contract_GetByStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Allcode_GetAll_InputMessage">
+    <wsdl:part name="parameters" element="tns:Allcode_GetAll" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Allcode_GetAll_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Allcode_GetAllResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_AllCode_CheckWCF_InputMessage">
+    <wsdl:part name="parameters" element="tns:AllCode_CheckWCF" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_AllCode_CheckWCF_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AllCode_CheckWCFResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Get_Current_Date_InputMessage">
+    <wsdl:part name="parameters" element="tns:Get_Current_Date" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Get_Current_Date_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Get_Current_DateResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Get_TonKho_InputMessage">
+    <wsdl:part name="parameters" element="tns:Get_TonKho" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_Get_TonKho_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Get_TonKhoResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_WAREHOUSE_GET_ALL_InputMessage">
+    <wsdl:part name="parameters" element="tns:WAREHOUSE_GET_ALL" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_WAREHOUSE_GET_ALL_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WAREHOUSE_GET_ALLResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_WareHouse_GetById_InputMessage">
+    <wsdl:part name="parameters" element="tns:WareHouse_GetById" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_WareHouse_GetById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WareHouse_GetByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_WareHouse_GetByUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:WareHouse_GetByUser" />
+  </wsdl:message>
+  <wsdl:message name="CWContractService_WareHouse_GetByUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WareHouse_GetByUserResponse" />
+  </wsdl:message>
+  <wsdl:portType name="CWContractService">
+    <wsdl:operation name="WareHouse_Search">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/WareHouse_Search" message="tns:CWContractService_WareHouse_Search_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/WareHouse_SearchResponse" message="tns:CWContractService_WareHouse_Search_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WareHouse_Delete">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/WareHouse_Delete" message="tns:CWContractService_WareHouse_Delete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/WareHouse_DeleteResponse" message="tns:CWContractService_WareHouse_Delete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WareHouse_Insert">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/WareHouse_Insert" message="tns:CWContractService_WareHouse_Insert_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/WareHouse_InsertResponse" message="tns:CWContractService_WareHouse_Insert_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WareHouse_Update">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/WareHouse_Update" message="tns:CWContractService_WareHouse_Update_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/WareHouse_UpdateResponse" message="tns:CWContractService_WareHouse_Update_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BUSINESS_GET_ALL">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/BUSINESS_GET_ALL" message="tns:CWContractService_BUSINESS_GET_ALL_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/BUSINESS_GET_ALLResponse" message="tns:CWContractService_BUSINESS_GET_ALL_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Category_GetAll">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Category_GetAll" message="tns:CWContractService_Category_GetAll_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Category_GetAllResponse" message="tns:CWContractService_Category_GetAll_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Category_GetById">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Category_GetById" message="tns:CWContractService_Category_GetById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Category_GetByIdResponse" message="tns:CWContractService_Category_GetById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Category_GetByCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Category_GetByCode" message="tns:CWContractService_Category_GetByCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Category_GetByCodeResponse" message="tns:CWContractService_Category_GetByCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Category_Search">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Category_Search" message="tns:CWContractService_Category_Search_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Category_SearchResponse" message="tns:CWContractService_Category_Search_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Category_Delete">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Category_Delete" message="tns:CWContractService_Category_Delete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Category_DeleteResponse" message="tns:CWContractService_Category_Delete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Category_Insert">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Category_Insert" message="tns:CWContractService_Category_Insert_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Category_InsertResponse" message="tns:CWContractService_Category_Insert_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Category_Update">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Category_Update" message="tns:CWContractService_Category_Update_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Category_UpdateResponse" message="tns:CWContractService_Category_Update_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DBMem_Get_HashInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/DBMem_Get_HashInfo" message="tns:CWContractService_DBMem_Get_HashInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/DBMem_Get_HashInfoResponse" message="tns:CWContractService_DBMem_Get_HashInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FunctionsGetAll">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/FunctionsGetAll" message="tns:CWContractService_FunctionsGetAll_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/FunctionsGetAllResponse" message="tns:CWContractService_FunctionsGetAll_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserFuncByUserID">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/GetUserFuncByUserID" message="tns:CWContractService_GetUserFuncByUserID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/GetUserFuncByUserIDResponse" message="tns:CWContractService_GetUserFuncByUserID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FunctionsGetBy_Type">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/FunctionsGetBy_Type" message="tns:CWContractService_FunctionsGetBy_Type_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/FunctionsGetBy_TypeResponse" message="tns:CWContractService_FunctionsGetBy_Type_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FunctionInGroupsGetAll">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/FunctionInGroupsGetAll" message="tns:CWContractService_FunctionInGroupsGetAll_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/FunctionInGroupsGetAllResponse" message="tns:CWContractService_FunctionInGroupsGetAll_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FunctionGroupsGetAll">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/FunctionGroupsGetAll" message="tns:CWContractService_FunctionGroupsGetAll_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/FunctionGroupsGetAllResponse" message="tns:CWContractService_FunctionGroupsGetAll_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FunctionNotInGroupsGetAll">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/FunctionNotInGroupsGetAll" message="tns:CWContractService_FunctionNotInGroupsGetAll_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/FunctionNotInGroupsGetAllResponse" message="tns:CWContractService_FunctionNotInGroupsGetAll_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FunctionNotInGroupsByAppGetAll">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/FunctionNotInGroupsByAppGetAll" message="tns:CWContractService_FunctionNotInGroupsByAppGetAll_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/FunctionNotInGroupsByAppGetAllResponse" message="tns:CWContractService_FunctionNotInGroupsByAppGetAll_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GroupFunctionInsert">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/GroupFunctionInsert" message="tns:CWContractService_GroupFunctionInsert_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/GroupFunctionInsertResponse" message="tns:CWContractService_GroupFunctionInsert_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GroupInfoGetAll">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/GroupInfoGetAll" message="tns:CWContractService_GroupInfoGetAll_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/GroupInfoGetAllResponse" message="tns:CWContractService_GroupInfoGetAll_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GroupInfoInsert">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/GroupInfoInsert" message="tns:CWContractService_GroupInfoInsert_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/GroupInfoInsertResponse" message="tns:CWContractService_GroupInfoInsert_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GroupInfoUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/GroupInfoUpdate" message="tns:CWContractService_GroupInfoUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/GroupInfoUpdateResponse" message="tns:CWContractService_GroupInfoUpdate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GroupInfoDelete">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/GroupInfoDelete" message="tns:CWContractService_GroupInfoDelete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/GroupInfoDeleteResponse" message="tns:CWContractService_GroupInfoDelete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GroupUserGetByUserID">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/GroupUserGetByUserID" message="tns:CWContractService_GroupUserGetByUserID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/GroupUserGetByUserIDResponse" message="tns:CWContractService_GroupUserGetByUserID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GroupUserGetNotInUserID">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/GroupUserGetNotInUserID" message="tns:CWContractService_GroupUserGetNotInUserID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/GroupUserGetNotInUserIDResponse" message="tns:CWContractService_GroupUserGetNotInUserID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GroupUserInsert">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/GroupUserInsert" message="tns:CWContractService_GroupUserInsert_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/GroupUserInsertResponse" message="tns:CWContractService_GroupUserInsert_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GroupUserDeleted">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/GroupUserDeleted" message="tns:CWContractService_GroupUserDeleted_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/GroupUserDeletedResponse" message="tns:CWContractService_GroupUserDeleted_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserOfGroupByIDGroup">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/GetUserOfGroupByIDGroup" message="tns:CWContractService_GetUserOfGroupByIDGroup_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/GetUserOfGroupByIDGroupResponse" message="tns:CWContractService_GetUserOfGroupByIDGroup_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserInfo_GetById">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/UserInfo_GetById" message="tns:CWContractService_UserInfo_GetById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/UserInfo_GetByIdResponse" message="tns:CWContractService_UserInfo_GetById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserInfo_GetByType">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/UserInfo_GetByType" message="tns:CWContractService_UserInfo_GetByType_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/UserInfo_GetByTypeResponse" message="tns:CWContractService_UserInfo_GetByType_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserInfo_GetByName">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/UserInfo_GetByName" message="tns:CWContractService_UserInfo_GetByName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/UserInfo_GetByNameResponse" message="tns:CWContractService_UserInfo_GetByName_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserInfo_Search">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/UserInfo_Search" message="tns:CWContractService_UserInfo_Search_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/UserInfo_SearchResponse" message="tns:CWContractService_UserInfo_Search_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserInfo_Insert">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/UserInfo_Insert" message="tns:CWContractService_UserInfo_Insert_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/UserInfo_InsertResponse" message="tns:CWContractService_UserInfo_Insert_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserInfo_SetPassword">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/UserInfo_SetPassword" message="tns:CWContractService_UserInfo_SetPassword_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/UserInfo_SetPasswordResponse" message="tns:CWContractService_UserInfo_SetPassword_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserInfo_SetStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/UserInfo_SetStatus" message="tns:CWContractService_UserInfo_SetStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/UserInfo_SetStatusResponse" message="tns:CWContractService_UserInfo_SetStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserInfo_Delete">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/UserInfo_Delete" message="tns:CWContractService_UserInfo_Delete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/UserInfo_DeleteResponse" message="tns:CWContractService_UserInfo_Delete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserInfo_Update_Pass">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/UserInfo_Update_Pass" message="tns:CWContractService_UserInfo_Update_Pass_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/UserInfo_Update_PassResponse" message="tns:CWContractService_UserInfo_Update_Pass_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserFunctionInsert">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/UserFunctionInsert" message="tns:CWContractService_UserFunctionInsert_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/UserFunctionInsertResponse" message="tns:CWContractService_UserFunctionInsert_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserFunctionDeleted">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/UserFunctionDeleted" message="tns:CWContractService_UserFunctionDeleted_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/UserFunctionDeletedResponse" message="tns:CWContractService_UserFunctionDeleted_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserFunctionGetAll">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/UserFunctionGetAll" message="tns:CWContractService_UserFunctionGetAll_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/UserFunctionGetAllResponse" message="tns:CWContractService_UserFunctionGetAll_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Custom_GetAll">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Custom_GetAll" message="tns:CWContractService_Custom_GetAll_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Custom_GetAllResponse" message="tns:CWContractService_Custom_GetAll_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Custom_Insert">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Custom_Insert" message="tns:CWContractService_Custom_Insert_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Custom_InsertResponse" message="tns:CWContractService_Custom_Insert_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Custom_Delete">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Custom_Delete" message="tns:CWContractService_Custom_Delete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Custom_DeleteResponse" message="tns:CWContractService_Custom_Delete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="User_WareHouse_GetByUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/User_WareHouse_GetByUser" message="tns:CWContractService_User_WareHouse_GetByUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/User_WareHouse_GetByUserResponse" message="tns:CWContractService_User_WareHouse_GetByUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="User_WareHouse_Insert">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/User_WareHouse_Insert" message="tns:CWContractService_User_WareHouse_Insert_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/User_WareHouse_InsertResponse" message="tns:CWContractService_User_WareHouse_Insert_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WareHouse_DeleteByUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/WareHouse_DeleteByUser" message="tns:CWContractService_WareHouse_DeleteByUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/WareHouse_DeleteByUserResponse" message="tns:CWContractService_WareHouse_DeleteByUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Product_GetAll">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Product_GetAll" message="tns:CWContractService_Product_GetAll_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Product_GetAllResponse" message="tns:CWContractService_Product_GetAll_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Product_GetById">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Product_GetById" message="tns:CWContractService_Product_GetById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Product_GetByIdResponse" message="tns:CWContractService_Product_GetById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Product_GetByCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Product_GetByCode" message="tns:CWContractService_Product_GetByCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Product_GetByCodeResponse" message="tns:CWContractService_Product_GetByCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Product_Delete">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Product_Delete" message="tns:CWContractService_Product_Delete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Product_DeleteResponse" message="tns:CWContractService_Product_Delete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Product_Search">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Product_Search" message="tns:CWContractService_Product_Search_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Product_SearchResponse" message="tns:CWContractService_Product_Search_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Product_Insert">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Product_Insert" message="tns:CWContractService_Product_Insert_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Product_InsertResponse" message="tns:CWContractService_Product_Insert_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Product_Update">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Product_Update" message="tns:CWContractService_Product_Update_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Product_UpdateResponse" message="tns:CWContractService_Product_Update_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Product_Declaration_GetById">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Product_Declaration_GetById" message="tns:CWContractService_Product_Declaration_GetById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Product_Declaration_GetByIdResponse" message="tns:CWContractService_Product_Declaration_GetById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Delete_Product_Declaration_ById">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Delete_Product_Declaration_ById" message="tns:CWContractService_Delete_Product_Declaration_ById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Delete_Product_Declaration_ByIdResponse" message="tns:CWContractService_Delete_Product_Declaration_ById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Delete_Product_Declaration_ByDeclaration_Id">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Delete_Product_Declaration_ByDeclaration_Id" message="tns:CWContractService_Delete_Product_Declaration_ByDeclaration_Id_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Delete_Product_Declaration_ByDeclaration_IdResponse" message="tns:CWContractService_Delete_Product_Declaration_ByDeclaration_Id_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Product_Declaration_Insert">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Product_Declaration_Insert" message="tns:CWContractService_Product_Declaration_Insert_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Product_Declaration_InsertResponse" message="tns:CWContractService_Product_Declaration_Insert_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateQuantity_Delivery">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/UpdateQuantity_Delivery" message="tns:CWContractService_UpdateQuantity_Delivery_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/UpdateQuantity_DeliveryResponse" message="tns:CWContractService_UpdateQuantity_Delivery_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Declaration_GetAll">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Declaration_GetAll" message="tns:CWContractService_Declaration_GetAll_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Declaration_GetAllResponse" message="tns:CWContractService_Declaration_GetAll_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Declaration_GetByCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Declaration_GetByCode" message="tns:CWContractService_Declaration_GetByCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Declaration_GetByCodeResponse" message="tns:CWContractService_Declaration_GetByCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Declaration_GetByContract">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Declaration_GetByContract" message="tns:CWContractService_Declaration_GetByContract_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Declaration_GetByContractResponse" message="tns:CWContractService_Declaration_GetByContract_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Declaration_Delete">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Declaration_Delete" message="tns:CWContractService_Declaration_Delete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Declaration_DeleteResponse" message="tns:CWContractService_Declaration_Delete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Declaration_Update_Status">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Declaration_Update_Status" message="tns:CWContractService_Declaration_Update_Status_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Declaration_Update_StatusResponse" message="tns:CWContractService_Declaration_Update_Status_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Declaration_Insert">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Declaration_Insert" message="tns:CWContractService_Declaration_Insert_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Declaration_InsertResponse" message="tns:CWContractService_Declaration_Insert_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Declaration_Update">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Declaration_Update" message="tns:CWContractService_Declaration_Update_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Declaration_UpdateResponse" message="tns:CWContractService_Declaration_Update_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeclarationTableSearch">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/DeclarationTableSearch" message="tns:CWContractService_DeclarationTableSearch_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/DeclarationTableSearchResponse" message="tns:CWContractService_DeclarationTableSearch_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeclarationLiquidationSearch">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/DeclarationLiquidationSearch" message="tns:CWContractService_DeclarationLiquidationSearch_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/DeclarationLiquidationSearchResponse" message="tns:CWContractService_DeclarationLiquidationSearch_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeclarationGetById">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/DeclarationGetById" message="tns:CWContractService_DeclarationGetById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/DeclarationGetByIdResponse" message="tns:CWContractService_DeclarationGetById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Contract_GetAll">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Contract_GetAll" message="tns:CWContractService_Contract_GetAll_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Contract_GetAllResponse" message="tns:CWContractService_Contract_GetAll_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Contract_GetByCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Contract_GetByCode" message="tns:CWContractService_Contract_GetByCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Contract_GetByCodeResponse" message="tns:CWContractService_Contract_GetByCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Contract_GetById">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Contract_GetById" message="tns:CWContractService_Contract_GetById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Contract_GetByIdResponse" message="tns:CWContractService_Contract_GetById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Contract_GetBy_WareHouse">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Contract_GetBy_WareHouse" message="tns:CWContractService_Contract_GetBy_WareHouse_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Contract_GetBy_WareHouseResponse" message="tns:CWContractService_Contract_GetBy_WareHouse_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Contract_GetBy_User">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Contract_GetBy_User" message="tns:CWContractService_Contract_GetBy_User_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Contract_GetBy_UserResponse" message="tns:CWContractService_Contract_GetBy_User_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Contract_Delete">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Contract_Delete" message="tns:CWContractService_Contract_Delete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Contract_DeleteResponse" message="tns:CWContractService_Contract_Delete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Contract_Update_Status">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Contract_Update_Status" message="tns:CWContractService_Contract_Update_Status_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Contract_Update_StatusResponse" message="tns:CWContractService_Contract_Update_Status_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Contract_Insert">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Contract_Insert" message="tns:CWContractService_Contract_Insert_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Contract_InsertResponse" message="tns:CWContractService_Contract_Insert_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Contract_Update">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Contract_Update" message="tns:CWContractService_Contract_Update_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Contract_UpdateResponse" message="tns:CWContractService_Contract_Update_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="TableSearch">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/TableSearch" message="tns:CWContractService_TableSearch_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/TableSearchResponse" message="tns:CWContractService_TableSearch_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Contract_Search_ThanhKhoan">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Contract_Search_ThanhKhoan" message="tns:CWContractService_Contract_Search_ThanhKhoan_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Contract_Search_ThanhKhoanResponse" message="tns:CWContractService_Contract_Search_ThanhKhoan_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Contract_GetByStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Contract_GetByStatus" message="tns:CWContractService_Contract_GetByStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Contract_GetByStatusResponse" message="tns:CWContractService_Contract_GetByStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Allcode_GetAll">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Allcode_GetAll" message="tns:CWContractService_Allcode_GetAll_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Allcode_GetAllResponse" message="tns:CWContractService_Allcode_GetAll_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AllCode_CheckWCF">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/AllCode_CheckWCF" message="tns:CWContractService_AllCode_CheckWCF_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/AllCode_CheckWCFResponse" message="tns:CWContractService_AllCode_CheckWCF_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_Current_Date">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Get_Current_Date" message="tns:CWContractService_Get_Current_Date_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Get_Current_DateResponse" message="tns:CWContractService_Get_Current_Date_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_TonKho">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/Get_TonKho" message="tns:CWContractService_Get_TonKho_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/Get_TonKhoResponse" message="tns:CWContractService_Get_TonKho_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WAREHOUSE_GET_ALL">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/WAREHOUSE_GET_ALL" message="tns:CWContractService_WAREHOUSE_GET_ALL_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/WAREHOUSE_GET_ALLResponse" message="tns:CWContractService_WAREHOUSE_GET_ALL_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WareHouse_GetById">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/WareHouse_GetById" message="tns:CWContractService_WareHouse_GetById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/WareHouse_GetByIdResponse" message="tns:CWContractService_WareHouse_GetById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WareHouse_GetByUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/CWContractService/WareHouse_GetByUser" message="tns:CWContractService_WareHouse_GetByUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/CWContractService/WareHouse_GetByUserResponse" message="tns:CWContractService_WareHouse_GetByUser_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetTcpBinding_CWContractService" type="tns:CWContractService">
+    <wsp:PolicyReference URI="#NetTcpBinding_CWContractService_policy">
+    </wsp:PolicyReference>
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="WareHouse_Search">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/WareHouse_Search" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WareHouse_Delete">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/WareHouse_Delete" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WareHouse_Insert">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/WareHouse_Insert" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WareHouse_Update">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/WareHouse_Update" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BUSINESS_GET_ALL">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/BUSINESS_GET_ALL" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Category_GetAll">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Category_GetAll" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Category_GetById">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Category_GetById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Category_GetByCode">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Category_GetByCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Category_Search">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Category_Search" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Category_Delete">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Category_Delete" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Category_Insert">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Category_Insert" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Category_Update">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Category_Update" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DBMem_Get_HashInfo">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/DBMem_Get_HashInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FunctionsGetAll">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/FunctionsGetAll" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserFuncByUserID">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/GetUserFuncByUserID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FunctionsGetBy_Type">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/FunctionsGetBy_Type" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FunctionInGroupsGetAll">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/FunctionInGroupsGetAll" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FunctionGroupsGetAll">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/FunctionGroupsGetAll" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FunctionNotInGroupsGetAll">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/FunctionNotInGroupsGetAll" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FunctionNotInGroupsByAppGetAll">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/FunctionNotInGroupsByAppGetAll" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GroupFunctionInsert">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/GroupFunctionInsert" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GroupInfoGetAll">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/GroupInfoGetAll" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GroupInfoInsert">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/GroupInfoInsert" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GroupInfoUpdate">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/GroupInfoUpdate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GroupInfoDelete">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/GroupInfoDelete" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GroupUserGetByUserID">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/GroupUserGetByUserID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GroupUserGetNotInUserID">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/GroupUserGetNotInUserID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GroupUserInsert">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/GroupUserInsert" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GroupUserDeleted">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/GroupUserDeleted" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserOfGroupByIDGroup">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/GetUserOfGroupByIDGroup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserInfo_GetById">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/UserInfo_GetById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserInfo_GetByType">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/UserInfo_GetByType" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserInfo_GetByName">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/UserInfo_GetByName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserInfo_Search">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/UserInfo_Search" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserInfo_Insert">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/UserInfo_Insert" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserInfo_SetPassword">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/UserInfo_SetPassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserInfo_SetStatus">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/UserInfo_SetStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserInfo_Delete">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/UserInfo_Delete" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserInfo_Update_Pass">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/UserInfo_Update_Pass" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserFunctionInsert">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/UserFunctionInsert" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserFunctionDeleted">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/UserFunctionDeleted" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserFunctionGetAll">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/UserFunctionGetAll" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Custom_GetAll">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Custom_GetAll" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Custom_Insert">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Custom_Insert" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Custom_Delete">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Custom_Delete" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="User_WareHouse_GetByUser">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/User_WareHouse_GetByUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="User_WareHouse_Insert">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/User_WareHouse_Insert" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WareHouse_DeleteByUser">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/WareHouse_DeleteByUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Product_GetAll">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Product_GetAll" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Product_GetById">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Product_GetById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Product_GetByCode">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Product_GetByCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Product_Delete">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Product_Delete" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Product_Search">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Product_Search" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Product_Insert">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Product_Insert" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Product_Update">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Product_Update" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Product_Declaration_GetById">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Product_Declaration_GetById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Delete_Product_Declaration_ById">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Delete_Product_Declaration_ById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Delete_Product_Declaration_ByDeclaration_Id">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Delete_Product_Declaration_ByDeclaration_Id" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Product_Declaration_Insert">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Product_Declaration_Insert" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateQuantity_Delivery">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/UpdateQuantity_Delivery" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Declaration_GetAll">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Declaration_GetAll" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Declaration_GetByCode">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Declaration_GetByCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Declaration_GetByContract">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Declaration_GetByContract" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Declaration_Delete">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Declaration_Delete" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Declaration_Update_Status">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Declaration_Update_Status" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Declaration_Insert">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Declaration_Insert" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Declaration_Update">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Declaration_Update" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeclarationTableSearch">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/DeclarationTableSearch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeclarationLiquidationSearch">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/DeclarationLiquidationSearch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeclarationGetById">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/DeclarationGetById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Contract_GetAll">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Contract_GetAll" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Contract_GetByCode">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Contract_GetByCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Contract_GetById">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Contract_GetById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Contract_GetBy_WareHouse">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Contract_GetBy_WareHouse" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Contract_GetBy_User">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Contract_GetBy_User" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Contract_Delete">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Contract_Delete" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Contract_Update_Status">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Contract_Update_Status" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Contract_Insert">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Contract_Insert" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Contract_Update">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Contract_Update" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TableSearch">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/TableSearch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Contract_Search_ThanhKhoan">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Contract_Search_ThanhKhoan" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Contract_GetByStatus">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Contract_GetByStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Allcode_GetAll">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Allcode_GetAll" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AllCode_CheckWCF">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/AllCode_CheckWCF" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Current_Date">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Get_Current_Date" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_TonKho">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/Get_TonKho" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WAREHOUSE_GET_ALL">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/WAREHOUSE_GET_ALL" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WareHouse_GetById">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/WareHouse_GetById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WareHouse_GetByUser">
+      <soap12:operation soapAction="http://tempuri.org/CWContractService/WareHouse_GetByUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CWService">
+    <wsdl:port name="NetTcpBinding_CWContractService" binding="tns:NetTcpBinding_CWContractService">
+      <soap12:address location="net.tcp://localhost:9982/CWService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:9982/CWService</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Dns>localhost</Dns>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

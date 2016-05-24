@@ -1,0 +1,51 @@
+﻿<style>
+    .row-input {
+        margin-top: 9px;
+    }
+
+    .ms-ul ul li {
+        text-align: left;
+    }
+
+    .ms-ul input {
+        width: 10%;
+    }
+</style>
+<div class="form-row" style="padding:10px;padding-right:0;padding-left:20px">
+    <div id="@("d_mess_InsertWareHouse")" class="d_Message"></div>
+
+    <div class="row-input col-4-6">
+        Mã kho <i style="color: red">(*)</i>
+    </div>
+    <div class="row-input col-6-4">
+        <input type="text" id="@("_txtWareHouseCode")" maxlength="100" onkeydown="PressEnterInsertWareHouse(event)" />
+    </div>
+    <div class="row-input col-4-6">
+        Tên kho <i style="color: red">(*)</i>
+    </div>
+    <div class="row-input col-6-4">
+        <input type="text" id="@("_txtWareHouseName")" maxlength="100" onkeydown="PressEnterInsertWareHouse(event)" />
+    </div>
+
+    <div class="row-input col-4-6">
+        Vị trí <i style="color: red">(*)</i>
+    </div>
+    <div class="row-input col-6-4">
+        <input type="text" id="@("_txtLocation")" maxlength="100" onkeydown="PressEnterInsertWareHouse(event)" />
+    </div>
+
+
+    <div class="row-input col-6-4" style="margin-left: 40%;margin-top:10px">
+        <input type="button" id="_btnInsertProduct" value="Chấp nhận" onclick="return SaveWareHouse()" />
+        <input type="button" style="margin-left: 5px" value="Hủy" onclick="return CloseInsertWareHouse()" />
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        //ChangeAuthorType();
+    });
+
+
+
+</script>

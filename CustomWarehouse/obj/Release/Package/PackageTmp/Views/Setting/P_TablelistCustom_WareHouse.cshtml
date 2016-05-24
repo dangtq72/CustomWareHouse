@@ -1,0 +1,68 @@
+﻿@using CW_Info
+    @{
+        int Stt = 0;
+        if (ViewBag.FromNow != null)
+        {
+            Stt = ViewBag.FromNow;
+        }
+
+        List<WareHouse_Info> _lstData = new List<WareHouse_Info>();
+        if (ViewBag.lstWareHouse != null)
+        {
+            _lstData = ViewBag.lstWareHouse;
+        }
+    }
+
+    <div class="table-responsive">
+
+        <table class="table table-bordered table-striped" id="tblVotingList">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th style="display:none">ID KHO</th>
+                    <th id="CUSTOM" onclick="SortByCol('CUSTOM_NAME')" class="column-sort-cursor">Tên Kho</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="tbColorRows">
+                    @if (_lstData.Count == 0)
+                    {
+                        <td colspan="6" style="text-align: center; font-size: 18px;    padding: 10px 0px 10px 0px;"><p>Không có kết quả nào</p></td>
+                    }
+                </tr>
+                @foreach (WareHouse_Info item in _lstData)
+            {
+                ++Stt;
+                    <tr class="tbColorRows">
+                        <td class="clssCenter">@Stt</td>
+                        <td style="display: none">@item.WareHouse_Id</td>
+
+                    <td class="clssLeft">
+                        @item.WareHouse_Name
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="_ClassPage">
+        <ul>
+            @Html.Raw(ViewBag.Paging)
+        </ul>
+    </div>
+
+
+    <ul id="contextMenu" class="context-menu" role="menu" style="display: none">
+        <li><a tabindex="-1" style="cursor: pointer" id="edit">Sửa</a></li>
+        <li><a tabindex="-1" style="cursor: pointer" id="view">Xem chi tiết</a></li>
+    </ul>
+    <style>
+        .sumRecord {
+            float: right;
+            padding: 0px 10px 20px 0px;
+        }
+
+        .column-sort-cursor:hover {
+            cursor: pointer;
+        }
+    </style>

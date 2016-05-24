@@ -1,0 +1,106 @@
+﻿@using CW_Info;
+@model Contracts_Info
+@{
+    int IsApprove = 0;
+    if (ViewBag.IsApprove != null)
+    {
+        IsApprove = ViewBag.IsApprove;
+    } 
+}
+<style>
+    .dNoDisplay {
+        display: none;
+    }
+</style>
+
+@*<div class="tabmenu" style="width: 100%">
+    <ul style="padding-left: 20px">
+        <li class="ttab tabselected" id="tab1"><a href="javascript:;" onclick="funChangetab(1)">Thông tin chung</a></li>
+        <li class="ttab" id="tab2"><a href="javascript:;" onclick="funChangetab(2)">Tờ khai</a></li>
+    </ul>
+</div>*@
+
+<div id="ViewInfo" class="DetailInfo">
+    <div id="dktimkiem_table">
+        <table class=" clsTableForView ">
+            <tbody>
+                <tr>
+                    <td>Số hợp đồng</td>
+                    <td>@Model.Contract_Code</td>
+                </tr>
+
+                <tr>
+                    <td style="vertical-align:top">Ngày đăng ký</td>
+                    <td style="white-space:normal">@Model.Register_Date.ToString("dd/MM/yyyy")</td>
+                </tr>
+                <tr>
+                    <td> Kỳ hạn</td>
+                    <td>@Model.Period</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align:top">Số tiếp nhận</td>
+                    <td style="white-space:normal">@Model.Receive_Number</td>
+                </tr>
+
+
+                <tr>
+                    <td> Năm tiếp nhận</td>
+                    <td>@Model.Receive_Year</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align:top">Kho</td>
+                    <td style="white-space:normal">@Model.WareHouse_Name</td>
+                </tr>
+
+                <tr>
+                    <td> Doanh nghiệp</td>
+                    <td>@Model.Business_Name</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align:top">Tiền tệ</td>
+                    <td style="white-space:normal">@Model.Money_Type_Name</td>
+                </tr>
+
+                @if (Model.Status == (decimal)NaviCommon.Enum_Contract_Status.Huy_Duyet)
+                {
+                    <tr>
+                        <td> Lý do từ chối duyệt</td>
+                        <td>@Model.Reason</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@if (IsApprove == 1)
+{
+    <div style="text-align:right; padding:5px">
+        <input type="button" value="Duyệt" onclick="FuncApproveContract(@Model.Contract_Id)" style="margin-top: 5px;" />
+        <input type="button" value="Hủy" onclick="CloseDivAllStock('divWrapperViewContract')" style="margin-top: 5px;" />
+    </div>
+}
+
+<script>
+    function funChangetab(_type)
+    {
+        try {
+            $(".ttab").removeClass("tabselected");
+            $(".DetailInfo").addClass("dNoDisplay");
+            if (_type == 1) {
+                //info
+                $("#tab1").addClass("tabselected");
+                $("#ViewInfo").removeClass("dNoDisplay");
+            }
+            else
+            {
+                $("#tab2").addClass("tabselected");
+                $("#ViewDeclare").removeClass("dNoDisplay");
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+</script>

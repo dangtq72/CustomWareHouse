@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Danh sách kho";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@Html.Partial("~/Areas/ModuleReport/Views/Shared/Report.cshtml", 1)
+
+<div class="classWrapperContent col-9" style="width: 75.8%">
+
+    <p class="p_title ">Danh sách kho</p>
+
+    <div class="form-horizontal form-fix" style="padding-left:5%">
+        <div class="form-group form-search">
+            <p class="col-2 control-label" style="min-width: 135px">Tên/mã kho</p>
+            <div class="col-4" style="">
+                <input type="text" class="form-control" id="txtWareHouseName" placeholder="Tên/mã kho" />
+            </div>
+
+            <div class="col-4" style="float:left">
+                <input id="btnTimKiem" type="button" class="classBtn classBtn-Default" onclick="SearchWareHouse()" value="Tìm kiếm" style="width:auto" />
+            </div>
+        </div>
+
+    </div>
+
+    <div id="divTableWareHouse" style="overflow: auto; padding: 1px;">
+        @Html.Partial("P_Report_TableslistWareHouse")
+    </div>
+ 
+</div>
+
+<script>
+
+    function BaoCaoHangTonKho(WareHouse_Id) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            $.ajax({
+                type: 'POST',
+                url: '/ModuleReport/Inventory/BaoCaoHangTonKho/',
+                data: {
+                    p_warehouse_id: WareHouse_Id,
+                    p_wareHouse_name: ''
+                },
+                async: true, cache: false, traditional: true,
+                success: function (data) {
+                    if (data.is_err == 0) { // thành công
+                        window.location = data.c_err;
+                    }
+                    else {
+                        jAlert("Thông báo", data.c_err);
+                        return false;
+                    }
+                }
+            });
+        }
+        catch (e) {
+            alert(e);
+        }
+    }
+    
+    function SearchWareHouse() {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            var _txtName = $("#txtWareHouseName").val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/ModuleProduct/WareHouse/SearchWareHouse/',
+                data: {
+                    p_name: _txtName
+                }
+             , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    if (data != null) {
+                        $("#divTableWareHouse").html(data);
+                    } else {
+                        alert("Lỗi check lại kết nối tới server");
+                    }
+                }
+            });
+
+        } catch (e) {
+            alert(e);
+        }
+    }
+</script>

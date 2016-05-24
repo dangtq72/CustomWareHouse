@@ -1,0 +1,234 @@
+﻿@model NaviObjectInfo.FunctionsInfo
+@using NaviObjectInfo
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Sửa chức năng";
+    List<FunctionsInfo> lstFunctionView = new List<FunctionsInfo>();
+
+    lstFunctionView = V_Voting.CommonData.gLstFunction;
+
+    //List<NaviObjectInfo.AllcodeInfo> lstFucCategory = Administrator.CommonFunc.GetAllCodeByType("FUNC_CATEGORY");
+
+    //List<NaviObjectInfo.AllcodeInfo> lstApplication = Administrator.CommonFunc.GetAllCodeByType("APLICATION");
+}
+
+<style>
+    .dktimkiem_row {
+        width: 100% !important;
+    }
+
+    .dktimkiem_cell_title {
+        width: 215px;
+    }
+
+    .dktimkiem_cell_content {
+        width: 70%;
+    }
+</style>
+
+
+
+@Html.Partial("PartialViewMenuUser")
+
+<div class="classWrapperContent col-9-plus">
+    <p class="p_title">SỬA CHỨC NĂNG</p>
+    @using (Html.BeginForm("FunctionsEdit", "Functions", FormMethod.Post, new { id = "_FormEditFunctions", style = "padding-bottom: 10px" }))
+    {
+
+    <div style="padding: 0 20px">
+        <div id="divWarningError" style="padding-left: 200px"></div>
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.PrId)
+
+        <div class="dktimkiem_row">
+            <div class="dktimkiem_cell_title">
+                <label>Mã chức năng</label><i class="redspan"> (*)</i>
+            </div>
+            <div class="dktimkiem_cell_content">
+                @Html.TextBoxFor(m => m.Fun_Code, new { maxlength = "50", style = "width: 100%" })
+            </div>
+        </div>
+
+        <div class="dktimkiem_row">
+            <div class="dktimkiem_cell_title">
+                <label>Tên chức năng</label><i class="redspan"> (*)</i>
+            </div>
+            <div class="dktimkiem_cell_content">
+                @Html.TextBoxFor(m => m.Fun_Name, new { maxlength = "200", style = "width:100%" })
+            </div>
+        </div>
+
+        <div class="dktimkiem_row">
+            <div class="dktimkiem_cell_title">
+                <label>Loại chức năng</label>
+            </div>
+            <div class="dktimkiem_cell_content">
+                @Html.TextBoxFor(m => m.Fun_Type, new { maxlength = "50", style = "width: 100%" })
+            </div>
+        </div>
+
+        <div class="dktimkiem_row">
+            <div class="dktimkiem_cell_title">
+                <label>Liên kết trang</label>
+            </div>
+            <div class="dktimkiem_cell_content">
+                @Html.TextBoxFor(m => m.Href, new { maxlength = "250", style = "width: 100%" })
+            </div>
+        </div>
+
+        @*<div class="RowControlFull dktimkiem_row">*@
+        <div class="dktimkiem_row">
+            <div class="dktimkiem_cell_title">
+                <label>Chức năng cha</label>
+            </div>
+            <div class="dktimkiem_cell_content">
+                <select id="cboFunctionParent" onchange=" ChangeFunctionParent()" style="width: 100%">
+                    <option value="-1">None</option>
+                    @foreach (var item in lstFunctionView)
+                    {
+                        if (item.Id != Model.Id && item.Id == Model.PrId)
+                        {
+                        <option selected="selected" value="@item.Id">@item.Fun_Name</option>
+                        }
+                        else
+                        {
+                        <option value="@item.Id">@item.Fun_Name</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="dktimkiem_row">
+            <div class="dktimkiem_cell_title">
+                <label>Tên hàm tương ứng chức năng </label>
+                <i class="redspan">(*)</i>
+            </div>
+            <div class="dktimkiem_cell_content">
+                @Html.TextBoxFor(m => m.ObjName, new { maxlength = "200", style = "width: 100%" })
+            </div>
+        </div>
+
+        <div class="dktimkiem_row">
+            <div class="dktimkiem_cell_title" style="vertical-align: top">
+                <label>Mô tả</label>
+            </div>
+            <div class="dktimkiem_cell_content">
+                @Html.TextAreaFor(m => m.Description, new { maxlength = "1000", style = "width: 100%" })
+            </div>
+        </div>
+
+        <div class="dktimkiem_row">
+            <div class="dktimkiem_cell_title"></div>
+            <div class="dktimkiem_cell_content">
+                <input type="submit" id="btnSaveFunction" value="Lưu" onclick="return ValidateFunctions() " />
+                <input type="reset" value="Làm mới" id="btnResetAdd" onclick="return ResetForm()">
+            </div>
+        </div>
+    </div>
+    }
+</div>
+</div>
+
+<script>
+
+    $("#cboFunctionParent").searchable();
+    function ChangeCategory() {
+        var cate = $("#cboCategory").val();
+        $("#Category").val(cate);
+    }
+
+    function ResetForm() {
+        $("#Fun_Code").val("");
+        $("#Fun_Name").val("");
+        $("#Fun_Type").val("");
+        $("#Href").val("");
+        $("#App_Code").val("");
+        $("#ObjName").val("");
+        $("#Description").val("");
+    }
+
+    function ChangeAppCode() {
+        var appcde = $("#cboAppCode").val();
+        $("#App_Code").val(appcde);
+
+    }
+
+    function ChangeFunctionTCTK() {
+        var fcuntion = $("#cboFunctionTCTK").val();
+        $("#IsSearch").val(fcuntion);
+    }
+
+    function ValidateFunctions() {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            var funncode = $("#Fun_Code").val();
+
+            var _Return = ValidateMsg(funncode, "Mã chức năng không được để trống  ", "divWarningError");
+            if (_Return != 0) {//focus vao
+                $("#Fun_Code").focus();
+                return false;
+            }
+
+            var funcname = $("#Fun_Name").val();
+            _Return = ValidateMsg(funcname, "Tên chức năng không được để trống  ", "divWarningError");
+            if (_Return != 0) {//focus vao
+                $("#Fun_Name").focus();
+                return false;
+            }
+
+
+
+            var objName = $("#ObjName").val();
+            _Return = ValidateMsg(objName, "Tên hàm tương ứng chức năng không được để trống  ", "divWarningError");
+            if (_Return != 0) {//focus vao
+                $("#ObjName").focus();
+                return false;
+            }
+
+            var Href = $("#Href").val();
+            _Return = ValidateMsg(Href, "Liên kết trang không được để trống  ", "divWarningError");
+            if (_Return != 0) {//focus vao
+                $("#Href").focus();
+                return false;
+            }
+
+            //var appcode = $("#App_Code").val();
+            //_Return = ValidateMsg(appcode, "Mã ứng dụng không được để trống  ", "divWarningError");
+            //if (_Return != 0) {//focus vao
+            //    $("#App_Code").focus();
+            //    return false;
+            //}
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+
+    //ham thuc hien khi chon chuc nang cha
+    function ChangeFunctionParent() {
+        var fcuntion = $("#cboFunctionParent").val();
+        $("#PrId").val(fcuntion);
+    }
+
+    window.onload = ShowErrorCode;
+    function ShowErrorCode() {
+        try {
+            FocusToEnd("Fun_Code");
+            var pErrorCode = '@ViewBag.ErrorCode';
+            if (pErrorCode != '') {
+                if (pErrorCode > 0) {
+                    alert('Sửa chức năng thành công');
+                } else if (pErrorCode == -2) {
+                    DumplicateData("Mã chức năng không được phép để trùng. ", "divWarningError");
+                    FocusToEnd("Fun_Code");
+                } else {
+                    alert('Có lỗi trong quá trình sửa chức năng. Check kết nối tới server');
+                }
+            }
+        } catch (e) {
+            alert(e.message);
+        }
+    }
+</script>

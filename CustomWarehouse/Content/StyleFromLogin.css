@@ -1,0 +1,259 @@
+﻿
+.tb_new_login {
+    margin: 0 auto;
+}
+
+    .tb_new_login .login_form {
+        width: 450px;
+        vertical-align: top;
+    }
+
+    .tb_new_login .banner {
+        width: 340px;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .tb_new_login .logo {
+        text-align: right;
+        margin-bottom: 10px;
+    }
+
+    .tb_new_login a img {
+        border: none;
+    }
+
+.tb_container {
+    width: 278px;
+    height: 33px;
+    overflow: hidden;
+    border: none;
+}
+ 
+.login_btn {
+    border: none !important;
+    width: 106px;
+    height: 31px;
+    background: url('/sites/admin/images/login/btn_login.png') no-repeat !important;
+}
+
+.sub_login .key {
+    float: right;
+    padding: 7px 15px 0 0;
+    font-family: Arial !important;
+    font-size: 14px;
+    color: #666666;
+}
+
+.sub_login .val {
+    float: right;
+    width: 277px;
+    font-family: Arial !important;
+}
+
+.sub_login .row {
+    clear: both;
+    height: 45px;
+}
+
+.sub_login label {
+    font-family: Arial !important;
+    font-size: 14px !important;
+    color: #666666 !important;
+}
+
+.sub_login a {
+    font-family: Arial !important;
+    font-size: 14px !important;
+}
+   
+@font-face {
+    font-family: 'MyriadPro-Bold';
+    src: url('font/myriadprobold.eot');
+    src: url('font/myriadprobold.eot?#iefix') format('embedded-opentype'), url('font/myriadprobold.woff') format('woff'), url('font/myriadprobold.ttf') format('truetype'), url('font/myriadprobold.svg#myriadprobold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MyriadPro-It';
+    src: url('font/myriadproit.eot');
+    src: url('font/myriadproit.eot?#iefix') format('embedded-opentype'), url('font/myriadproit.woff') format('woff'), url('font/myriadproit.ttf') format('truetype'), url('font/myriadproit.svg#myriadproit') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MyriadPro-Light';
+    src: url('font/myriadprolight.eot');
+    src: url('font/myriadprolight.eot?#iefix') format('embedded-opentype'), url('font/myriadprolight.woff') format('woff'), url('font/myriadprolight.ttf') format('truetype'), url('font/myriadprolight.svg#myriadprolight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MyriadPro-Regular';
+    src: url('font/myriadproregular.eot');
+    src: url('font/myriadproregular.eot?#iefix') format('embedded-opentype'), url('font/myriadproregular.woff') format('woff'), url('font/myriadproregular.ttf') format('truetype'), url('font/myriadproregular.svg#myriadproregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+ 
+/* logo page */
+#logo {
+    width: 247px;
+    margin: 0 auto;
+    padding: 5px;
+    text-align: center;
+}
+
+.login-header {
+    background: url("img/top-bg.jpg") repeat-x;
+    border-width: 0;
+    height: 60px;
+    text-align: center;
+}
+
+#login {
+    background: #ffffff;
+    border: solid 1px #dcdcdc;
+    width: 428px;
+    margin: 50px auto 0;
+    padding: 20px 28px;
+}
+
+    #login .notification {
+        line-height: 10px;
+        color: #da2121;
+    }
+
+    #login .logo {
+        margin-bottom: 10px;
+        text-align: center;
+        width: 375px;
+    }
+
+.login-btn, .login-btn:hover {
+    /*border: solid 1px #183c66;*/
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    -ms-border-radius: 0;
+    border-radius: 0;
+    font-size: 16px;
+    color: #fff;
+    -ms-text-shadow: none;
+    text-shadow: none; 
+    background-color: #3D6E13;
+    font-weight: bold;
+    padding: 4px 0px;
+}
+
+.login-btn:hover {
+        opacity: 0.8;
+        color: #fff;
+        padding: 4px 0px;
+    }
+
+#login .control-group {
+    margin-bottom: -4px;
+}
+
+#login .form-actions {
+    padding: 20px;
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-bottom: 0px;
+    -webkit-border-radius: 0px 0px 4px 4px;
+    -moz-border-radius: 0px 0px 4px 4px;
+    -ms-border-radius: 0px 0px 4px 4px;
+    border-radius: 0px 0px 4px 4px;
+    margin-bottom: -37px;
+}
+
+#login input {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    -ms-border-radius: 0;
+    border-radius: 0;
+}
+
+#login input[type=checkbox] {
+        margin-top: -3px;
+    }
+
+#login span.add-on {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    -ms-border-radius: 0;
+    border-radius: 0;
+    padding: 10px;
+    color: #828283;
+    -ms-text-shadow: none;
+    text-shadow: none;
+}
+
+#login input[type="text"], #login input[type="password"] {
+   /*padding: 15px;*/
+   width: 378px;
+   font-size: 14px;
+   margin-top:5px;
+   padding-left: 15px;
+   padding-right: 30px;
+   height: 30px;
+   margin-bottom: 5px;
+}
+
+#login .login-type {
+    height: 42px;
+    line-height: 39px;
+    width: 390px;
+}
+
+#login input.login-btn {
+       padding: 4px 0px;
+       width: 378px;
+       font-size: 16px;
+       margin-top:5px;
+       height:35px
+
+}
+
+#login .login-extend {
+    width: 426px;
+    font-size: 12px;
+}
+
+#login label {
+    display: inline;
+    padding-left: 4px;
+}
+
+
+#login i {
+}
+
+#login #forget-password {
+}
+
+#login-copyright {
+    text-align: center;
+    width: 250px;
+    margin: 0 auto;
+    padding: 10px 10px 0 10px;
+    color: #999;
+    font-size: 11px;
+}
+
+
+
+#login .lock {
+    width: 100px;
+    float: left;
+    margin-top: 28px;
+    font-size: 110px;
+    vertical-align: middle;
+}
+
+    #login .lock i {
+        vertical-align: middle;
+    }

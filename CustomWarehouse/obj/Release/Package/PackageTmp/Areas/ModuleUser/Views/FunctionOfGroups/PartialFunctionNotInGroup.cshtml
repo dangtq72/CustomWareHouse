@@ -1,0 +1,181 @@
+﻿@using CW_Info
+@using CustomWarehouse
+@using System.Collections
+@{
+    List<Functions_Info> lstFunction = new List<Functions_Info>();
+    Hashtable chshtable = new Hashtable();
+    string keyFuncNotInGroup = "FuncNotInGroup" + ViewBag.IDGroup;
+    string keyFuncInGroup = "FuncInGroup" + ViewBag.IDGroup;
+    int idGroup = ViewBag.IDGroup;
+    if (Session[keyFuncNotInGroup] != null)
+    {
+        lstFunction = (List<Functions_Info>)Session[keyFuncNotInGroup];
+    }
+    //HưngTd: 11-09-2015
+    Hashtable _AllFunctions = new Hashtable();
+    foreach (Functions_Info _item in lstFunction)
+    {
+        _AllFunctions[_item.Func_Id] = _item;
+    }
+    //End Hưng TD: 11-09-2015
+    if (Session[keyFuncInGroup] != null)
+    {
+        chshtable = (System.Collections.Hashtable)Session[keyFuncInGroup];
+    }
+    int Curent = 0;
+    if (ViewBag.CurrentUser != null)
+    {
+        Curent = ViewBag.CurrentUser;
+    }
+    bool pPhanQuyen = false;
+
+    bool isUserCreate = false;
+    if (ViewBag.Created != null)
+    {
+        isUserCreate = ViewBag.Created;
+        pPhanQuyen = true;
+    }
+    foreach (Functions_Info item in chshtable.Values)
+    {
+        if (!string.IsNullOrEmpty(item.Href))
+        {
+            if (item.Href.ToUpper() == "/ModuleUser/UserOfGroups/ListUserOfGroups".ToUpper()) //id cua phaan quyen vao nhom
+            {
+                pPhanQuyen = true;
+            }
+        }
+    }
+    Functions_Info _TempInfo = new Functions_Info();
+    int countong = 0;
+    if (lstFunction.Count == 0)
+    {
+        countong = 0;
+    }
+    else
+    {
+        countong = chshtable.Count;
+    }
+    //Fixed th lấy dnah sách tin ở userfucn
+    if (countong > lstFunction.Count)
+    {
+        countong = lstFunction.Count;
+    }
+}
+<div id="divGroupNotInUserContain">
+    @{
+        string _classLv = "";
+        string styleli = "padding-left:20px";
+        string idprent = "";
+        foreach (Functions_Info info in lstFunction)
+        {
+
+            if (_AllFunctions.ContainsKey(info.Func_Id))
+            {
+                _classLv = "";
+                _classLv += _classLv = info.Func_Id.ToString();
+                if (info.Func_Level > 1 && info.PrId != -1) // thằng lv 2 và có cha
+                {
+                    if (_AllFunctions.ContainsKey(info.PrId))
+                    {
+                        _TempInfo = (Functions_Info)_AllFunctions[info.PrId];
+                    }
+                    if (_TempInfo != null)
+                    {
+                        _classLv += " " + _TempInfo.Func_Id.ToString();
+                        if (_TempInfo.PrId != -1)
+                        {
+                            _TempInfo = (Functions_Info)_AllFunctions[_TempInfo.PrId];
+                            if (_TempInfo != null)
+                            {
+                                _classLv += " " + _TempInfo.Func_Id.ToString();
+                            }
+                        }
+                    }
+                }
+                _classLv.Trim();
+                if (!string.IsNullOrEmpty(info.Func_Name))
+                {
+                    string style = ""; string display = "";
+                    string sdisable = "";
+                    if (chshtable.Contains(info.Func_Id))
+                    {
+                        style = "checked";
+                        if (isUserCreate == false)
+                        {
+                            sdisable = " disabled=disabled";
+                        }
+                    }
+                    else
+                    {
+                        if (isUserCreate == false)
+                        {
+                            sdisable = "disabled=disabled";
+                        }
+                    }
+
+                    if (pPhanQuyen == true)
+                    {
+                        if (info.Func_Level == 1)
+                        {
+                            styleli = "font-weight: bold; padding: 5px 0";
+                        }
+                        else if (info.Func_Level == 2)
+                        {
+                            styleli = "padding:5px 0 5px 20px";
+                        }
+                        else if (info.Func_Level == 3)
+                        {
+                            styleli = "padding:10px 0 10px 20px ;    margin-left: 20px";
+                        }
+
+                        <label style="@styleli;@display">
+                            <input @style type="checkbox" name="checkfunction" class="@_classLv" @sdisable style="margin-right: 5px; vertical-align: middle;@display" value="@info.Func_Id" id="@info.Func_Id" onclick="return AddRemoveFunctionInGroup(@info.Func_Id,@idGroup,this,'@_classLv')" />@info.Func_Name
+                        </label>
+                    }
+                    else if (pPhanQuyen == false)  //user chi co quen xem
+                    {
+                        <label style="@styleli ;@display">
+                            <input @style type="checkbox" name="checkfunction" class="@_classLv" style="margin-right: 5px; vertical-align: middle;@display ;" @sdisable value="@info.Func_Id" id="@idprent" onclick="return AddRemoveFunctionInGroup(@info.Func_Id,@idGroup,this,'@_classLv')" />@info.Func_Name
+                        </label>
+                    }
+                }
+            }
+        }
+    }
+</div>
+<p style="float: right; padding: 7px; padding-right: 10px; font-weight: bold" id="txtTongQuyen">
+
+    @*Có tổng @countong/@lstFunction.Count quyền được chọn.*@
+</p>
+<script>
+    $(function () {
+        $("#txtTongQuyen").text("Có tổng " + QuenCount('input[name=checkfunction]:checked') + "/" + QuenCount('input[name=checkfunction]') + " quyền được chọn.");
+    });
+
+    function QuenCount(ele) {
+        var lv1 = 0, lv2 = 0, lv3 = 0;
+        $(ele).each(function () {
+            var strlv = $(this).attr('class');
+            var lv = strlv.split(" ");
+            //alert(lv[0] + " " + lv[1] + " " + lv[2] +" len: " + lv.length);
+            if (lv.length == 3) {
+                lv3++;
+
+            } else if (lv.length == 2) {
+                if ($('input[name=checkfunction].' + lv[0]).not('#' + lv[0]).length == 0) {
+
+                    lv2++;
+                }
+
+            } else if (lv.length == 1) {
+                if ($('input[name=checkfunction].' + lv[0]).not('#' + lv[0]).length == 0) {
+                    lv1++;
+                }
+            }
+
+
+        });
+
+        return lv1 + lv2 + lv3;
+    }
+</script>

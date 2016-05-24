@@ -1,0 +1,295 @@
+﻿@using CW_Info;
+@using CW_Business;
+@{
+    ViewBag.Title = "Danh sách tờ khai nhập";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    List<Contracts_Info> _ListContract = new List<Contracts_Info>();
+    if (ViewBag.ListContract != null)
+    {
+        _ListContract = ViewBag.ListContract;
+    }
+}
+
+@Html.Partial("/Areas/ModuleDeclaration/Views/YShare/Menu.cshtml", 1)
+<style>
+    #divViewInfo {
+     min-height:400px !important;
+    }
+</style>
+<div class="classWrapperContent col-9" style="width: 75.8%">
+
+    <p class="p_title">Danh sách tờ khai nhập</p>
+
+    <div class="form-horizontal form-fix" style="padding-left: 5%">
+        <div class="form-group form-search">
+            <div class="form-row">
+                <div class="col-3">
+                    <input type="text" class="form-control" id="txtso_to_khai" placeholder="Số tờ khai" onkeypress="return PressEnter()" />
+                </div>
+                <p class="col-2" style="width: 115px">Ngày đăng ký</p>
+                <div class="col-2" style="">
+                    <input type="text" class="form-control InputDate" id="txtDate" placeholder="dd/mm/yyyy" onkeypress="return PressEnter()" />
+                </div>
+                <p class="col-2" style="width: 115px">Hợp đồng</p>
+                <div class="col-3" style="">
+                    <select id="Contract_Id">
+                        <option value="">Tất cả
+                        </option>
+                        @foreach (Contracts_Info item in _ListContract)
+                        {
+                            <option value="@item.Contract_Code">
+                                @item.Contract_Code
+                            </option> 
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-3">
+                    <input type="text" class="form-control" id="txt_so_van_don" placeholder="Số vận đơn" onkeypress="return PressEnter()" />
+                </div>
+                <p class="col-2" style="width: 115px">Ngày vận đơn</p>
+                <div class="col-2" style="">
+                    <input type="text" class="form-control InputDate" id="txtngay_van_don" placeholder="dd/mm/yyyy" onkeypress="return PressEnter()" />
+                </div>
+                <p class="col-2" style="width: 115px">Kho</p>
+                <div class="col-3" style="">
+                    <select id="WareHouse_Id">
+                        <option value="-1">Tất cả
+                        </option>
+                        @foreach (WareHouse_Info item in WareHouse_BL.WareHouse_GetAll())
+                        {
+                            <option value="@item.WareHouse_Id">
+                                @item.WareHouse_Name
+                            </option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-3">
+                    <select id="cbo_status" class="form-control">
+                        <option value="-1">Tất cả trạng thái
+                        </option>
+                        @foreach (AllcodeInfo item in CustomWarehouse.DataMemory.AllCode_GetBy_CdNameCdType("CONTRACT", "STATUS"))
+                        {
+                            <option value="@item.CdVal">
+                              @item.Content
+                            </option>
+                        }
+                    </select>
+                </div>
+                <p class="col-2" style="width: 115px">Ngày vận đơn</p>
+                <div class="col-2" style="">
+                    <input type="text" class="form-control" id="txt_so_tiep_nhan" placeholder="Số tiếp nhận" onkeypress="return PressEnter()" />
+                </div>
+                <p class="col-2" style="width: 115px">Năm tiếp nhận</p>
+                <div class="col-1-plus" style="">
+                    <input type="text" class="form-control" id="txt_namtiepnhan" onkeypress="return isNumberKey(event)"
+                        placeholder="yyyy" />
+                </div>
+                <div class="col-2" style="float: left">
+                    <input id="btn_search" type="button" class="classBtn classBtn-Default" value="Tìm kiếm" style="width: auto; margin-left:7px" onclick="TableSeach(1, 1)" />
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <div id="divDataTables" style="padding: 0px 5px">
+        @Html.Partial("ListImportDataTable")
+    </div>
+
+    <div id="divWrapperViewInfo" class="divWrapperPopup" style="display: none;">
+        <div class="divPopup" id="divViewInfo">
+        </div>
+    </div> 
+     
+</div>
+
+
+<input type="hidden" value="DECLARATION_CODE" id="colSorted" name="colSorted" />
+<input type="hidden" value="ASC" id="SortType" name="SortType" />
+<input type="hidden" id="_txtkeySearch" />
+
+
+<script>
+    $('#Contract_Id').multipleSelect({
+        width: '90%', filter: true, single: true
+    });
+    $('#WareHouse_Id').multipleSelect({
+        width: '90%', filter: true, single: true
+    });
+    
+
+    function PressEnter(e) {
+        try {
+            var code = e.keyCode || e.which;
+            if (code == 13) {
+                document.getElementById("btn_search").click();
+            }
+        } catch (e) {
+
+        }
+    }
+   
+   
+
+    function ViewDetails(_id) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            $.ajax({
+                type: "POST",
+                url: "/ModuleDeclaration/Waiting/ViewDetails",
+                data: {
+                    p_id: _id
+                },
+                async: true, cache: false, traditional: false,
+                success: function (data) {
+                    if (data != null) {
+                        $("#divViewInfo").html(data);
+                        ShowPopupDialog('divWrapperViewInfo', 'Chi tiết tờ khai', 800, 750, '');
+                        $("#btnExitPopups img").attr("src", '../../../../Content/images/delete.png');
+                    }
+
+                }
+            });
+        } catch (e) {
+            alert(e.message);
+        }
+    }
+     
+ 
+
+    function TableSeach(pNumberPage, pIsSearch) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            var txtDate = $("#txtDate");
+            var txtso_to_khai = $("#txtso_to_khai");
+            var Contract_Id = $("#Contract_Id");
+            var txt_so_van_don = $("#txt_so_van_don");
+            var txtngay_van_don = $("#txtngay_van_don");
+            var WareHouse_Id = $("#WareHouse_Id");
+            var txt_so_tiep_nhan = $("#txt_so_tiep_nhan");
+            var txt_namtiepnhan = $("#txt_namtiepnhan");
+            var cbo_status = $("#cbo_status");
+            var _filterData = "";
+
+            if (pIsSearch == 1) {  //neu bam tim kiem thi moi check con sort va chuyen ban ghi thi ko can 
+                if (txtDate.val() != "") {
+                    if (isDate_ddMMyyyy(txtDate.val()) == false) {
+                        alert("Ngày đăng ký không hợp lệ, định dạng ngày tháng là dd/mm/yyyy!");
+                        txtDate.focus();
+                        return false;
+                    }
+                }
+                //   _filterData = txtName.val() + "|" + txtDate.val();
+                //DECLARATION_CODE, CONTRACT_CODE, RECEIVE_NUMBER,  RECEIVE_YEAR , SO_VAN_DON,  TYPE, STATUS, 
+                //  REGISTER_DATE, WAREHOUSE_ID, NGAY_VAN_DON, p_order_by, p_start, p_end, ref p_total
+                _filterData = txtso_to_khai.val() + "|" + Contract_Id.val() + "|" + txt_so_tiep_nhan.val() + "|" + txt_namtiepnhan.val()
+                + "|" + txt_so_van_don.val() + "|" + txtDate.val() + "|" + WareHouse_Id.val() + "|" + txtngay_van_don.val() + "|" + cbo_status.val();
+                $("#_txtkeySearch").val(_filterData);
+            } else { //Neu khong phai la tim kiem thi lay gia tri trc day ra 
+                _filterData = $("#_txtkeySearch").val();
+            }
+            //lay dk order by 
+            var orderby = $("#colSorted").val();
+            var orderType = $("#SortType").val();
+            //end dk sort 
+            var _ScrollLeft = document.getElementById("_tableDatas").parentElement.scrollLeft;
+            $.ajax({
+                type: "POST",
+                url: "/ModuleDeclaration/List/ListSearchImport_Datas",
+                data: {
+                    p_issearch: pIsSearch,
+                    p_keysearch: _filterData,
+                    p_orderby: orderby,
+                    p_ordertype: orderType,
+                    p_currentpage: pNumberPage
+                },
+                async: true, cache: false, traditional: false,
+                success: function (data) {
+                    if (data != null) {
+                        $("#divDataTables").html(data);
+                    } else {
+                        alert("Lỗi check lại kết nối tới server");
+                    }
+                    if (pIsSearch != 1) {
+                        document.getElementById("_tableDatas").parentElement.scrollLeft = _ScrollLeft;
+                    }
+                }
+            });
+        } catch (e) {
+            alert(e.message);
+            CreateRollingWaitingIcon(false);
+
+        }
+    }
+
+    function ChangeIConSortWhenSortColumns() {
+        try {
+            var _order_by = $("#colSorted").val().toUpperCase();
+            var _order_type = $("#SortType").val().toUpperCase();
+            var _text = _order_type == 'DESC' ? $("#" + _order_by).text() + " ▼" : $("#" + _order_by).text() + " ▲";
+            $("#" + _order_by).text(_text);
+        }
+        catch (e) {
+        }
+    }
+
+
+    //HÀM XỬ LÝ KHI NEXT TRANG 
+    function page(_pagenum) {
+        try {
+            var _currpage = $(".a-active").attr('id');
+            if (_pagenum == "next") {
+                _pagenum = _currpage / 1 + 1;
+            }
+            else if (_pagenum == "prew") {
+                _pagenum = _currpage / 1 - 1;
+            }
+
+            TableSeach(_pagenum, 0);
+
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+
+    function SortByCol(value) {
+        try {
+            //Lay gia tri luu trong colSort luu duoi dang text Hidden
+            var _currentColSorted = $("#colSorted").val();
+            //Lay gia tri luu trong SortType luu duoi dang text Hidden
+            var _currentSortedType = $("#SortType").val();
+            var tag = "#" + value;
+            if (_currentColSorted == value) {
+                if (_currentSortedType.toUpperCase() == "ASC") {
+                    $("#SortType").val("DESC");
+                }
+                else {
+                    $("#SortType").val("ASC");
+                }
+            }
+            else {
+                $("#colSorted").val(value);
+                $("#SortType").val("ASC");
+            }
+            var pos = document.getElementById("_tableDatas").parentElement.scrollLeft;
+            //Sort lai thi ve trang dau 
+            TableSeach(1, 0);
+            //Sort lai thi ve trang dau 
+            document.getElementById("_tableDatas").parentElement.scrollLeft = pos;
+        } catch (e) {
+            console.info(e.toString());
+        }
+    }
+
+</script>

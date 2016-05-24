@@ -1,0 +1,85 @@
+﻿@using CustomWarehouse;
+@using CW_Info;
+@{
+    string UserBlockStype = string.Empty;
+    string username = string.Empty;
+    string lastlogin = string.Empty;
+    User_Info objUser = new User_Info();
+    if (SessionData.CurrentUser == null)
+    {
+        UserBlockStype = "display:none";
+    }
+    else
+    {
+        UserBlockStype = "display:block";
+        objUser = SessionData.CurrentUser;
+        username = objUser.User_Name;
+    }
+}
+<div class="classMenu-left  col-1-plus" style="margin-left: 3.5%">
+    @*<a href="/home/voting"></a>*@
+    <h3 style="color: #fff; margin-top: 7px;font-size: 24px">CUSTOM WAREHOUSE</h3>
+
+</div>
+<div class="classMenu-left col-9 col-offset-1">
+    <ul class="clsMenu-Main">       
+        <li> <a href="/ModuleContracts/Contract/ContractList" onclick="">HỢP ĐỒNG</a></li>
+        <li><a href="/ModuleDeclaration/Waiting/Add" >TỜ KHAI</a></li>
+        <li><a href="/ModuleProduct/Product/ProductsList" onclick="">DANH MỤC</a></li>
+        <li><a href="/ModuleUser/User/UserList" onclick="">TÀI KHOẢN</a></li>
+        <li><a href="/ModuleReport/Inventory/Inventory" onclick="">BÁO CÁO</a></li>
+
+        <li style="@UserBlockStype;height: 48px; margin-top:5px;padding-top: 5px;color: #fff;cursor: pointer;position: relative;" class="user clsSetting_admin">
+            <img src="~/Content/images/admin.png" alt="iconadmin" style="margin-bottom: -3px;margin-right: 5px" />
+            <span>@username</span>
+            <img src="~/Content/images/down.png" alt="arrow down" style="margin-bottom: 2px;margin-left: 4px" />
+            <ul style="background-color: #fff;color: black;">
+                <li><a href="~/setting/setting" onclick="return CheckSessionTimeOut()"><img src="~/Content/images/setting_admin.png" alt="Setting" />Cài đặt</a></li>
+                <li><a href="~/home/logout" onclick="return CheckSessionTimeOut()"><img src="~/Content/images/logout_admin.png" alt="Logout" />Đăng xuất</a></li>
+            </ul>
+        </li>
+    </ul>
+
+</div>
+
+<style>
+    .clsSetting_admin:hover ul {
+        display: block;
+    }
+
+    .clsSetting_admin ul {
+        display: none;
+        width: 150px;
+        position: absolute;
+        top: 40px;
+        right: 0;
+        z-index: 4;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        list-style-type: none;
+        border: 1px solid #888888;
+        box-shadow: 0 0 5px 1px #888888;
+        -moz-box-shadow: 0 0 4px 2px #888888;
+        -webkit-box-shadow: 0 0 4px 2px #888888;
+    }
+
+        .clsSetting_admin ul li a {
+            display: block;
+            padding: 5px 15px;
+            transition: 1s;
+        }
+
+            .clsSetting_admin ul li a:hover {
+                background-color: aquamarine;
+            }
+
+        .clsSetting_admin ul li img {
+            margin-right: 6px;
+            margin-bottom: -3px;
+        }
+</style>
+<script>
+
+</script>
+
+

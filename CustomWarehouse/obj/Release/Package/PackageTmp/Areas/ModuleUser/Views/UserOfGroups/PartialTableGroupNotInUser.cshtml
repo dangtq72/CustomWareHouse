@@ -1,0 +1,38 @@
+﻿@using CW_Info
+@{
+    List<Groups_Info> lstGroupUsers = new List<Groups_Info>();
+    string keyGroupNotInUser = "GroupNotInUser" + ViewBag.IDUserName;
+    if (Session[keyGroupNotInUser] != null)
+    {
+        lstGroupUsers = (List<Groups_Info>)Session[keyGroupNotInUser];
+    }
+
+}
+<table class="_tablelist ">
+    <thead>
+        <tr>
+            <th class="clssSTT">STT</th>
+            <th>Tên nhóm</th>
+            <th>Chức năng</th>
+        </tr>
+    </thead>
+    <tbody class="_TableBody">
+        @{
+            int No = 0;
+            foreach (Groups_Info info in lstGroupUsers)
+            {
+                ++No;
+                <tr class="tbColorRows">
+                    <td>@No</td>
+                    <td style="text-align: left">
+                        @info.Group_Name
+                </td>
+                <td style="text-align: center">
+                    <a href="javascript:;" onclick="return AddGroupInUser(@info.Group_Id) ">Vào nhóm</a>
+                </td>
+            </tr>
+            }
+        }
+    </tbody>
+</table>
+

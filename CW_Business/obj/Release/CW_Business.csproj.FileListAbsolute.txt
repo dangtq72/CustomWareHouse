@@ -1,0 +1,13 @@
+D:\Working\CustomWareHouse\Program\CW_Business\bin\Release\CW_Business.dll.config
+D:\Working\CustomWareHouse\Program\CW_Business\bin\Release\CW_Business.dll
+D:\Working\CustomWareHouse\Program\CW_Business\bin\Release\CW_Business.pdb
+D:\Working\CustomWareHouse\Program\CW_Business\bin\Release\CW_Info.dll
+D:\Working\CustomWareHouse\Program\CW_Business\bin\Release\ICSharpCode.SharpZipLib.dll
+D:\Working\CustomWareHouse\Program\CW_Business\bin\Release\log4net.dll
+D:\Working\CustomWareHouse\Program\CW_Business\bin\Release\NaviCommon.dll
+D:\Working\CustomWareHouse\Program\CW_Business\bin\Release\SendFiles.dll
+D:\Working\CustomWareHouse\Program\CW_Business\bin\Release\CW_Info.pdb
+D:\Working\CustomWareHouse\Program\CW_Business\bin\Release\NaviCommon.pdb
+D:\Working\CustomWareHouse\Program\CW_Business\obj\Release\CW_Business.csprojResolveAssemblyReference.cache
+D:\Working\CustomWareHouse\Program\CW_Business\obj\Release\CW_Business.dll
+D:\Working\CustomWareHouse\Program\CW_Business\obj\Release\CW_Business.pdb

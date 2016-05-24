@@ -1,0 +1,151 @@
+﻿@using CW_Info;
+@{
+    List<WareHouse_Info> _List = new List<WareHouse_Info>();
+    if (ViewBag.List != null)
+    {
+        _List = ViewBag.List;
+    }
+    int i = 1;
+    System.Collections.Hashtable _hs = new System.Collections.Hashtable();
+    if (ViewBag.HsException != null)
+    {
+        _hs = ViewBag.HsException;
+    }
+    List<WareHouse_Info> _ListWareHouseInUser = new List<WareHouse_Info>();
+    foreach (WareHouse_Info item in _hs.Values)
+    {
+        _ListWareHouseInUser.Add(item);
+    }
+    string _listId = "";
+
+    foreach (WareHouse_Info _item in _hs.Values)
+    {
+        _listId += _item.WareHouse_Id + "|";
+    }
+}
+
+<input type="hidden" value="@_listId" id="_txtlistid" />
+
+<div id="div_NotInUser" class="divDataList" style="margin: 1%; width: 48.3%">
+    <p style="padding:5px; float:left; font-weight:bold"> Danh sách kho không được phép thao tác</p>
+    <div class="form-search">
+        <div class="form-row">
+            <div class="row-label col-7-3">
+                <input type="text" id="txtSearchNotInUser" placeholder="Tìm kiếm kho" onkeyup="funcKeyUpNot()" />
+            </div>
+            <div class="row-label col-3-7">
+                <input type="button" onclick="AddWareHouse()" value="Thêm" />
+            </div>
+        </div>
+    </div>
+    <table class="_tablelist" style="margin-bottom:5px" id="_table_acitve_package">
+        <thead>
+            <tr>
+                <th>
+                    STT
+                </th>
+                <th>
+                    <input type="checkbox" style="height:16px; width:16px;" id="checkAll" onclick="funcClickAllNot()" />
+                </th>
+                <th style="min-width:150px">
+                    Tên kho
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (WareHouse_Info _item in _List.OrderBy(m => m.WareHouse_Name).ToList())
+            {
+                if (!_hs.ContainsKey(_item.WareHouse_Id))
+                {
+                    <tr>
+                        <td>
+                            @i
+                        </td>
+                        <td>
+                            <input type="checkbox" id="@_item.WareHouse_Id" value="@_item.WareHouse_Name" />
+                        </td>
+                        <td style="text-align:center">
+                            @_item.WareHouse_Name
+                        </td>
+                    </tr>
+                    i++;
+                }
+            }
+            @if (i == 1)
+            {
+                <tr>
+                    <td style="color:red" colspan="99">
+                        <i>Không có kho nào</i>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+<div id="div_InUser" class="divDataList" style="margin: 1%;margin-left: 0px; width: 48.5%">
+    <p style="padding:5px; float:left; font-weight:bold"> Danh sách kho được phép thao tác</p>
+    <div class="form-search">
+        <div class="form-row">
+            <div class="row-label col-7-3">
+                <input type="text" id="txtSearchInUser" placeholder="Tìm kiếm kho" onkeyup="funcKeyUpIn()" />
+            </div>
+            <div class="row-label col-3-7">
+                <input type="button" onclick="RemoveWareHouse()" value="Bỏ" />
+            </div>
+        </div>
+    </div>
+    <table class="_tablelist" id="_tableNoActive">
+        <thead>
+            <tr>
+                <th>
+                    STT
+                </th>
+                <th>
+                    <input type="checkbox" style="height:16px; width:16px;" id="checkAllIn" onclick="funcClickAllIn()" />
+                </th>
+                <th style="min-width:150px">
+                    Tên kho
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{i = 1;}
+            @foreach (WareHouse_Info _item in _ListWareHouseInUser.OrderBy(m => m.WareHouse_Name).ToList())
+            {
+                <tr>
+                    <td>
+                        @i
+                    </td>
+                    <td>
+                        <input type="checkbox" id="@_item.WareHouse_Id" value="@_item.WareHouse_Name" />
+                    </td>
+                    <td style="text-align:center">
+                        @_item.WareHouse_Name
+                    </td>
+                </tr>
+                i++;
+            }
+            @if (i == 1)
+            {
+                <tr>
+                    <td style="color:red" colspan="99">
+                        <i>Không có kho nào</i>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+<script>
+    $("#div_NotInUser input[type=checkbox]").not("#checkAll").click(function () {
+        funcCheckBoxNot();
+    });
+    $("#div_InUser input[type=checkbox]").not("#checkAllIn").click(function () {
+        funcCheckBoxIn();
+    });
+</script>

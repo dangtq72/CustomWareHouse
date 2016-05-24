@@ -1,0 +1,170 @@
+2016-05-02 23:09:43,671 [1] INFO  CustomWarehouse.MvcApplication.Application_Start:{42} - ----------Start Succeess------------- 02/05/2016 11:09:43  ------------------------
+2016-05-02 23:15:57,783 [1] ERROR CW_Business.CommonData.get_c_serviceWCF:{53} - System.ServiceModel.EndpointNotFoundException: Could not connect to net.tcp://localhost:9982/CWService. The connection attempt lasted for a time span of 00:00:02.0054527. TCP error code 10061: No connection could be made because the target machine actively refused it 127.0.0.1:9982.  ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:9982
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.Connect(EndPoint remoteEP)
+   at System.ServiceModel.Channels.SocketConnectionInitiator.Connect(Uri uri, TimeSpan timeout)
+   --- End of inner exception stack trace ---
+
+Server stack trace: 
+   at System.ServiceModel.Channels.SocketConnectionInitiator.Connect(Uri uri, TimeSpan timeout)
+   at System.ServiceModel.Channels.BufferedConnectionInitiator.Connect(Uri uri, TimeSpan timeout)
+   at System.ServiceModel.Channels.ConnectionPoolHelper.EstablishConnection(TimeSpan timeout)
+   at System.ServiceModel.Channels.ClientFramingDuplexSessionChannel.OnOpen(TimeSpan timeout)
+   at System.ServiceModel.Channels.CommunicationObject.Open(TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannel.OnOpen(TimeSpan timeout)
+   at System.ServiceModel.Channels.CommunicationObject.Open(TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannel.CallOpenOnce.System.ServiceModel.Channels.ServiceChannel.ICallOnce.Call(ServiceChannel channel, TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannel.CallOnceManager.CallOnce(TimeSpan timeout, CallOnceManager cascade)
+   at System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   at System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   at System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   at System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   at CW_Business.WareHoseService.CWContractService.AllCode_CheckWCF()
+   at CW_Business.WareHoseService.CWContractServiceClient.AllCode_CheckWCF() in D:\Working\CustomWareHouse\Program\CW_Business\Service References\WareHoseService\Reference.cs:line 2039
+   at CW_Business.CommonData.get_c_serviceWCF() in D:\Working\CustomWareHouse\Program\CW_Business\Common\CommonData.cs:line 42
+2016-05-02 23:15:59,010 [1] INFO  CustomWarehouse.MvcApplication.Application_Start:{42} - ----------Start Succeess------------- 02/05/2016 11:15:59  ------------------------
+2016-05-03 00:00:50,904 [1] INFO  CustomWarehouse.MvcApplication.Application_Start:{42} - ----------Start Succeess------------- 03/05/2016 12:00:50  ------------------------
+2016-05-03 00:26:57,661 [1] INFO  CustomWarehouse.MvcApplication.Application_Start:{42} - ----------Start Succeess------------- 03/05/2016 12:26:57  ------------------------
+2016-05-03 00:27:49,076 [1] INFO  CustomWarehouse.MvcApplication.Application_Start:{42} - ----------Start Succeess------------- 03/05/2016 12:27:49  ------------------------
+2016-05-03 00:28:16,149 [1] INFO  CustomWarehouse.MvcApplication.Application_Start:{42} - ----------Start Succeess------------- 03/05/2016 12:28:16  ------------------------
+2016-05-03 00:30:53,758 [1] INFO  CustomWarehouse.MvcApplication.Application_Start:{42} - ----------Start Succeess------------- 03/05/2016 12:30:53  ------------------------
+2016-05-03 01:28:37,228 [1] INFO  CustomWarehouse.MvcApplication.Application_Start:{42} - ----------Start Succeess------------- 03/05/2016 01:28:37  ------------------------
+2016-05-03 01:30:39,752 [1] INFO  CustomWarehouse.MvcApplication.Application_Start:{42} - ----------Start Succeess------------- 03/05/2016 01:30:39  ------------------------
+2016-05-03 01:31:03,396 [8] ERROR CustomWarehouse.Areas.ModuleReport.Controllers.InventoryController.BaoCaoHangTonKho:{105} - System.NullReferenceException: Object reference not set to an instance of an object.
+   at CustomWarehouse.CommonFunc.ExportExcel(FlexCelReport flcReport, String pathFileSource, String c_fileExport, String& _err) in D:\Working\CustomWareHouse\Program\CustomWarehouse\Common\CommonFunc.cs:line 157
+   at CustomWarehouse.Areas.ModuleReport.Controllers.InventoryController.BaoCaoHangTonKho(Decimal p_warehouse_id, String p_wareHouse_name) in D:\Working\CustomWareHouse\Program\CustomWarehouse\Areas\ModuleReport\Controllers\InventoryController.cs:line 93
+2016-05-03 01:31:57,764 [7] ERROR CustomWarehouse.Areas.ModuleReport.Controllers.InventoryController.BaoCaoHangTonKho:{105} - System.NullReferenceException: Object reference not set to an instance of an object.
+   at CustomWarehouse.CommonFunc.ExportExcel(FlexCelReport flcReport, String pathFileSource, String c_fileExport, String& _err) in D:\Working\CustomWareHouse\Program\CustomWarehouse\Common\CommonFunc.cs:line 157
+   at CustomWarehouse.Areas.ModuleReport.Controllers.InventoryController.BaoCaoHangTonKho(Decimal p_warehouse_id, String p_wareHouse_name) in D:\Working\CustomWareHouse\Program\CustomWarehouse\Areas\ModuleReport\Controllers\InventoryController.cs:line 93
+2016-05-03 18:45:58,710 [1] INFO  CustomWarehouse.MvcApplication.Application_Start:{42} - ----------Start Succeess------------- 03/05/2016 06:45:58  ------------------------
+2016-05-03 22:01:52,255 [1] INFO  CustomWarehouse.MvcApplication.Application_Start:{42} - ----------Start Succeess------------- 03/05/2016 10:01:52  ------------------------
+2016-05-03 22:09:17,077 [7] ERROR CW_Business.CommonData.get_c_serviceWCF:{53} - System.ServiceModel.EndpointNotFoundException: Could not connect to net.tcp://localhost:9982/CWService. The connection attempt lasted for a time span of 00:00:02.0342178. TCP error code 10061: No connection could be made because the target machine actively refused it 127.0.0.1:9982.  ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:9982
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.Connect(EndPoint remoteEP)
+   at System.ServiceModel.Channels.SocketConnectionInitiator.Connect(Uri uri, TimeSpan timeout)
+   --- End of inner exception stack trace ---
+
+Server stack trace: 
+   at System.ServiceModel.Channels.SocketConnectionInitiator.Connect(Uri uri, TimeSpan timeout)
+   at System.ServiceModel.Channels.BufferedConnectionInitiator.Connect(Uri uri, TimeSpan timeout)
+   at System.ServiceModel.Channels.ConnectionPoolHelper.EstablishConnection(TimeSpan timeout)
+   at System.ServiceModel.Channels.ClientFramingDuplexSessionChannel.OnOpen(TimeSpan timeout)
+   at System.ServiceModel.Channels.CommunicationObject.Open(TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannel.OnOpen(TimeSpan timeout)
+   at System.ServiceModel.Channels.CommunicationObject.Open(TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannel.CallOpenOnce.System.ServiceModel.Channels.ServiceChannel.ICallOnce.Call(ServiceChannel channel, TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannel.CallOnceManager.CallOnce(TimeSpan timeout, CallOnceManager cascade)
+   at System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   at System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   at System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   at System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   at CW_Business.WareHoseService.CWContractService.AllCode_CheckWCF()
+   at CW_Business.WareHoseService.CWContractServiceClient.AllCode_CheckWCF() in D:\Working\CustomWareHouse\Program\CW_Business\Service References\WareHoseService\Reference.cs:line 2053
+   at CW_Business.CommonData.get_c_serviceWCF() in D:\Working\CustomWareHouse\Program\CW_Business\Common\CommonData.cs:line 42
+2016-05-03 22:09:19,151 [7] ERROR CW_Business.AllCodeBL.CheckWCF:{44} - System.ServiceModel.EndpointNotFoundException: Could not connect to net.tcp://localhost:9982/CWService. The connection attempt lasted for a time span of 00:00:02.0523735. TCP error code 10061: No connection could be made because the target machine actively refused it 127.0.0.1:9982.  ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:9982
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.Connect(EndPoint remoteEP)
+   at System.ServiceModel.Channels.SocketConnectionInitiator.Connect(Uri uri, TimeSpan timeout)
+   --- End of inner exception stack trace ---
+
+Server stack trace: 
+   at System.ServiceModel.Channels.SocketConnectionInitiator.Connect(Uri uri, TimeSpan timeout)
+   at System.ServiceModel.Channels.BufferedConnectionInitiator.Connect(Uri uri, TimeSpan timeout)
+   at System.ServiceModel.Channels.ConnectionPoolHelper.EstablishConnection(TimeSpan timeout)
+   at System.ServiceModel.Channels.ClientFramingDuplexSessionChannel.OnOpen(TimeSpan timeout)
+   at System.ServiceModel.Channels.CommunicationObject.Open(TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannel.OnOpen(TimeSpan timeout)
+   at System.ServiceModel.Channels.CommunicationObject.Open(TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannel.CallOpenOnce.System.ServiceModel.Channels.ServiceChannel.ICallOnce.Call(ServiceChannel channel, TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannel.CallOnceManager.CallOnce(TimeSpan timeout, CallOnceManager cascade)
+   at System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   at System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   at System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   at System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   at CW_Business.WareHoseService.CWContractService.AllCode_CheckWCF()
+   at CW_Business.WareHoseService.CWContractServiceClient.AllCode_CheckWCF() in D:\Working\CustomWareHouse\Program\CW_Business\Service References\WareHoseService\Reference.cs:line 2053
+   at CW_Business.AllCodeBL.CheckWCF() in D:\Working\CustomWareHouse\Program\CW_Business\AllCodeBL.cs:line 35
+2016-05-03 22:09:19,151 [7] ERROR CustomWarehouse.MvcApplication.CheckConnectToWCFProvideData:{65} - Loi ket noi toi Service
+2016-05-03 22:09:24,226 [7] ERROR CW_Business.CommonData.get_c_serviceWCF:{53} - System.ServiceModel.EndpointNotFoundException: Could not connect to net.tcp://localhost:9982/CWService. The connection attempt lasted for a time span of 00:00:02.0407721. TCP error code 10061: No connection could be made because the target machine actively refused it 127.0.0.1:9982.  ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:9982
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.Connect(EndPoint remoteEP)
+   at System.ServiceModel.Channels.SocketConnectionInitiator.Connect(Uri uri, TimeSpan timeout)
+   --- End of inner exception stack trace ---
+
+Server stack trace: 
+   at System.ServiceModel.Channels.SocketConnectionInitiator.Connect(Uri uri, TimeSpan timeout)
+   at System.ServiceModel.Channels.BufferedConnectionInitiator.Connect(Uri uri, TimeSpan timeout)
+   at System.ServiceModel.Channels.ConnectionPoolHelper.EstablishConnection(TimeSpan timeout)
+   at System.ServiceModel.Channels.ClientFramingDuplexSessionChannel.OnOpen(TimeSpan timeout)
+   at System.ServiceModel.Channels.CommunicationObject.Open(TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannel.OnOpen(TimeSpan timeout)
+   at System.ServiceModel.Channels.CommunicationObject.Open(TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannel.CallOpenOnce.System.ServiceModel.Channels.ServiceChannel.ICallOnce.Call(ServiceChannel channel, TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannel.CallOnceManager.CallOnce(TimeSpan timeout, CallOnceManager cascade)
+   at System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   at System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   at System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   at System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   at CW_Business.WareHoseService.CWContractService.AllCode_CheckWCF()
+   at CW_Business.WareHoseService.CWContractServiceClient.AllCode_CheckWCF() in D:\Working\CustomWareHouse\Program\CW_Business\Service References\WareHoseService\Reference.cs:line 2053
+   at CW_Business.CommonData.get_c_serviceWCF() in D:\Working\CustomWareHouse\Program\CW_Business\Common\CommonData.cs:line 42
+2016-05-03 23:26:04,555 [1] INFO  CustomWarehouse.MvcApplication.Application_Start:{42} - ----------Start Succeess------------- 03/05/2016 11:26:04  ------------------------
+2016-05-03 23:30:55,108 [1] INFO  CustomWarehouse.MvcApplication.Application_Start:{42} - ----------Start Succeess------------- 03/05/2016 11:30:55  ------------------------
+2016-05-03 23:40:01,366 [1] INFO  CustomWarehouse.MvcApplication.Application_Start:{42} - ----------Start Succeess------------- 03/05/2016 11:40:01  ------------------------
+2016-05-03 23:43:31,655 [5] ERROR NaviCommon.CommonFuc.ReadXlsxFile:{979} - System.InvalidOperationException: The 'Microsoft.ACE.OLEDB.12.0' provider is not registered on the local machine.
+   at System.Data.OleDb.OleDbServicesWrapper.GetDataSource(OleDbConnectionString constr, DataSourceWrapper& datasrcWrapper)
+   at System.Data.OleDb.OleDbConnectionInternal..ctor(OleDbConnectionString constr, OleDbConnection connection)
+   at System.Data.OleDb.OleDbConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.CreateNonPooledConnection(DbConnection owningConnection, DbConnectionPoolGroup poolGroup, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionInternal.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.OleDb.OleDbConnection.Open()
+   at NaviCommon.CommonFuc.ReadXlsxFile(String filelocation) in D:\Working\CustomWareHouse\Program\NaviCommon\CommonFuc.cs:line 947
+2016-05-03 23:43:31,687 [5] ERROR CustomWarehouse.Areas.ModuleDeclaration.Controllers.WaitingController.Products_ImportFile:{354} - System.NullReferenceException: Object reference not set to an instance of an object.
+   at CustomWarehouse.Areas.ModuleDeclaration.Controllers.WaitingController.Products_ImportFile(HttpPostedFileBase uploadFile) in D:\Working\CustomWareHouse\Program\CustomWarehouse\Areas\ModuleDeclaration\Controllers\WaitingController.cs:line 272
+2016-05-03 23:45:27,451 [6] ERROR NaviCommon.CommonFuc.ReadXlsxFile:{979} - System.InvalidOperationException: The 'Microsoft.ACE.OLEDB.12.0' provider is not registered on the local machine.
+   at System.Data.OleDb.OleDbServicesWrapper.GetDataSource(OleDbConnectionString constr, DataSourceWrapper& datasrcWrapper)
+   at System.Data.OleDb.OleDbConnectionInternal..ctor(OleDbConnectionString constr, OleDbConnection connection)
+   at System.Data.OleDb.OleDbConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.CreateNonPooledConnection(DbConnection owningConnection, DbConnectionPoolGroup poolGroup, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionInternal.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.OleDb.OleDbConnection.Open()
+   at NaviCommon.CommonFuc.ReadXlsxFile(String filelocation) in D:\Working\CustomWareHouse\Program\NaviCommon\CommonFuc.cs:line 947
+2016-05-03 23:45:40,888 [6] ERROR NaviCommon.CommonFuc.ReadXlsxFile:{979} - System.InvalidOperationException: The 'Microsoft.ACE.OLEDB.12.0' provider is not registered on the local machine.
+   at System.Data.OleDb.OleDbServicesWrapper.GetDataSource(OleDbConnectionString constr, DataSourceWrapper& datasrcWrapper)
+   at System.Data.OleDb.OleDbConnectionInternal..ctor(OleDbConnectionString constr, OleDbConnection connection)
+   at System.Data.OleDb.OleDbConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.CreateNonPooledConnection(DbConnection owningConnection, DbConnectionPoolGroup poolGroup, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionInternal.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.OleDb.OleDbConnection.Open()
+   at NaviCommon.CommonFuc.ReadXlsxFile(String filelocation) in D:\Working\CustomWareHouse\Program\NaviCommon\CommonFuc.cs:line 947
+2016-05-03 23:45:40,924 [6] ERROR CustomWarehouse.Areas.ModuleDeclaration.Controllers.WaitingController.Products_ImportFile:{354} - System.NullReferenceException: Object reference not set to an instance of an object.
+   at CustomWarehouse.Areas.ModuleDeclaration.Controllers.WaitingController.Products_ImportFile(HttpPostedFileBase uploadFile) in D:\Working\CustomWareHouse\Program\CustomWarehouse\Areas\ModuleDeclaration\Controllers\WaitingController.cs:line 272
+2016-05-07 23:12:08,270 [1] INFO  CustomWarehouse.MvcApplication.Application_Start:{42} - ----------Start Succeess------------- 07/05/2016 11:12:08  ------------------------
+2016-05-07 23:20:16,002 [1] INFO  CustomWarehouse.MvcApplication.Application_Start:{42} - ----------Start Succeess------------- 07/05/2016 11:20:15  ------------------------
+2016-05-07 23:24:31,793 [1] INFO  CustomWarehouse.MvcApplication.Application_Start:{42} - ----------Start Succeess------------- 07/05/2016 11:24:31  ------------------------
+2016-05-09 23:22:08,490 [1] INFO  CustomWarehouse.MvcApplication.Application_Start:{42} - ----------Start Succeess------------- 09/05/2016 11:22:08  ------------------------
+2016-05-09 23:32:02,962 [1] INFO  CustomWarehouse.MvcApplication.Application_Start:{42} - ----------Start Succeess------------- 09/05/2016 11:32:02  ------------------------

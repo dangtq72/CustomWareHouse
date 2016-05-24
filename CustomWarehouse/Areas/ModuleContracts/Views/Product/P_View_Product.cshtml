@@ -1,0 +1,56 @@
+﻿@using CW_Info;
+@{
+    Product_Info _Product_Info = new Product_Info();
+    if (ViewBag.obj != null)
+    {
+        _Product_Info = ViewBag.obj;
+    }
+}
+<style>
+    .dktimkiem_cell_title {
+        width: 140px !important;
+    }
+
+    .row-input p {
+        width: initial;
+        float: left;
+        padding-left: 7px;
+    }
+</style>
+
+<br />
+<div id="dktimkiem_table">
+    <div class="form-search" style="padding-left: 15px;height:400px;overflow:auto;">
+        <div class="form-row">
+            <p class="row-label col-4-6">Tên sản phẩm</p>
+            <div class="row-input col-6-4">
+                <p style="padding-right: 15px">@_Product_Info.Product_Name</p>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <p class="row-label col-4-6">Mã sản phẩm</p>
+            <div class="row-input col-6-4">
+                <p>@_Product_Info.Product_Code</p>
+            </div>
+        </div>
+        <div class="form-row">
+            <p class="row-label col-4-6">Loại sản phẩm</p>
+            <div class="row-input col-6-4">
+                <p>@_Product_Info.Category_Name</p>
+            </div>
+        </div>
+        <div class="form-row">
+            <p class="row-label col-4-6">Đơn vị</p>
+            <div class="row-input col-6-4">
+                <p>@_Product_Info.Unit</p>
+            </div>
+        </div>
+
+    </div>
+    <div style="clear: both;"></div>
+    <hr style="margin-left: 0;margin-top: 15px" />
+    <div class="clsRight" style="margin-right: 10px">
+        <input type="button" value="Thoát" class="classBtn classBtn-Default" onclick="CloseViewProduct()" style="margin-left: 5px" />
+    </div>
+</div>

@@ -1,0 +1,132 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "Danh sách nhóm tài khoản";
+}
+
+@Html.Partial("PartialViewMenuUser", 4)
+
+<div class="classWrapperContent col-9-plus">
+    <p class="p_title">DANH SÁCH NHÓM TÀI KHOẢN</p>
+
+    <div class="divDataList" style="padding-left:15%">
+
+        <div class="divBigCtrlTitle" style="width: 70px">Tên nhóm</div>
+        <div class="divBigCtrlContent">
+            <div style="width: 80%; float: left">
+                <input type="text" id="txtTenNhom" />
+            </div>
+            <div style=" float: left">
+                <input type="button" id="btnSubmit" value="Tìm kiếm" class="classBtn classBtn-Default" onclick="functionSearchGroups()" />
+                <br />
+                <br />
+            </div>
+        </div>
+        <br />
+
+    </div>
+    <div style="display: block" id="divLstDataGroups">
+        @Html.Partial("PartialTableListGroups")
+    </div>
+
+</div>
+
+
+@* Popup detail cua nhom  *@
+<div id="divWrapperPopupGroupUserDetail" class="divWrapperPopup" style="display: none">
+    <div class="divPopup">
+        <div id="divGroupPopupDetail" style="display: block">
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#txtTenNhom").keypress(function (e) {
+            if (e.keyCode == 13) {
+                functionSearchGroups();
+            }
+        });
+        $('#txtTenNhom').focus();
+    });
+
+    //ham xu ly tim kiem
+    function functionSearchGroups() {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            var name = $.trim($("#txtTenNhom").val());
+            $.ajax({
+                type: "POST",
+                url: "/ModuleUser/GroupsUser/SearchGroups",
+                data: {
+                    p_name: name
+                },
+                async: false, cache: false, traditional: true,
+                success: function (data) {
+                    if (data != null) {
+                        $("#divLstDataGroups").html(data);
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+
+    function ConfirmDeleteGroups(pId) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            var preturn = CheckSessionTimeOutAndPermistion("/ModuleUser/GroupsUser/GroupsDelete");
+            if (preturn == false) {
+                alert(msgPermisstion);
+                return false;
+            }
+            MessageBoxConfirm("Thông báo", "Bạn có chắc chắn muốn xóa nhóm này không?", function () {
+                $.post("/ModuleUser/GroupsUser/GroupsDelete",
+                    { pId: pId },
+                    function (data) {
+                        if (data != null && data.success >= 0) {
+                            jAlert("Thông báo", 'Xóa nhóm thành công', function () {
+                                window.location.href = data.url;
+                            });
+                        }
+                        else if (data != null && data.success == -2) {
+                            jAlert("Thông báo", "Không thể xóa nhóm có tài khoản đang sử dụng");
+                        }
+                        else {
+                            jAlert("Thông báo", 'Có lỗi trong quá trình xóa nhóm, kiểm tra kết nối tới server');
+                        }
+                    });
+            }, function () {
+                return false;
+            });
+        } catch (e) {
+            alert(e.message);
+        }
+    }
+
+    //CHI TIET NHOM
+    function GroupUserDetail(IDGroup) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: "/ModuleUser/GroupsUser/GroupUserDetail",
+            data: { pIDGroup: IDGroup },
+            success: function (data) {
+                if (data != null) {
+                    $("#divGroupPopupDetail").html(data);
+                    ShowPopupDialog("divWrapperPopupGroupUserDetail", "CHI TIẾT NHÓM TÀI KHOẢN", 800, 400);
+                    $("#btnExitPopups img").attr("src", '../../../../Content/images/delete.png');
+                }
+            }
+        });
+    }
+
+
+</script>

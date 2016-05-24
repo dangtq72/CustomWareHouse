@@ -1,0 +1,60 @@
+﻿@using CW_Info;
+    @{
+        int Stt = 0;
+        if (ViewBag.FromRow != null)
+        {
+            Stt = ViewBag.FromRow;
+        }
+
+        List<Declaration_Info> _list_obj = new List<Declaration_Info>();
+        if (ViewBag.Obj != null)
+        {
+            _list_obj = ViewBag.Obj;
+        }
+    }
+    <style>
+        table td {
+            vertical-align: middle !important;
+        }
+    </style>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped _tablelist" id="tblVotingList">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Số tờ khai</th>
+                    <th>Số HĐ</th>
+                    <th>Ngày đăng ký</th>
+                </tr>
+            </thead>
+            @if (_list_obj.Count == 0)
+            {
+                <tr class="tbColorRows">
+                    <td colspan="11" style="text-align: center; font-size: 18px; padding: 10px 0px 10px 0px;">
+                        <p>Không có kết quả nào</p>
+                    </td>
+                </tr>
+            }
+            <tbody>
+                @foreach (Declaration_Info item in _list_obj)
+                {
+                    ++Stt;
+                    <tr class="tbColorRows">
+                        <td style="display: none">@item.Declaration_Id</td>
+                        <td class="clssCenter">@Stt</td>
+                        <td class="clssCenter">@item.Declaration_Code</td>
+                        <td class="clssCenter">@item.Contract_Code</td>
+                        <td class="clssCenter">@item.Register_Date.ToString("dd/MM/yyyy")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+ 
+    <div class="_ClassPage">
+        <ul>
+            @Html.Raw(ViewBag.Paging)
+        </ul>
+    </div>
+
+     

@@ -1,0 +1,107 @@
+﻿@{
+    ViewBag.Title = "Xếp nhóm";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    if (ViewBag.UserName == null)
+    {
+        ViewBag.UserName = CustomWarehouse.SessionData.CurrentUser.User_Name;
+    }
+}
+
+
+
+@Html.Partial("PartialViewMenuUser", 2)
+
+<div class="classWrapperContent col-9-plus">
+
+    <div class="divDataList">
+        <br />
+        <div style="display: block" id="divLstGroupsUser">
+            <p class="p_title">Thêm nhóm vào người dùng: @ViewBag.UserName </p>
+            @* sangdd note nếu thêm nút save vào đây lúc hiệu chính quyền trong các nhóm mà save lại thì lại mất nếu nhóm đấy ko sửa gì *@
+            <br />
+            <div id="divAllGroupUser">
+                @Html.Partial("PartialTableAllGroups")
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    jQuery(document).ready(function ($) {
+
+        if (window.history && window.history.pushState) {
+
+            $(window).on('popstate', function () {
+                var hashLocation = location.hash;
+                var hashSplit = hashLocation.split("#!/");
+                var hashName = hashSplit[1];
+
+                if (hashName !== '') {
+                    var hash = window.location.hash;
+                    if (hash === '') {
+                        //alert('Back button was pressed.');
+                        location.href = "/VSD/User/UserList";
+                    }
+                }
+            });
+
+            window.history.pushState('forward', null, './#forward');
+        }
+
+    });
+    //ADD USER VAO NHOM CHUC NANG
+    function AddGroupInUser(IdGroups) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            MessageBoxConfirm("Cảnh báo", "Bạn có chắc chắn muốn vào nhóm hay không?", function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/ModuleUser/UserOfGroups/AddUserInGroup/@ViewBag.IDUserName",
+                    data: { pIdGroup: IdGroups },
+                    success: function (data) {
+                        if (data != null) {
+                            $("#divAllGroupUser").html(data);
+                            //window.location.reload();
+                        }
+                    }
+                });
+            }, function () {
+                return false;
+            });
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+
+
+
+    //REMOVE NHOM KHOI USER
+    function RemoveOutGroup(IdGroups, IdUsers) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            MessageBoxConfirm("Cảnh báo", "Bạn có chắc chắn muốn rời khỏi nhóm hay không ?", function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/ModuleUser/UserOfGroups/RemoveUserOutGroup/@ViewBag.IDUserName",
+                    data: { pIdGroup: IdGroups, pIdUser: IdUsers },
+                    success: function (data) {
+                        if (data != null) {
+                            $("#divAllGroupUser").html(data);
+                            //window.location.reload();
+                        }
+                    }
+                });
+            }, function () {
+                return false;
+            });
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+</script>
+

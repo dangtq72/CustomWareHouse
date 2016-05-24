@@ -1,0 +1,108 @@
+﻿ @using CW_Info;
+@{
+    List<Declaration_Info> _List = new List<Declaration_Info>();
+    if (ViewBag.Declaration != null)
+    {
+        _List = ViewBag.Declaration;
+    }
+    int _Isearch = 0;
+    if (ViewBag.IsSearch != null)
+    {
+        _Isearch = ViewBag.IsSearch;
+    }
+}
+<style>
+    .STT, .td_action {
+         width: 5px !important;
+    }
+   
+        .CONTRACT_CODE, .DECLARATION_CODE{
+        width: 15%;
+    }
+    
+</style>
+
+
+<table id="_tableDatas" class="_tablelist">
+    <thead>
+        <tr>
+            <th class="STT">STT
+            </th>
+            <th class="DECLARATION_CODE" id="DECLARATION_CODE" onclick="SortByCol('DECLARATION_CODE')">Số tờ khai
+            </th>
+            <th class="CONTRACT_CODE" id="CONTRACT_CODE" onclick="SortByCol('CONTRACT_CODE')">Số hợp đồng
+            </th>
+            <th class="REGISTER_DATE" id="REGISTER_DATE" onclick="SortByCol('REGISTER_DATE')">Ngày đăng ký
+            </th> 
+            <th class="RECEIVE_NUMBER" id="RECEIVE_NUMBER" onclick="SortByCol('RECEIVE_NUMBER')">Số tiếp nhận
+            </th>
+            <th class="RECEIVE_YEAR" id="RECEIVE_YEAR" onclick="SortByCol('RECEIVE_YEAR')">Năm tiếp nhận
+            </th>
+            <th class="VANDON_NUMBER" id="VANDON_NUMBER" onclick="SortByCol('VANDON_NUMBER')">Số vận đơn
+            </th>
+            <th class="VANDON_DATE" id="VANDON_DATE" onclick="SortByCol('VANDON_DATE')">Ngày vận đơn
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Declaration_Info _item in _List)
+        {
+            <tr>
+                <td class="tdCenterAlign">
+                    @_item.STT
+                </td>
+                <td class="tdLeftAlign">
+                    <div class="context_menu">
+                        <div class="context">
+                            <h5><a href="javascipt:;" onclick="ViewDetails(@_item.Declaration_Id)">@_item.Declaration_Code </a></h5>
+                            <ul>
+                                <li>
+                                    <a href="javascript:;" onclick="ViewDetails(@_item.Declaration_Id)">Chi tiết</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" onclick="ViewApprove(@_item.Declaration_Id)">Duyệt</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" onclick="ShowFormTuChoiDuyet(@_item.Declaration_Id)">Từ chối duyệt</a>
+                                </li>     
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+                 <td class="tdLeftAlign">
+                    @_item.Contract_Code
+                </td>
+                <td class="tdCenterAlign">
+                    @_item.Register_Date.ToString("dd/MM/yyyy")
+                </td>
+                <td class="tdLeftAlign">
+                    @_item.Receive_Number
+                </td>
+                <td class="tdCenterAlign">
+                    @_item.Receive_Year
+                </td>
+                <td class="tdLeftAlign">
+                    @_item.VANDON_NUMBER
+                </td>
+                <td class="tdCenterAlign">
+                    @_item.VANDON_DATE.ToString("dd/MM/yyyy")
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<div class="paging">
+    <ul>
+        @Html.Raw(ViewBag.Paging)
+    </ul>
+</div>
+<input type="hidden" id="txthaveData" value="@_List.Count" />
+<script>
+        ChangeIConSortWhenSortColumns();
+</script>
+
+
+
+     

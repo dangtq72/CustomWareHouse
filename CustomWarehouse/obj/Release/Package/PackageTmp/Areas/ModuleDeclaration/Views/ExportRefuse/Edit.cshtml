@@ -1,0 +1,201 @@
+﻿@using CW_Info;
+@using CW_Business;
+@{
+    ViewBag.Title = "Sửa phiếu xuất kho";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; 
+    int _tab = 6;
+    if(ViewBag.CurrTab != null)
+    {
+        _tab = ViewBag.CurrTab;
+    }
+    List<Declaration_Info> _ListDec = new List<Declaration_Info>();
+    if (ViewBag.Declaration != null)
+    {
+        _ListDec = ViewBag.Declaration;
+    }
+    
+}
+@model Declaration_Info
+<style>
+    .tdaction {
+     width:40px;
+    }
+    .MADEIN {
+     width:200px;
+    }
+    .PRODUCT_CODE {
+     width:200px
+    }
+    #divViewProduct {
+    min-height:300px
+    }
+</style>
+@Html.Partial("/Areas/ModuleDeclaration/Views/YShare/Menu.cshtml", _tab)
+<div class="classWrapperContent col-9-plus">
+    <p class="p_title">Thông tin phiếu xuất kho</p>
+      <div id="d_messAdd" class="d_Message"></div>
+    <div class="form-row">
+         <div class="col-2 control-label">
+            <label>Số phiếu xuất </label> 
+        </div>
+        <div class="col-3">
+            <input type="text"  class="form-control"  value="@Model.Declaration_Code"  readonly="true" id="Declaration_Code"/>
+            <input type="hidden"     value="@Model.Declaration_Refence_Id"   id="Declaration_Refence_Id"/>
+            
+        </div>
+        <div class="col-2 control-label">
+            <label>Số tờ khai nhập </label> 
+        </div>
+        <div class="col-3">
+            <input type="text"   value="@Model.Declaration_Refence_Code"    readonly="true" />
+        </div>
+         
+    </div>
+    <div class="form-row">
+        <div class="col-2 control-label">
+            <label>Ngày đăng ký</label> <i class="redspan">(*)</i>
+        </div>
+        <div class="col-3">
+            @Html.TextBoxFor(m => m.Register_Date, "{0:dd/MM/yyyy}", new { id = "Register_Date", style = "", 
+           @class = "form-control", maxlength = "10" , @readonly="true"})
+        </div>
+        <div class="col-2 control-label">
+            <label>Tổng giá trị</label> <i class="redspan">(*)</i>
+        </div>
+        <div class="col-3">
+            @Html.TextBoxFor(m => m.Total_Value,"{0:#,##0}", new
+       {
+           id = "Total_Value",
+           style = "",
+           @class = "form-control",
+           maxlength = "20",
+           onkeyup = "SetMoneyFormat(this.id)" 
+       })
+        </div>
+    </div>
+   <div class="form-row">
+       <div class="col-2 control-label">
+            <label>Cửa khẩu xuất</label>
+        </div>
+        <div class="col-3">
+            @Html.TextBoxFor(m => m.Gate, new { id = "Gate", style = "", @class = "form-control", maxlength = "200" })
+        </div>
+        <div class="col-2 control-label">
+            <label>Số tiếp nhận</label>  
+        </div>
+        <div class="col-3">
+            @Html.TextBoxFor(m => m.Receive_Number, new
+       {
+           id = "Receive_Number",
+           style = "",
+           @class = "form-control",
+           @readonly = "true",
+           placeholder = "Hệ thống sẽ tự động sinh số tiếp nhận",
+           maxlength = "18",
+           onkeypress = "return isNumberKey(event)"  
+       })
+        </div>
+   </div>
+        
+   
+    <div class="form-row">       
+        <div class="col-2 control-label">
+            <label>Năm tiếp nhận</label>  <i class="redspan">(*)</i>
+        </div>
+        <div class="col-3">
+            @Html.TextBoxFor(m => m.Receive_Year, new
+       {
+           id = "Receive_Year",
+           style = "",
+           @class = "form-control",
+           maxlength = "4",        
+           onkeypress = "return isNumberKey(event)"  , 
+            @readonly="true"
+       })
+        </div>
+        <div class="col-2 control-label">
+            <label>Hải quan đăng ký</label>
+        </div>
+        <div class="col-3">
+            @Html.TextBoxFor(m => m.Custom_Register, new
+       {
+           id = "Custom_Register",
+           style = "",
+           @class = "form-control",
+           maxlength = "200"
+       })
+        </div>
+    </div>
+    
+    <div class="form-row">
+        <div class="col-2 control-label">
+            <label>Loại hình</label>
+        </div>
+        <div class="col-3">
+            <select id="Declaration_Type" class="form-control">
+                @foreach (AllcodeInfo item in CustomWarehouse.DataMemory.AllCode_GetBy_CdNameCdType("DECLARATION", "TYPE"))
+                {
+                     if (Model != null && Model.Source == item.CdVal)
+                    {
+                    <option value="@item.CdVal" selected="selected">
+                        @item.Content
+                    </option>
+                    }
+                    else
+                    {
+                    <option value="@item.CdVal">
+                        @item.Content
+                    </option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+     @*<div style="float:right;width:99%; padding-left:10px; margin-top:20px; border-bottom: 1px solid #0094ff">Thông tin sản phẩm</div>*@
+       
+     <p class="p_title" style="background:#4487d5; margin-top:10px">Thông tin sản phẩm      <a href="javascript:;" onclick="return ShowAddProduct()" > <img src="/Content/images/iconadd.png" style="width:20px; float:right;margin:5px "/></a>    </p>
+      <div id="d_messproduct" class="d_Message"></div>
+     <div class="form-row" style="padding:5px;">
+          <table id="_tableProduct" class="_tablelist">
+              <thead>
+                <tr>
+                    <th class="tdCenterAlign" style="width:100px">Mã sản phẩm
+                    </th>
+                    <th class="tdCenterAlign" style="width:100px">Số kiện
+                    </th>
+                    <th class="tdCenterAlign" style="width:100px">Số lượng
+                    </th>
+                    <th class="tdCenterAlign" style="width:150px">Giá trị
+                    </th>
+                    <th class="tdaction">
+                       Xóa
+                    </th>
+                  </thead>
+                  @foreach (Product_Declaration_Info item in Model.ListProduct)
+                  {
+                   <tr class="tbColorRows" id="@item.Product_Id"> 
+                    <td style='display:none' class='tdproduct' >@item.Product_Id</td> 
+                    <td style='display:none'> @item.Package_Quantity</td> 
+                    <td style='display:none'> @item.Quantity  </td> 
+                    <td style='display:none'>@item.Value</td> 
+                    <td class='tdLeftAlign PRODUCT_CODE' >@item.Product_Code</td> 
+                    <td class='tdCenterAlign'>  @string.Format("{0:#,##0}", item.Package_Quantity)  </td>
+                    <td class='tdCenterAlign'> @string.Format("{0:#,##0}", item.Quantity)  </td>
+                    <td class='tdCenterAlign'> @string.Format("{0:#,##0}", item.Value) </td>
+                    <td class='clssCenter tdaction'><a href='javascipt:;'   onclick="return DelItem('@item.Product_Id')"> Xóa </a> 
+                    </td>
+                  </tr> 
+                  } 
+          </table>
+     </div> 
+     <input type="button"   value="Lưu" onclick="return FuncSaveDelaration()" style="float:right;margin:10px 5px 0px 0px"/>
+  </div>
+  
+ <div id="divWrapperProduct" class="divWrapperPopup" style="display: none;">
+        <div class="divPopup" id="divViewProduct">
+        </div>
+    
+    </div>
+<input type="hidden"   value="@Model.Declaration_Id" id="_txtid" />
+<input type="hidden" id="_currtab" value="@_tab"/>
+  @Html.Partial("EditScript") 

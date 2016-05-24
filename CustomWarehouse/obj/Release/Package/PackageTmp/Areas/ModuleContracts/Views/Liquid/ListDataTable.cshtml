@@ -1,0 +1,121 @@
+﻿@using CW_Info;
+@{
+    List<Contracts_Info> _List = new List<Contracts_Info>();
+    if (ViewBag.List != null)
+    {
+        _List = ViewBag.List;
+    }
+    int _Isearch = 0;
+    if (ViewBag.IsSearch != null)
+    {
+        _Isearch = ViewBag.IsSearch;
+    }
+}
+<style>
+    .STT {
+         width: 5px !important;
+    }
+   
+    .CONTRACT_CODE{
+        width: 150px;
+    }
+
+    .td_action{
+        width: 150px;
+
+    }
+    
+</style>
+
+
+<table id="_tableDatas" class="_tablelist" >
+    <thead>
+        <tr>
+            <th class="STT">STT
+            </th>
+            <th class="CONTRACT_CODE" id="CONTRACT_CODE" onclick="SortByCol('A.CONTRACT_CODE')">Số hợp đồng
+            </th>
+            <th class="REGISTER_DATE" id="REGISTER_DATE" onclick="SortByCol('REGISTER_DATE')">Ngày đăng ký
+            </th> 
+            <th class="STATUS" id="STATUS" onclick="SortByCol('A.STATUS')">
+                Trạng thái
+            </th>
+            <th class="PERIOD" id="PERIOD" onclick="SortByCol('PERIOD')">
+                Kỳ hạn
+            </th>
+            <th class="RECEIVE_NUMBER" id="RECEIVE_NUMBER" onclick="SortByCol('RECEIVE_NUMBER')">
+                Số tiếp nhận
+            </th>
+            <th>
+                Kho
+            </th>
+            <th>
+                Doanh nghiệp
+            </th>
+            <th class="td_action">
+                  Xem
+            </th> 
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Contracts_Info _item in _List)
+        {
+            <tr>
+                <td class="tdCenterAlign">
+                    @_item.STT
+                </td>
+                <td class="tdLeftAlign">
+                    <div class="context_menu">
+                        <div class="context">
+                            <h5><a href="javascipt:;" onclick="ViewDetails(@_item.Contract_Id)">@_item.Contract_Code </a></h5>
+                            <ul>
+                                <li>
+                                    <a href="javascript:;" onclick="FuncLiquidContract(@_item.Contract_Id)">Thanh lý</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+
+                <td class="tdCenterAlign">
+                    @_item.Register_Date.ToString("dd/MM/yyyy")
+                </td>
+                <td class="tdCenterAlign">
+                    @_item.Status_Name
+                </td>
+                <td class="tdLeftAlign">
+                    @_item.Period.ToString("#,##0.#")
+                </td>
+                <td class="tdCenterAlign">
+                    @_item.Receive_Number.ToString("#,##0.#")
+                </td>
+                <td class="tdLeftAlign">
+                    @_item.WareHouse_Name
+                </td>
+                <td class="tdLeftAlign">
+                    @_item.Business_Name
+                </td>
+                 <td class="tdCenterAlign">
+                    <a href="javascript:;" onclick="ViewDetails(@_item.Contract_Id)">Xem</a>
+                     | <a href="javascript:;" onclick="FuncLiquidContract(@_item.Contract_Id)">Thanh lý</a>
+                </td>
+                              
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<div class="paging">
+    <ul>
+        @Html.Raw(ViewBag.Paging)
+    </ul>
+</div>
+<input type="hidden" id="txthaveData" value="@_List.Count" />
+<script>
+        ChangeIConSortWhenSortColumns();
+</script>
+
+
+
+     

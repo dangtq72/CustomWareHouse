@@ -1,0 +1,269 @@
+﻿@using CW_Info;
+@using CW_Business;
+@{
+    ViewBag.Title = "Khai báo tờ khai";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    List<Contracts_Info> ListContract = new List<Contracts_Info>();
+    if (ViewBag.ListContract != null)
+    {
+        ListContract = ViewBag.ListContract;
+    }
+    List<Product_Info> ListProduct = new List<Product_Info>();
+    if (ViewBag.ListProduct != null)
+    {
+        ListProduct = ViewBag.ListProduct;
+    }
+}
+@model Declaration_Info
+<style>
+    .tdaction {
+     width:40px;
+    }
+    .MADEIN {
+     width:200px;
+    }
+    .PRODUCT_CODE {
+    width:200px
+    }
+</style>
+@Html.Partial("/Areas/ModuleDeclaration/Views/YShare/Menu.cshtml",2)
+<div class="classWrapperContent col-9-plus">
+    <p class="p_title">Thông tin tờ khai</p>
+      <div id="d_messAdd" class="d_Message"></div>
+    <div class="form-row">
+        <div class="col-2 control-label">
+            <label>Số tờ khai</label><i class="redspan">(*)</i>
+        </div>
+        <div class="col-3">
+            @Html.TextBoxFor(m => m.Declaration_Code, new { id = "Declaration_Code", style = "", @class = "form-control", maxlength = "50" })
+        </div>
+        <div class="col-2 control-label">
+            <label>Hợp đồng</label><i class="redspan">(*)</i>
+        </div>
+        <div class="col-3">
+            <select id="Contract_Id" >
+                @foreach (Contracts_Info item in ListContract)
+                {
+                    if (Model != null && Model.Contract_Id == item.Contract_Id)
+                    {
+                    <option value="@item.Contract_Id" selected="selected">
+                        @item.Contract_Code
+                    </option> 
+                    }
+                    else
+                    {
+                    <option value="@item.Contract_Id">
+                        @item.Contract_Code
+                    </option> 
+                    }
+                }
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-2 control-label">
+            <label>Ngày đăng ký</label><i class="redspan">(*)</i>
+        </div>
+        <div class="col-3">
+            @Html.TextBoxFor(m => m.Register_Date, new { id = "Register_Date", style = "", @class = "InputDate form-control", maxlength = "10" })
+        </div>
+        <div class="col-2 control-label">
+            <label>Tổng giá trị</label><i class="redspan">(*)</i>
+        </div>
+        <div class="col-3">
+            @Html.TextBoxFor(m => m.Total_Value, new
+       {
+           id = "Total_Value",
+           style = "",
+           @class = "form-control",
+           maxlength = "20",
+           onkeyup = "SetMoneyFormat(this.id)" 
+       })
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-2 control-label">
+            <label>Kho</label>
+        </div>
+        <div class="col-3">
+            <select id="WareHouse_Id">
+                @foreach (WareHouse_Info item in WareHouse_BL.WareHouse_GetAll())
+                {
+                    if (Model != null && Model.WareHouse_Id == item.WareHouse_Id)
+                    {
+                    <option value="@item.WareHouse_Id" selected="selected">
+                        @item.WareHouse_Name
+                    </option>
+                    }
+                    else
+                    {
+                    <option value="@item.WareHouse_Id">
+                        @item.WareHouse_Name
+                    </option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="col-2 control-label">
+            <label>Cửa khẩu nhập</label>
+        </div>
+        <div class="col-3">
+            @Html.TextBoxFor(m => m.Gate, new { id = "Gate", style = "", @class = "form-control", maxlength = "200" })
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-2 control-label">
+            <label>Số tiếp nhận</label><i class="redspan">(*)</i>
+        </div>
+        <div class="col-3">
+            @Html.TextBoxFor(m => m.Gate, new
+       {
+           id = "Receive_Number",
+           style = "",
+           @class = "form-control",
+           @readonly = "true",
+           placeholder = "Hệ thống sẽ tự động sinh số tiếp nhận",
+           maxlength = "18",
+           onkeypress = "return isNumberKey(event)"
+       })
+        </div>
+        <div class="col-2 control-label">
+            <label>Năm tiếp nhận</label>  <i class="redspan">(*)</i> 
+        </div>
+        <div class="col-3">
+            @Html.TextBoxFor(m => m.Receive_Year, new
+       {
+           id = "Receive_Year",
+           style = "",
+           @class = "form-control",
+           maxlength = "4",
+           Value= DateTime.Today.ToString("yyyy"),
+           onkeypress = "return isNumberKey(event)"
+       })
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-2 control-label">
+            <label>Số vận đơn</label><i class="redspan">(*)</i>
+        </div>
+        <div class="col-3">
+            @Html.TextBoxFor(m => m.VANDON_NUMBER, new
+       {
+           id = "VANDON_NUMBER",
+           style = "",
+           @class = "form-control",
+           maxlength = "18",
+           onkeypress = "return isNumberKey(event)"
+       })
+        </div>
+        <div class="col-2 control-label">
+            <label>Ngày vận đơn</label><i class="redspan">(*)</i>
+        </div>
+        <div class="col-3">
+            @Html.TextBoxFor(m => m.VANDON_DATE, new
+       {
+           id = "VANDON_DATE",
+           style = "",
+           @class = "InputDate form-control",
+           maxlength = "10"
+       })
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-2 control-label">
+            <label>Nguồn gốc</label>
+        </div>
+        <div class="col-3">
+            <select id="Source" class="form-control">
+                @foreach (AllcodeInfo item in CustomWarehouse.DataMemory.AllCode_GetBy_CdNameCdType("SOURCE", "RECEIVE"))
+                {
+                    if (Model != null && Model.Source == item.CdVal)
+                    {
+                    <option value="@item.CdVal" selected="selected">
+                        @item.Content
+                    </option>
+                    }
+                    else
+                    {
+                    <option value="@item.CdVal">
+                        @item.Content
+                    </option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="col-2 control-label">
+            <label>Hải quan đăng ký</label>
+        </div>
+        <div class="col-3">
+            @Html.TextBoxFor(m => m.Custom_Register, new
+       {
+           id = "Custom_Register",
+           style = "",
+           @class = "form-control",
+           maxlength = "200"
+       })
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-2 control-label">
+            <label>Loại hình</label>
+        </div>
+        <div class="col-3">
+            <select id="Declaration_Type" class="form-control">
+                @foreach (AllcodeInfo item in CustomWarehouse.DataMemory.AllCode_GetBy_CdNameCdType("DECLARATION", "TYPE"))
+                {
+                    if (Model != null && Model.Source == item.CdVal)
+                    {
+                    <option value="@item.CdVal" selected="selected">
+                        @item.Content
+                    </option>
+                    }
+                    else
+                    {
+                    <option value="@item.CdVal">
+                        @item.Content
+                    </option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+    <p class="p_title" style="background:#4487d5; margin-top:10px">Thông tin sản phẩm      <a href="javascript:;" onclick="return ShowAddProduct()" > <img src="/Content/images/iconadd.png" style="width:20px; float:right;margin:5px "/></a>    </p>
+
+      <div id="d_messproduct" class="d_Message"></div>
+       <input type="file" style="margin-left:5px;" id="_fileImport" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                    <input type="button" value="Import" onclick="return ImportFile()" style="margin-left: 5px; height: 21px; width:50px; background:#4487d5" />
+     <div class="form-row" style="padding:5px;">
+          <table id="_tableProduct" class="_tablelist">
+              <thead>
+                <tr>
+                    <th class="tdCenterAlign" style="width:100px">Mã sản phẩm
+                    </th>
+                    <th class="tdCenterAlign" style="width:100px">Số kiện
+                    </th>
+                    <th class="tdCenterAlign" style="width:100px">Số lượng
+                    </th>
+                    <th class="tdCenterAlign" style="width:150px">Nơi xuất xứ
+                    </th>
+                    <th class="tdCenterAlign" style="width:150px">Giá trị
+                    </th>
+                    <th class="tdaction">
+                       Xóa
+                    </th>
+                   </thead>
+              <tbody id="_tbodyProduct">
+
+              </tbody>
+          </table>
+     </div> 
+       <input type="button"   value="Thêm" onclick="return FuncAddDelaration()" style="float:right;margin:10px 5px 0px 0px"/>
+ 
+   
+</div>
+ <div id="divWrapperProduct" class="divWrapperPopup" style="display: none;">
+        <div class="divPopup" id="divViewProduct">
+             @Html.Partial("/Areas/ModuleDeclaration/Views/YShare/PartialProductInfo.cshtml")  
+        </div>
+ </div>
+  @Html.Partial("AddImportScript") 

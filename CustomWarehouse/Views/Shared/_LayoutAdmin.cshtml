@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script src="~/Scripts/AlertPopup/NVSAlerts.js"></script>
+    <script src="~/Scripts/messagebox/JsFormPopup.js"></script>
+    <script src="~/Scripts/messagebox/popup.js"></script>
+    <script src="~/Scripts/jquery-validate-data.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.8.20.min.js"></script>
+    <script src="~/Scripts/EvotingForm.js"></script>
+
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/Main.css" rel="stylesheet" />
+    <link href="~/Content/StyleForm.css" rel="stylesheet" />
+    @* Khai báo Thư viện Alert thông báo dùng chung  *@
+    <link href="~/Content/CommonStyleSheet.css" rel="stylesheet" />
+    <link href="~/Content/CssFormPoup/StyleFormPopup.css" rel="stylesheet" />
+    <link href="~/Content/CssFormPoup/jquery.confirm.css" rel="stylesheet" />
+    <link href="~/Scripts/AlertPopup/NVSAlertCss.css" rel="stylesheet" />
+    <link href="~/Scripts/datepicker/ui-lightness/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
+    <script src="~/Scripts/datepicker/jquery.ui.datepicker-vi.js"></script>
+    <link href="~/Scripts/ComboCheckList/multiple-select.css" rel="stylesheet" />
+    <script src="~/Scripts/ComboCheckList/jquery.multiple.select.js"></script>
+    <style>
+        .clsMenu-Main-Active {
+            background: #011c3c none repeat scroll 0% 0%;
+            /*color: #195CB3 !important;*/
+            /*border-radius: 10px;
+             -moz-border-radius: 10px;
+              -webkit-border-radius: 10px;*/
+        }
+    </style>
+</head>
+<body>
+    <div class="classWrapper">  
+        <div class="classMenu col-12">
+              @Html.Partial("PartialViewMenuHead")
+        </div>
+        <div class="classContent col-12" style="padding-top: 8px!important"> 
+            @RenderBody() 
+        </div>
+
+    </div>
+    <div class="classFooter col-12" style="border-top: 3px solid #DDDDDD;">
+        @Html.Partial("PartialViewFooter")
+    </div>
+</body>
+</html>
+<script>
+    //Full height trình duyệt
+    var heightTop = $(".classMenu").outerHeight();
+    var heightBot = $(".classFooter").outerHeight();
+    var heightMid = $(document).height() - heightTop - heightBot;
+    $(".classContent").css({ 'min-height': heightMid + 'px' });
+    $(".classWrapperSidebar").css({ 'min-height': heightMid + 'px' });
+    $(".classWrapperContent").css({ 'min-height': heightMid + 'px' });
+    //var heightContent = $(".classWrapperContent").innerHeight();
+
+    //$(".classWrapperSidebar").css({ 'min-height': heightContent +'px'});
+    //$(function () {
+    //    var urlPage1 = BeforeLastPartofURL(window.location.href, 2);
+    //    var urlPage2 = BeforeLastPartofURL(window.location.href, 1);
+    //    $(".clsMenu-Main li a").each(function () {
+    //        var urlLink = BeforeLastPartofURL($(this).attr("href"), 2);
+    //        //alert((urlPage2.toUpperCase() == "HISTORY_CHANGEUSER" && urlLink.toUpperCase() == "ISSUERS") + " : " + urlPage2 + ": " + urlLink);
+    //        if ((urlLink.toUpperCase() == urlPage1.toUpperCase() && urlPage2.toUpperCase() != "SYNC_CHANGEUSER" && urlPage2.toUpperCase() != "HISTORY_CHANGEUSER"
+    //            || (urlPage1.toUpperCase() == "SHAREHOLDER" && urlLink.toUpperCase() == "EVOTING")
+    //            || (urlPage1.toUpperCase() == "VOTINGSHAREHOLDER" && urlLink.toUpperCase() == "EVOTING")
+    //            || (urlPage1.toUpperCase() == "REPORTLIST" && urlLink.toUpperCase() == "EVOTING")
+    //              || (urlPage1.toUpperCase() == "AUTHORIZEVSD" && urlLink.toUpperCase() == "EVOTING")
+    //            || (urlPage1.toUpperCase() == "GROUPSUSER" && urlLink.toUpperCase() == "USER")
+    //            || (urlPage1.toUpperCase() == "FUNCTIONS" && urlLink.toUpperCase() == "USER")
+    //            || (urlPage1.toUpperCase() == "USERSYMBOLLIST" && urlLink.toUpperCase() == "USER")
+    //             || (urlPage1.toUpperCase() == "LISTUSEROFGROUPS" && urlLink.toUpperCase() == "USER")
+    //             || (urlPage1.toUpperCase() == "FUNCTIONOFGROUPLIST" && urlLink.toUpperCase() == "USER")
+    //              || (urlPage1.toUpperCase() == "GROUPUSEREDIT" && urlLink.toUpperCase() == "USER")
+    //              || (urlPage1.toUpperCase() == "FUNCTIONSEDIT" && urlLink.toUpperCase() == "USER")
+
+    //                || (urlPage1.toUpperCase() == "SYMBOL" && urlLink.toUpperCase() == "ISSUERS")
+    //            || (urlPage2.toUpperCase() == "SYNC_CHANGEUSER" && urlLink.toUpperCase() == "ISSUERS") 
+    //            || (urlPage2.toUpperCase() == "HISTORY_CHANGEUSER" && urlLink.toUpperCase() == "ISSUERS")
+    //            )
+    //            && (urlPage1.toUpperCase() != "MAINPAGE")
+
+    //            ) {
+    //            $(this).addClass("clsMenu-Main-Active");
+    //        }
+    //    });
+     
+    //});
+    //function BeforeLastPartofURL(url, lastIndex) {
+    //    var parts = url.split("/");
+    //    var beforeLast = parts[parts.length - lastIndex];
+    //    return beforeLast;
+    //}
+</script>
+

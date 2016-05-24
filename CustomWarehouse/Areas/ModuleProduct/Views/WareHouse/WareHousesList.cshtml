@@ -1,0 +1,292 @@
+﻿@{
+    ViewBag.Title = "Danh sách kho";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@Html.Partial("~/Areas/ModuleProduct/Views/Shared/Category.cshtml", 3)
+
+<div class="classWrapperContent col-9" style="width: 75.8%">
+
+    <p class="p_title ">Danh sách kho</p>
+
+    <div class="form-horizontal form-fix" style="padding-left:5%">
+        <div class="form-group form-search">
+            <p class="col-2 control-label" style="min-width: 135px">Tên/mã kho</p>
+            <div class="col-4" style="">
+                <input type="text" class="form-control" id="txtWareHouseName" placeholder="Tên/mã kho" />
+            </div>
+
+            <div class="col-4" style="float:left">
+                <input id="btnTimKiem" type="button" class="classBtn classBtn-Default" onclick="SearchWareHouse()" value="Tìm kiếm" style="width:auto" />
+            </div>
+        </div>
+
+    </div>
+
+    <div id="divTableWareHouse" style="overflow: auto; padding: 1px;">
+        @Html.Partial("PartialViewTableslistWareHouse")
+    </div>
+
+    <div id="divWrapperViewWareHouse" class="divWrapperPopup" style="display: none;">
+        <div class="divPopup" id="divViewWareHouse">
+        </div>
+    </div>
+
+    <div id="divWrapperInsertWareHouse" class="divWrapperPopup" style="display: none;">
+        <div class="divPopup" id="divInsertWareHouse">
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    function CloseViewWareHouse() {
+        try {
+            CloseDivAllStock('divWrapperViewWareHouse');
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function CloseInsertWareHouse() {
+        try {
+            CloseDivAllStock('divWrapperInsertWareHouse');
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function SearchWareHouse() {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            var _txtName = $("#txtWareHouseName").val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/ModuleProduct/WareHouse/SearchWareHouse/',
+                data: {
+                    p_name: _txtName
+                }
+             , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    if (data != null) {
+                        $("#divTableWareHouse").html(data);
+                    } else {
+                        alert("Lỗi check lại kết nối tới server");
+                    }
+                }
+            });
+
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function ShowViewWareHouse(_id) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/ModuleProduct/WareHouse/ShowViewWareHouse/',
+                dataType: "html",
+                data: {
+                    p_id: _id
+                }
+             , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    $("#divViewWareHouse").html(data);
+                    ShowPopupDialog('divWrapperViewWareHouse', 'THÔNG TIN KHO', 500, 300);
+                    $("#btnExitPopups img").attr("src", '../../../../Content/images/delete.png');
+                }
+            });
+
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function PressEnterInsertWareHouse(e) {
+        try {
+            var code = e.keyCode || e.which;
+            if (code == 13) {
+                document.getElementById("_btnInsertWareHouse").click();
+            }
+        } catch (e) {
+
+        }
+    }
+
+    function ShowInsertWareHouse() {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/ModuleProduct/WareHouse/ShowInsert_WareHouse/',
+                dataType: "html"
+             , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    $("#divInsertWareHouse").html(data);
+                    ShowPopupDialog('divWrapperInsertWareHouse', 'THÊM MỚI KHO', 500, 300);
+                    $("#btnExitPopups img").attr("src", '../../../../Content/images/delete.png');
+                }
+            });
+
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function UpdateWareHouse(_id) {
+        try {
+
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/ModuleContracts/WareHouse/ShowViewWareHouse/',
+                dataType: "html",
+                data: {
+                    p_id: _id
+                }
+             , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    $("#divViewWareHouse").html(data);
+                    ShowPopupDialog('divWrapperViewWareHouse', 'SỬA THÔNG TIN KHO', 780, 1000);
+                    $("#btnExitPopups img").attr("src", '../../../../Content/images/delete.png');
+                }
+            });
+
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function DeleteWareHouse(_id) {
+        try {
+
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            MessageBoxConfirm("Thông  báo", "Bạn chắc chắn muốn xóa kho này!", function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/ModuleProduct/WareHouse/DeleteWareHouse",
+                    dataType: "json",
+                    data: {
+                        p_WareHouse_id: _id
+                    },
+                    sync: false, cache: false, traditional: true,
+                    success: function (data) {
+                        if (data.success == 1) {
+                            jAlert("Thông báo", "Xóa kho thành công!", function () {
+                                window.location.reload();
+                            });
+                        } else if (data.success == 2) {
+                            jAlert("Thông báo", "Kho đang được sử dụng !", function () {
+                                CloseViewWareHouse();
+                                CloseInsertWareHouse();
+                            });
+                        } else if (data.success == -2 || data.success == -1) {
+                            jAlert("Thông báo", "Không thể Kho sản phẩm. Vui lòng thử lại sau!", function () {
+                                CloseViewWareHouse();
+                                CloseInsertWareHouse();
+                            });
+                        }
+                    }
+                });
+            }, function () {
+                return false;
+            });
+
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function SaveWareHouse() {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            var d_mess_InsertWareHouse = $("#d_mess_InsertWareHouse");
+            d_mess_InsertWareHouse.html("");
+
+            var _txtWareHouseCode = $("#_txtWareHouseCode").val();
+            var _txtWareHouseName = $("#_txtWareHouseName").val();
+            var _txtLocation = $("#_txtLocation").val();
+
+            if (_txtWareHouseCode.trim() == "") {
+                d_mess_InsertWareHouse.html("Mã sản phẩm không được bỏ trống!");
+                _txtWareHouseCode.val("");
+                _txtWareHouseCode.focus();
+                return false;
+            }
+            if (_txtWareHouseName.trim() == "") {
+                d_mess_InsertWareHouse.html("Tên sản phẩm không được bỏ trống!");
+                _txtWareHouseName.val("");
+                _txtWareHouseName.focus();
+                return false;
+            }
+            if (_txtLocation.trim() == "") {
+                d_mess_InsertWareHouse.html("Vị trí kho không được bỏ trống!");
+                _txtLocation.val("");
+                _txtLocation.focus();
+                return false;
+            }
+
+            MessageBoxConfirm("Thông  báo", "Bạn có muốn thêm kho này không?", function () {
+                $.ajax({
+                    type: "POST",
+                    url: '/ModuleProduct/WareHouse/WareHouse_Insert/',
+                    data: {
+                        p_WareHouse_code: _txtWareHouseCode,
+                        p_WareHouse_name: _txtWareHouseName,
+                        p_Location: _txtLocation
+                    },
+                    dataType: "json",
+                    async: true, cache: false, traditional: true,
+                    success: function (data) {
+                        if (data.success == 0) {
+                            jAlert("Thông báo", "Thêm mới kho thành công !!!", function () {
+                                CloseInsertWareHouse();
+                                location.reload();
+                            });
+                        }
+                        else if (data.success == 2) {
+                            jAlert("Thông báo", "Mã kho đã tồn tại !!!", function () {
+                                _txtWareHouseCode.focus();
+                            });
+
+                            return false;
+                        }
+                        else {
+                            jAlert("Thông báo", "Có lỗi trong quá trình cập nhật dữ liệu !!!");
+                            return false;
+                        }
+                    }
+                });
+            }, function () {
+                return false;
+            });
+
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+</script>

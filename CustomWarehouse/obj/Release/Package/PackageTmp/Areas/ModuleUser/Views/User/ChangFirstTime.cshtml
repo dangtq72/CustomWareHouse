@@ -1,0 +1,261 @@
+﻿@using CW_Info;
+@model User_Info
+@using CustomWarehouse;
+@using CW_Info;
+@{
+    ViewBag.Title = "Thay đổi mật khẩu";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    decimal _user_id = 0;
+    string _user_name = "";
+    if(Session["TempUser"] != null)
+    {
+        User_Info _Tempuser = (User_Info)Session["TempUser"];
+        _user_id = _Tempuser.User_Id;
+        _user_name = _Tempuser.User_Name;
+    }
+}
+<style>
+    .ms-drop.bottom {
+        width: 100% !important;
+    }
+
+    .hide_img {
+        display: none !important;
+    }
+</style>
+@using CustomWarehouse;
+<div id="dv_menu_user" class="classWrapperSidebar col-2" style="width: 18%">
+    <ul class="classSidebarNav">
+        <li class="classSidebarBrand">
+          
+            <p>Tài khoản</p>
+        </li>
+        <li class="active">
+            <a href="#">Đăng nhập lần đầu</a>
+        </li>
+    </ul>
+</div>
+
+ 
+
+<div class="classWrapperContent col-9-plus">
+    <p class="p_title">THAY ĐỔI MẬT KHẨU</p>
+    <div class="clsNote">
+        (Các thông tin có gắn <i class="redspan"> *</i> là bắt buộc)
+    </div>
+     
+        <div class="form-horizontal" style="padding-left:12%">
+         <form action="" name="frmSetPassword" id="frmSetPassword">
+            <input type="text" style="display:none" />  @*để loại bỏ tự động fill user password của trình duyệt*@
+            <input type="password" style="display:none" /> @*để loại bỏ tự động fill user password của trình duyệt*@
+            <div class="form-group">
+                <p class="col-offset-1-plus col-2-plus control-label">
+                         Mật khẩu mới <i class="redspan">*</i>
+                </p>
+                <div class="col-5">
+                    <input type="password" id="txtPassword" maxlength="50" class="form-control">
+                       <span id="divWarningCapsLock" style="color: red;"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <p class="col-offset-1-plus col-2-plus control-label">
+                      Nhập lại mật khẩu <i class="redspan">*</i>
+                </p>
+                <div class="col-5">
+                    <input type="password" id="txtRePassword" class="form-control" maxlength="50" />
+                <span id="divWarningCapsLock2" style="color: red;"></span>
+                </div>
+              
+            </div>
+            <div class="form-group">
+                <p class="col-offset-1-plus col-2-plus control-label">
+               
+                </p>
+                <div class="col-5">
+                             </div>
+            </div>
+       
+        
+         
+            <div class="form-group">
+                <p class="col-offset-1-plus col-2-plus control-label"></p>
+                <div class="col-5">
+                    <hr style="margin-left: 0;margin-top: 0;width: 90%" />
+                    <div style="width: 90%; position: relative">
+                        <input id="btnSetPassword" type="submit" class="classBtn classBtn-Default" value="Lưu" />
+                         <input id="btnSetPassword_Huy" type="button" class="classBtn classBtn-Default" value="Hủy" style="margin-left: 10px;" />
+                    </div>
+                </div>
+            </div>
+     </form>
+        </div>
+   
+</div>
+ 
+ <script>
+    $(function () {
+        //Kiểm tra CapsLock khi nhập mật khẩu
+        $('#txtPassword').keypress(function (e) {
+            checkCapsLock(e, '#divWarningCapsLock');
+        });
+        $('#txtRePassword').keypress(function (e) {
+            checkCapsLock(e, '#divWarningCapsLock2');
+        });
+
+        $('#frmSetPassword').submit(function (e) {
+            e.preventDefault();
+           Call_SetPassword();
+        });
+
+    });
+
+    function Call_SetPassword() {
+        try {
+            var j_password = $('#txtPassword').val();
+            var j_repassword = $('#txtRePassword').val();           
+            // Kiểm tra mật khẩu trống
+            if (j_password == "") {
+                jAlert("THÔNG BÁO", "Mật khẩu không được bỏ trống!", function () {
+                    $("#txtPassword").focus();
+
+                });
+                return false;
+            }
+            // Kiểm tra mật khẩu toàn dấu cách
+            if (j_password.trim() == "") {
+                jAlert("THÔNG BÁO", "Mật khẩu không để toàn dấu cách!", function () {
+                    $("#txtPassword").val('');
+                    $("#txtPassword").focus();
+
+                });
+                return false;
+            }
+            // Kiểm tra mật có dấu cách không
+            if (j_password.indexOf(" ") != -1) {
+                jAlert("THÔNG BÁO", "Mật khẩu không chứa dấu cách!", function () {
+                    $("#txtPassword").focus();
+
+                });
+                return false;
+            }
+            // Kiểm tra độ dài mật khẩu
+            if (j_password.length < 8) {
+                jAlert("THÔNG BÁO", "Mật khẩu phải có ít nhất 8 ký tự, trong đó bao gồm 2 loại ký tự chữ và ký tự số", function () {
+                    $('#txtPassword').focus();
+
+                });
+                return false;
+            }
+            // Kiểm tra tiếng việt trong mật khẩu
+            if (checkUnicode(j_password) == false) {
+                jAlert("THÔNG BÁO", "Mật khẩu không chứa ký tự tiếng việt có dấu!", function () {
+                    $('#txtPassword').focus();
+
+                });
+                return false;
+            }
+            // Kiểm tra định dạng có kí tự chữ và kí tự số
+            if (!checkPassword(j_password)) {
+                jAlert("THÔNG BÁO", "Mật khẩu không đúng định dạng. Mật khẩu bao gồm 2 loại ký tự chữ và ký tự số!", function () {
+                    $('#txtPassword').focus();
+
+                });
+                return false;
+            }
+
+            // Kiểm tra nhập lại mật khẩu trống
+            if (j_repassword == "") {
+                jAlert("THÔNG BÁO", "Chưa nhập lại mật khẩu!", function () {
+                    $("#txtRePassword").focus();
+
+                });
+                return false;
+            }
+            // Kiểm tra Pass và Repass có giống nhau không
+            if (j_password != j_repassword) {
+                jAlert("THÔNG BÁO", "Nhập lại mật khẩu không chính xác!", function () {
+                    $("#txtRePassword").focus();
+
+                });
+                return false;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/ModuleUser/User/SetPassword_User",
+                dataType: "json",
+                data: {
+                    p_user_id: '@_user_id',
+                    p_user_name: '@_user_name',
+                    p_password: j_password
+
+                },
+                sync: false, cache: false, traditional: true,
+                success: function (data) {
+                    if (data.success == 0) {
+                        jAlert("THÔNG BÁO", 'Tài khoản đã bị xóa!', function () {
+                            location.href = "/home/admin";
+                        });
+                    }
+                    else if (data.success == -10) {
+                        jAlert("THÔNG BÁO", 'Hệ thống đã hết thời gian kết nối, vui lòng đăng nhập lại!', function () {
+                            location.href = "/home/admin";
+                        });
+                    }
+                    else if (data.success == -3) {
+                        jAlert("THÔNG BÁO", 'Trùng với mật khẩu cũ!. Mật khẩu mới phải khác mật khẩu cũ!', function () {
+                            $("#txtPassword").val('');
+                            $("#txtRePassword").val('');
+                            $("#txtPassword").focus();
+                        });
+                    } else if (data.success == 1) {
+                        jAlert("THÔNG BÁO", 'Reset mật khẩu thành công, vui lòng đăng nhập lại bằng mật khẩu mới!', function () {
+                            location.href = "/home/admin";
+                        });
+                    } else {
+                        jAlert("THÔNG BÁO", 'Đã có lỗi xảy ra vui lòng thử lại sau!');
+                    }
+                }
+            });
+
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+
+    // Kiểm tra CapsLock khi nhập mật khẩu
+
+    function checkCapsLock(e, div) {
+
+        var capsLockON;
+        keyCode = e.keyCode ? e.keyCode : e.which;
+        shiftKey = e.shiftKey ? e.shiftKey : ((keyCode == 16) ? true : false);
+        if (((keyCode >= 65 && keyCode <= 90) && !shiftKey) || ((keyCode >= 97 && keyCode <= 122) && shiftKey)) {
+            capsLockON = true;
+        } else {
+            capsLockON = false;
+        }
+        if (!capsLockON)
+            $(div).text("");
+        else
+            $(div).text("CAPS LOCK is on");
+    }
+    function checkPassword(p_val) {
+        var re = /(?=.*\d)(?=.*[A-z]).{8,}/;
+        return re.test(p_val);
+    }
+
+    // Kiểm tra tiếng việt
+    function checkUnicode(p_val) {
+        var p_val_lower = p_val.toLowerCase();
+        var VietNamKey = "áàạảãâấầậẩẫăắằặẳẵéèẹẻẽêếềệểễóòọỏõôốồộổỗơớờợởỡúùụủũưứừựửữíìịỉĩđýỳỵỷỹ";
+        for (var i = 0; i < p_val.length; i++) {
+            if (VietNamKey.indexOf(p_val_lower[i]) != -1) {
+                return false;
+            }
+        }
+        return true;
+    }
+</script>
+
+ 

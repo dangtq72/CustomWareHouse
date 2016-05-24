@@ -1,0 +1,240 @@
+﻿@using NaviObjectInfo
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Hiệu chỉnh chức năng tài khoản";
+    GroupsInfo pGroupInfo = new GroupsInfo();
+    if (ViewBag.GroupInfoUser != null)
+    {
+        pGroupInfo = (GroupsInfo)ViewBag.GroupInfoUser;
+    }
+
+    List<FunctionsInfo> lstFunction = new List<FunctionsInfo>();
+    System.Collections.Hashtable chshtable = new System.Collections.Hashtable();
+
+    string FunctionInUser = "FunctionInUser" + ViewBag.IDGroupUser;
+    string FuncInGroup = "FuncInGroup" + ViewBag.IDGroupUser;
+
+    int idGroup = ViewBag.IDGroup;
+    if (Session[FunctionInUser] != null)
+    {
+        chshtable = (System.Collections.Hashtable)Session[FunctionInUser];
+    }
+    if (Session[FuncInGroup] != null)
+    {
+        lstFunction = (List<FunctionsInfo>)Session[FuncInGroup];
+    }
+    int countong = chshtable.Count;
+    int tongquyentrongnhom = lstFunction.Count;
+    if (countong > lstFunction.Count)
+    {
+        countong = lstFunction.Count;
+    }
+
+    bool CreateOwner = false;//kiem tra xem co phai la nhom dc tao boi no ko ?
+    if (ViewBag.CreateGroupOwner != null)
+    {
+        CreateOwner = ViewBag.CreateGroupOwner;
+    }
+    //neu nguoi dc phan quyen thi hien thi tong/tong so quyen dc phan
+    //if(CreateOwner==false){
+    //    tongquyentrongnhom = countong;
+    //}
+
+}
+
+
+
+@Html.Partial("PartialViewMenuUser")
+
+<div class="classWrapperContent col-9-plus">
+    <div class="divDataList">
+        <br />
+        <div style="display: block" id="divLstGroupsUser">
+            <p class="p_title">
+                Hiệu chỉnh danh sách chức năng thuộc nhóm: @pGroupInfo.Name
+                <input type="button" value="Lưu" onclick="return SaveALLFunctionToUserGroup(@pGroupInfo.Id,@ViewBag.IdUserFunc)" style="float: right; margin: -5px 0px 0 0;">
+            </p>
+            <br />
+            <div id="divAllGroupFunction">
+                @Html.Partial("PartialTableFunctionGroupUser")
+            </div>
+            <p style="float:right;padding:7px;padding-right:10px; font-weight:bold" id="txtTongQuen">
+                Có tổng @countong/@tongquyentrongnhom quyền được chọn.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    #divAllGroupFunction {
+        display: block;
+        border: 1px solid #b9b9b9;
+        max-height: 500px;
+        background: #FFFFFF;
+        margin-right: 10px;
+        margin-top: 3px;
+        overflow-x: auto;
+        overflow-y: scroll;
+    }
+
+        #divAllGroupFunction label {
+            display: block;
+        }
+
+            #divAllGroupFunction label:hover {
+                background-color: #1e90ff;
+            }
+</style>
+<script>
+
+    //functionUserGroup
+    function SaveALLFunctionToUserGroup(IdGroup,IdUser){
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        var lstIDFunction = "";
+        $.each($("input[name='functionUserGroup']:checked"), function(){
+            lstIDFunction += $(this).val() + ",";
+        });
+        $.ajax({
+            type: "POST",
+            url: "/ModuleUserRoles/FunctionOfGroups/AddFunctionGroupsUser",
+            data: { pStrFunction: lstIDFunction , pIdGroups: IdGroup,pIdUser: IdUser },
+                success: function (data) {
+                    if (data.success == false && data.status == -2) {
+                        MessageBox('Thông báo', 'Chức năng đã có trong nhóm');
+                    } else if (data.success == false) {
+                        MessageBox('Cảnh báo', 'Có lỗi trong quá trình thao tác');
+                    }else  if (data.success == true) {
+                        alert("Thêm chức năng thành công vào nhóm");
+                        window.location.href="/ModuleUserRoles/UserOfGroups/ListUserOfGroups/"+IdUser;
+                    }
+                }
+         });
+    }
+
+
+    @*function AddRemoveFunctionGroupUser(IdGroup, IdUser, pcheck, ptgclss) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            var tagid = pcheck.id;
+            var taggg = "." + ptgclss;
+            if ($(pcheck).is(':checked')) {
+                if (tagid.indexOf("_-1") != -1) {
+                    $("." + ptgclss).attr("checked", true);
+                } else {
+                    $("#" + ptgclss).attr("checked", true);
+                }
+            } else {
+                if (tagid.indexOf("_-1") != -1) {
+                    $("." + ptgclss).attr("checked", false);
+                } else {
+                    if ( $('input[class='+ptgclss+']:checked').length < 2) {
+                        $("#" + ptgclss).attr("checked", false);
+                    }
+                }
+            }
+
+            var QuenDuocCheck = $('input[name=functionUserGroup]:checked').length ;
+            var tongQuen = @lstFunction.Count ;
+
+            if(tongQuen==0) QuenDuocCheck =0 ;
+            $("#txtTongQuen").text("Có tổng " + QuenDuocCheck + "/" + tongQuen+ " quyền được chọn.") ;
+
+
+
+        } catch (e) {
+            console.log(e.message);
+        }
+    }*@
+
+    function AddRemoveFunctionGroupUser(IdGroup, IdUser, pcheck, ptgclss) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            var _DataFilter = ptgclss.split(" ");
+            if ($(pcheck).is(':checked'))
+            {
+                if(_DataFilter.length == 1)
+                {
+                    $("." + _DataFilter[0]).each(function (item) {
+                        $(this).attr("checked", true);
+                    });
+                }
+                if(_DataFilter.length == 2)
+                {
+                    $("#" + _DataFilter[1]).attr("checked", true);
+                    $("." + _DataFilter[0]).each(function (item) {
+                        $(this).attr("checked", true);
+                    });
+                }
+                if(_DataFilter.length == 3)
+                {
+                    $("#" + _DataFilter[2]).attr("checked", true);
+                    $("#" + _DataFilter[1]).attr("checked", true);
+                    $("." + _DataFilter[0]).each(function (item) {
+                        $(this).attr("checked", true);
+                    });
+                }
+            }
+            else
+            {
+                if(_DataFilter.length == 1)
+                {
+                    $("." + _DataFilter[0]).each(function (item) {
+                        $(this).attr("checked", false);
+                    });
+                }
+                if(_DataFilter.length == 2)
+                {
+
+                    $("." + _DataFilter[0]).each(function (item) {
+                        $(this).attr("checked", false);
+                    });
+                    // bỏ click thằng lv 3 thì check xem còn thằng lv 3 nào đang check ko, nếu ko còn thì bỏ thằng check cha của nó luôn
+                    var _checked =  GetValueControll(_DataFilter[1], true);
+                    // nếu chỉ có đúng thằng cha đấy đang đc check thì coi như ko có thằng con nào đc check
+                    _checked = _checked.replace(/\|/g, '');
+                    if(_checked ==  _DataFilter[1] )
+                    {
+                        $("#" + _DataFilter[1]).attr("checked", false);
+                    }
+                }
+                if(_DataFilter.length == 3)
+                {
+                    var _checked =  GetValueControll(_DataFilter[1], true);
+                    // nếu chỉ có đúng thằng cha đấy đang đc check thì coi như ko có thằng con nào đc check
+                    _checked = _checked.replace(/\|/g, '');
+                    if(_checked ==  _DataFilter[1] )
+                    {
+                        $("#" + _DataFilter[1]).attr("checked", false);
+                        // kiểm tra tiếp thằng cha cấp 1 xem có thằng con cấp 2 nào đc check ko
+                        _checked =  GetValueControll(_DataFilter[2], true);
+                        _checked = _checked.replace(/\|/g, '');
+                        if(_checked ==  _DataFilter[2] )
+                        {
+                            $("#" + _DataFilter[2]).attr("checked", false);
+                        }
+                    }
+                }
+            }
+
+            var QuenDuocCheck = $('input[name=functionUserGroup]:checked').length ;
+            var tongQuen = @lstFunction.Count ;
+
+            if(tongQuen==0) QuenDuocCheck =0 ;
+            $("#txtTongQuen").text("Có tổng " + QuenDuocCheck + "/" + tongQuen+ " quyền được chọn.") ;
+
+
+
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+
+
+</script>

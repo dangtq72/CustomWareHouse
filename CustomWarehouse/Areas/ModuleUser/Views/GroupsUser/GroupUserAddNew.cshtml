@@ -1,0 +1,122 @@
+﻿@model CW_Info.Groups_Info
+@{
+    ViewBag.Title = "Tạo nhóm tài khoản";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@Html.Partial("PartialViewMenuUser" ,3)
+
+<style>
+    .divCtrlTitle {
+        margin-left: 20px;
+        width: 130px;
+    }
+</style>
+
+<div class="classWrapperContent col-9-plus">
+
+    <p class="p_title">TẠO NHÓM TÀI KHOẢN</p>
+
+    <div class="form-horizontal" style="padding-left:12%;margin-top:50px;">
+        <div class="form-group">
+            <div class="col-2 control-label">
+                <label>Tên nhóm</label><i class="redspan"> (*)</i>
+            </div>
+            <div class="col-8">
+                <input type="text" id="txt_Name" maxlength="200" class=" form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-2 control-label">
+                <label>Ghi chú</label>
+            </div>
+            <div class="col-8">
+                <input type="text" id="txt_Note" maxlength="200" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-2 control-label">
+            </div>
+            <div class="col-8">
+                <hr style="width:90%;margin-left:0" />
+                <div class="clsRight" style="padding-right:10%">
+
+                    <input class="classBtn classBtn-Default" type="button" value="Làm mới" id="btnResetAdd" onclick="return ResetForm()">
+                    <input class="classBtn classBtn-Default" type="button" id="btnSaveGroup" value="Lưu" onclick="CreateGroup() " style="margin-left:5px;" />
+                </div>
+            </div>
+        </div>
+
+        @*}*@
+
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+        $('#txt_Name').focus();
+    });
+    $('#txt_Name').keypress(function (e) {
+        if (e.keyCode == 13) {
+            CreateGroup();
+        }
+
+    });
+     
+    function ResetForm() {
+        try {
+            $("#txt_Name").val("");
+            $("#txt_Note").val("");
+            $("#txt_Name").focus();
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function CreateGroup() {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            var name = $("#txt_Name").val();
+            var note = $("#txt_Note").val();
+            if ($.trim(name) == "") {
+                jAlert("Thông báo", "Tên nhóm không được để trống!", function () {
+                    $("#txt_Name").val("");
+                    $("#txt_Name").focus();
+                });
+                return false;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/ModuleUser/GroupsUser/GroupUserAddNew",
+                dataType: "json",
+                data: {
+                    p_name: name,
+                    p_note: note
+                },
+                async: false, cache: false, traditional: true,
+                success: function (data) {
+                    if (data.success > 0) {
+                        jAlert("Thông báo", "Tạo nhóm thành công!", function () {
+                            ResetForm();
+                        });
+                    } else if (data.success == -2) {
+                        jAlert("Thông báo", "Tên nhóm không được phép trùng!", function () {
+                            $("#txt_Name").focus();
+                        });
+                    } else if (data.success == -1) {
+                        jAlert("Thông báo", "Có lỗi xảy ra. Vui lòng thử lại sau!", function () {
+                            $("#txt_Name").focus();
+                        });
+                    }
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+</script>

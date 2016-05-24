@@ -1,0 +1,77 @@
+﻿ @using CW_Info;
+@{
+    List<Product_Info> ListProduct = new List<Product_Info>();
+    if (ViewBag.ListProduct != null)
+    {
+        ListProduct = ViewBag.ListProduct;
+    }
+}
+<style>
+    .ms-drop {
+      width: 394px !important
+    }
+    </style>
+ <div id="dktimkiem_table">
+    <table class=" clsTableForView ">
+        <tbody>
+            <tr>
+                <td colspan="2">    <div id="d_messproductSub" class="d_Message"></div></td>
+            </tr>
+            <tr>
+                <td>Mã sản phẩm  <i class="redspan">(*)</i></td>
+                <td> 
+                    <select id="PRODUC_ID"  style="width:90%">
+                        <option value="">
+                            None
+                        </option>
+                        @foreach (Product_Info item in ListProduct)
+                        { 
+                            <option value="@item.Product_Id">
+                                @item.Product_Code
+                            </option>
+                        }
+                    </select>
+                </td>
+            </tr>
+             <tr>
+                <td style="vertical-align:top">Số kiện <i class="redspan">(*)</i></td>
+                <td style="white-space:normal">
+                 <input type="text" id="txt_sokien"   maxlength="12"  style="width:90%;"  onkeyup = "SetMoneyFormat(this.id)"/> 
+                   
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align:top">Số lượng <i class="redspan">(*)</i></td>
+                <td style="white-space:normal">
+                 <input type="text" id="txt_soluong"   maxlength="12" onkeyup = "SetMoneyFormat(this.id)" style="width:90%;"/> 
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align:top">Xuất xứ <i class="redspan">(*)</i></td>
+                <td style="white-space:normal">
+                    <input type="text" id="txt_madein" style="width:90%;"    maxlength="200"   />
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align:top">Giá trị <i class="redspan">(*)</i></td>
+                <td style="white-space:normal">
+                    <input type="text" maxlength="20" id="txt_value"  onkeyup = "SetMoneyFormat(this.id)" />
+                    <input type="hidden" id="_txt_product_id" />
+                    <input type="hidden" id="_txt_product_code" />
+                </td>
+            </tr>
+            </tbody>
+        </table>
+         <div style="text-align:right; padding:5px">
+        <input type="button"value="Chọn" onclick="return Addproduct()"/>
+       <input type="button"value="Hủy" onclick="CloseDivAllStock('divWrapperProduct')"/>
+    </div>
+   </div>
+
+
+<script>
+    $('#cbo_product').multipleSelect({
+        width: '90%', filter: true, single: true
+    });
+    
+</script>

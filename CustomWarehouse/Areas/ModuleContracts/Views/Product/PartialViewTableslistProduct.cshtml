@@ -1,0 +1,69 @@
+﻿@using CW_Info;
+    @{
+        int Stt = 0;
+        if (ViewBag.FromRow != null)
+        {
+            Stt = ViewBag.FromRow;
+        }
+
+        List<Product_Info> _list_obj = new List<Product_Info>();
+        if (ViewBag.Obj != null)
+        {
+            _list_obj = ViewBag.Obj;
+        }
+    }
+    <style>
+        table td {
+            vertical-align: middle !important;
+        }
+    </style>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped _tablelist" id="tblVotingList">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Mã sản phẩm</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Loại sản phẩm</th>
+                    <th>Đơn vị</th>
+                    <th>Chức năng</th>
+                </tr>
+            </thead>
+            @if (_list_obj.Count == 0)
+            {
+                <tr class="tbColorRows">
+                    <td colspan="11" style="text-align: center; font-size: 18px; padding: 10px 0px 10px 0px;">
+                        <p>Không có kết quả nào</p>
+                    </td>
+                </tr>
+            }
+            <tbody>
+                @foreach (Product_Info item in _list_obj)
+                {
+                    ++Stt;
+                    <tr class="tbColorRows">
+                        <td style="display: none">@item.Product_Id</td>
+                        <td class="clssCenter">@Stt</td>
+                        <td class="clssCenter">@item.Product_Code</td>
+                        <td class="clssCenter">@item.Product_Name</td>
+                        <td class="clssCenter">@item.Category_Name</td>
+                        <td class="clssCenter">@item.Unit</td>
+                        <td class="clssCenter" style="white-space:nowrap">
+                            <a href="javascript:;" onclick="ShowViewProduct(@item.Product_Id)">Chi tiết</a>
+                            | <a href="javascript:;" onclick="funcApproveOrDecline()">Thêm</a>
+                            | <a href="javascript:;" onclick="UpdateProduct(@item.Product_Id)">Sửa</a>
+                            | <a href="javascript:;" onclick="DeleteProduct(@item.Product_Id)">Xóa</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+ 
+    <div class="_ClassPage">
+        <ul>
+            @Html.Raw(ViewBag.Paging)
+        </ul>
+    </div>
+
+     

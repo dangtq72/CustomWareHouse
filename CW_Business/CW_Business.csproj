@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{532C19AF-AE48-4A14-96EA-D08C0ECBF9C4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CW_Business</RootNamespace>
+    <AssemblyName>CW_Business</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\DLL\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\DLL\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="SendFiles">
+      <HintPath>..\DLL\SendFiles.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AllCodeBL.cs" />
+    <Compile Include="Business_BL.cs" />
+    <Compile Include="Get_DBMemoryBL.cs" />
+    <Compile Include="ModuleUser\FunctionsBL.cs" />
+    <Compile Include="ModuleUser\GroupFunctionBL.cs" />
+    <Compile Include="ModuleUser\GroupsBL.cs" />
+    <Compile Include="ModuleUser\GroupUserBL.cs" />
+    <Compile Include="ModuleUser\UserFunctionBL.cs" />
+    <Compile Include="ModuleUser\UserInfo_BL.cs" />
+    <Compile Include="Custom_BL.cs" />
+    <Compile Include="ModuleUser\User_Custom_Controller.cs" />
+    <Compile Include="Product_Declaration_BL.cs" />
+    <Compile Include="Common\CommonData.cs" />
+    <Compile Include="Common\Util.cs" />
+    <Compile Include="Category_BL.cs" />
+    <Compile Include="Product_BL.cs" />
+    <Compile Include="Declaration_BL.cs" />
+    <Compile Include="ContractBL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report_BL.cs" />
+    <Compile Include="Service References\WareHoseService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="WareHouse_BL.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Service References\WareHoseService\CW_Business.WareHoseService.Contract_Search_ThanhKhoanResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WareHoseService\CW_Business.WareHoseService.DeclarationLiquidationSearchResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WareHoseService\CW_Business.WareHoseService.DeclarationTableSearchResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WareHoseService\CW_Business.WareHoseService.TableSearchResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WareHoseService\CW_Business.WareHoseService.UserInfo_SearchResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WareHoseService\service.wsdl" />
+    <None Include="Service References\WareHoseService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WareHoseService\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CW_Info\CW_Info.csproj">
+      <Project>{4c70dba4-dc75-4188-b892-32de0098dc80}</Project>
+      <Name>CW_Info</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NaviCommon\NaviCommon.csproj">
+      <Project>{85aa6b45-5804-4ee5-8935-a4d43afd3708}</Project>
+      <Name>NaviCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\WareHoseService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WareHoseService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WareHoseService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WareHoseService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

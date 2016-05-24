@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C0561C42-5975-43DD-B779-9E8E52A1CDBB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CW_Service</RootNamespace>
+    <AssemblyName>CW_Service</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Service\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\DLL\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\DLL\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="SendFiles">
+      <HintPath>..\DLL\SendFiles.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppService\Business_AS.cs" />
+    <Compile Include="AppService\Category_AS.cs" />
+    <Compile Include="AppService\DBMemoryAS.cs" />
+    <Compile Include="AppService\ModuleUser\FunctionsAS.cs" />
+    <Compile Include="AppService\ModuleUser\GroupFunctionAS.cs" />
+    <Compile Include="AppService\ModuleUser\GroupsAS.cs" />
+    <Compile Include="AppService\ModuleUser\GroupUserAS.cs" />
+    <Compile Include="AppService\ModuleUser\UserAS.cs" />
+    <Compile Include="AppService\ModuleUser\UserFunctionAS.cs" />
+    <Compile Include="AppService\Custom_AS.cs" />
+    <Compile Include="AppService\ModuleUser\User_WareHouse_AS.cs" />
+    <Compile Include="AppService\Product_AS.cs" />
+    <Compile Include="AppService\Product_Declaration_AS.cs" />
+    <Compile Include="AppService\Declaration_AS.cs" />
+    <Compile Include="AppService\Contract_AS.cs" />
+    <Compile Include="AppService\CW_Service.cs" />
+    <Compile Include="AppService\Report_AS.cs" />
+    <Compile Include="AppService\WareHouse_AS.cs" />
+    <Compile Include="Bussiness\DBMemory.cs" />
+    <Compile Include="Bussiness\esmsAPI.cs" />
+    <Compile Include="Bussiness\Operator.cs" />
+    <Compile Include="Bussiness\ReceiveSMS.cs" />
+    <Compile Include="Bussiness\SendSMS.cs" />
+    <Compile Include="CommonData\CBO.cs" />
+    <Compile Include="CommonData\Common.cs" />
+    <Compile Include="CommonData\Null.cs" />
+    <Compile Include="CommonData\Util.cs" />
+    <Compile Include="Common\ClSQLTool.cs" />
+    <Compile Include="DataAccessLayer\AllCodeDA.cs" />
+    <Compile Include="DataAccessLayer\Business_DA.cs" />
+    <Compile Include="DataAccessLayer\Categories_DA.cs" />
+    <Compile Include="DataAccessLayer\ModuleUser\FunctionsDA.cs" />
+    <Compile Include="DataAccessLayer\ModuleUser\GroupFunctionDA.cs" />
+    <Compile Include="DataAccessLayer\ModuleUser\GroupsDA.cs" />
+    <Compile Include="DataAccessLayer\ModuleUser\GroupUserDA.cs" />
+    <Compile Include="DataAccessLayer\ModuleUser\UserFunctionDA.cs" />
+    <Compile Include="DataAccessLayer\ModuleUser\UserInfoDA.cs" />
+    <Compile Include="DataAccessLayer\Custom_DA.cs" />
+    <Compile Include="DataAccessLayer\ModuleUser\User_WareHouse_DA.cs" />
+    <Compile Include="DataAccessLayer\Product_Declaration_DA.cs" />
+    <Compile Include="DataAccessLayer\Contract_DA.cs" />
+    <Compile Include="DataAccessLayer\Declaration_DA.cs" />
+    <Compile Include="DataAccessLayer\Product_DA.cs" />
+    <Compile Include="DataAccessLayer\Report_DA.cs" />
+    <Compile Include="DataAccessLayer\WareHouse_DA.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\SQLHelper.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="App.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CW_Info\CW_Info.csproj">
+      <Project>{4c70dba4-dc75-4188-b892-32de0098dc80}</Project>
+      <Name>CW_Info</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NaviCommon\NaviCommon.csproj">
+      <Project>{85aa6b45-5804-4ee5-8935-a4d43afd3708}</Project>
+      <Name>NaviCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

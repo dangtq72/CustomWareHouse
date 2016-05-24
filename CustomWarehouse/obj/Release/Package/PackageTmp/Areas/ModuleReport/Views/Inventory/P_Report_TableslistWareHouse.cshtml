@@ -1,0 +1,64 @@
+﻿@using CW_Info;
+    @{
+        int Stt = 0;
+        if (ViewBag.FromRow != null)
+        {
+            Stt = ViewBag.FromRow;
+        }
+
+        List<WareHouse_Info> _list_obj = new List<WareHouse_Info>();
+        if (ViewBag.Obj != null)
+        {
+            _list_obj = ViewBag.Obj;
+        }
+    }
+    <style>
+        table td {
+            vertical-align: middle !important;
+        }
+    </style>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped _tablelist" id="tblVotingList">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Mã kho</th>
+                    <th>Tên kho</th>
+                    <th>Vị trí</th>
+                    <th>Chức năng</th>
+                </tr>
+            </thead>
+            @if (_list_obj.Count == 0)
+            {
+                <tr class="tbColorRows">
+                    <td colspan="11" style="text-align: center; font-size: 18px; padding: 10px 0px 10px 0px;">
+                        <p>Không có kết quả nào</p>
+                    </td>
+                </tr>
+            }
+            <tbody>
+                @foreach (WareHouse_Info item in _list_obj)
+                {
+                    ++Stt;
+                    <tr class="tbColorRows">
+                        <td style="display: none">@item.WareHouse_Id</td>
+                        <td class="clssCenter">@Stt</td>
+                        <td class="clssCenter">@item.WareHouse_Code</td>
+                        <td class="clssCenter">@item.WareHouse_Name</td>
+                        <td class="clssCenter">@item.Location</td>
+                        <td class="clssCenter" style="white-space:nowrap">
+                            <a href="javascript:;" onclick="BaoCaoHangTonKho(@item.WareHouse_Id)">Kết xuất báo cáo</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+ 
+    <div class="_ClassPage">
+        <ul>
+            @Html.Raw(ViewBag.Paging)
+        </ul>
+    </div>
+
+     

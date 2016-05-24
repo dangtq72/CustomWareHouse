@@ -1,0 +1,9 @@
+D:\Working\CP\CW\Program\CW_Info\bin\Debug\CW_Info.dll
+D:\Working\CP\CW\Program\CW_Info\bin\Debug\CW_Info.pdb
+D:\Working\CP\CW\Program\CW_Info\obj\Debug\CW_Info.dll
+D:\Working\CP\CW\Program\CW_Info\obj\Debug\CW_Info.pdb
+D:\Working\CP\CW\Program\CW_Info\obj\Debug\CW_Info.csprojResolveAssemblyReference.cache
+D:\Working\CustomWareHouse\Program\CW_Info\bin\Debug\CW_Info.dll
+D:\Working\CustomWareHouse\Program\CW_Info\bin\Debug\CW_Info.pdb
+D:\Working\CustomWareHouse\Program\CW_Info\obj\Debug\CW_Info.dll
+D:\Working\CustomWareHouse\Program\CW_Info\obj\Debug\CW_Info.pdb

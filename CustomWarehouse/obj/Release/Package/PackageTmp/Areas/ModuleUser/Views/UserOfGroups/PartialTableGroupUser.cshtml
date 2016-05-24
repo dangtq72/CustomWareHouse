@@ -1,0 +1,47 @@
+﻿@using CW_Info
+@{
+    List<GroupUser_Info> lstGroupUsers = new List<GroupUser_Info>();
+    string keyGroupInUser = "GroupInUser" + ViewBag.IDUserName;
+    if (Session[keyGroupInUser] != null)
+    {
+        lstGroupUsers = (List<GroupUser_Info>)Session[keyGroupInUser];
+    }
+    int CurrentUser = 0;
+    if (ViewBag.CurrentUser != null)
+    {
+        CurrentUser = (int)ViewBag.CurrentUser;
+    }
+    string display = "";
+    if (CurrentUser == 1)
+    {
+        //display = "display:none";
+    }
+}
+<table class="_tablelist ">
+    <thead>
+        <tr>
+            <th class="clssSTT">STT</th>
+            <th>Tên nhóm</th>
+            <th style="@display">Chức năng</th>
+        </tr>
+    </thead>
+    <tbody class="_TableBody">
+        @{
+            int No = 0;
+
+            foreach (GroupUser_Info info in lstGroupUsers)
+            {
+                ++No;
+                <tr class="tbColorRows">
+                    <td>@No</td>
+                    <td style="text-align: left">
+                        @info.Group_Name
+                    </td>
+                    <td style="text-align: center;">
+                        <a href="javascript:;" onclick="return RemoveOutGroup(@info.Group_Id,@info.User_Id)">Rời nhóm</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

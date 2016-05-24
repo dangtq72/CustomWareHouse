@@ -1,0 +1,43 @@
+﻿@using NaviObjectInfo
+@{
+    List<FunctionsInfo> lstFunction = new List<FunctionsInfo>();
+    string keyFuncInGroup = "FuncInGroup" + ViewBag.IDGroup;
+    int idGroup = ViewBag.IDGroup;
+    if (Session[keyFuncInGroup] != null)
+    {
+        lstFunction = (List<FunctionsInfo>)Session[keyFuncInGroup];
+    }
+}
+@{  string _classInput = ""; string styleli = "padding-left:20px"; string idprent = "";
+    foreach (FunctionsInfo info in lstFunction)
+    {
+        if (info.PrId == -1)
+        {
+            _classInput = "clss_" + info.PrId.ToString() + info.Id.ToString();
+        }
+        if (!string.IsNullOrEmpty(info.Fun_Name))
+        {
+            string style = "checked";
+            if (V_Voting.SessionData.CurrentUser.Prid == 0)
+            {
+                if (info.Fun_Name.Contains("---"))
+                {
+                    styleli = "padding-left:20px";
+                    idprent = info.Id.ToString();
+                }
+                else
+                {
+                    styleli = "font-weight: bold";
+                    idprent = _classInput;
+                }
+                <label style="@styleli">
+                    <input @style type="checkbox" disabled="disabled" name="checkfunction" class="@_classInput" value="@info.Id" id="@idprent" />@info.Fun_Name
+                </label>
+            }
+            else  //user chi co quen xem
+            {
+            <label style="padding-left: 20px">@info.Fun_Name  </label>
+            }
+        }
+    }
+}

@@ -1,0 +1,150 @@
+﻿@model int
+@{
+    int tabfocus = Model;
+    string _tab1 = "", _tab2 = "", _tab3 = "", _tab4 = "", _tab5 = "" ;
+    if (tabfocus == 1)
+    {
+        _tab1 = "active";
+    }
+    else if (tabfocus == 2)
+    {
+        _tab2 = "active";
+    }
+    else if (tabfocus == 3)
+    {
+        _tab3 = "active";
+    }
+    else if (tabfocus == 4)
+    {
+        _tab4 = "active";
+    }
+    else if (tabfocus == 5)
+    {
+        _tab5 = "active";
+    }
+}
+
+<style>
+    .dv_warning {
+        background-color: red;
+        color: white;
+        /*width: initial;*/
+        float: right;
+    }
+
+    .dv_sub_warning {
+        position: absolute;
+        right: 2px;
+    }
+
+   .dv_sub_warning span {
+        background-color: #e61d1d;
+        padding: 0px 4px;
+        font-weight: 600;
+        font-size: 12px;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+    }
+
+    .dv_hidden_warning {
+        display: none;
+    }
+</style>
+
+<input type="hidden" id="txtValue_Warning" value="" />
+
+<div id="dv_menu_user" class="classWrapperSidebar col-2" style="width: 18%">
+    <ul class="classSidebarNav">
+        <li class="classSidebarBrand">
+            <a href="#">
+                Hợp đồng
+            </a>
+        </li>
+        <li class="@_tab1">
+            <a href="/ModuleContracts/Contract/ContractList">Danh sách hợp đồng</a>
+        </li>
+        <li class="@_tab2">
+            <a href="/ModuleContracts/Contract/Add">Tạo hợp đồng</a>
+        </li>
+        <li class="@_tab3">
+            <a href="/ModuleContracts/Waiting/List">Hợp đồng chờ duyệt <div class="dv_warning" id="a_pending"><div class="dv_sub_warning">@*<span>1234</span>*@</div></div></a>
+        </li>
+        <li class="@_tab4">
+            <a href="/ModuleContracts/Refuse/List">Hợp đồng từ chối duyệt <div class="dv_warning" id="a_decline"><div class="dv_sub_warning">@*<span>1234</span>*@</div></div></a>
+        </li>
+        <li class="@_tab5">
+            <a href="/ModuleContracts/Liquid/LiquidsList">Thanh lý hợp đồng <div class="dv_warning" id="a_release"><div class="dv_sub_warning">@*<span>1234</span>*@</div></div></a>
+        </li>
+    </ul>
+</div>
+
+<script>
+    $(document).ready(function () {
+        ShowWarning();
+    });
+
+    //var intervalTimeWarning = $("#txtTime_Reload_Warning").val();
+    var intervalWarning;
+
+    function LoadWarning() {
+        try {
+            intervalWarning = setInterval("ShowWarning()",  30000);
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function ShowWarning() {
+        try {
+            GetData();
+            var data = $("#txtValue_Warning").val();
+            //alert(data);
+            var arr_data = data.split('|');
+            //alert(arr_data[1]);
+            if (Number(arr_data[0]) == 0) {
+                $("#a_pending").addClass("dv_hidden_warning");
+            } else {
+                if (arr_data[0].length == 1) arr_data[0] = "0" + arr_data[0]
+
+                $("#a_pending").removeClass("dv_hidden_warning");
+                $("#a_pending .dv_sub_warning").html("<span>" + arr_data[0] + "</span>");
+            }
+            if (Number(arr_data[1]) == 0) {
+                $("#a_decline").addClass("dv_hidden_warning");
+            } else {
+                if (arr_data[1].length == 1) arr_data[1] = "0" + arr_data[1]
+                $("#a_decline").removeClass("dv_hidden_warning");
+                $("#a_decline .dv_sub_warning").html("<span>" + arr_data[1] + "</span>");
+            }
+            if (Number(arr_data[2]) == 0) {
+                $("#a_release").addClass("dv_hidden_warning");
+            } else {
+                if (arr_data[2].length == 1) arr_data[2] = "0" + arr_data[2]
+                $("#a_release").removeClass("dv_hidden_warning");
+                $("#a_release .dv_sub_warning").html("<span>" + arr_data[2] + "</span>");
+            }
+        } catch (e) {
+            console(e);
+        }
+    }
+
+    function GetData() {
+        try {
+            $.ajax({
+                type: 'POST',
+                url: '/ModuleContracts/Contract/LoadDataWarning',
+                data: {},
+                async: false, cache: false, traditional: true,
+                success: function (data) {
+                    $("#txtValue_Warning").val(data.value);
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+
+</script>
+

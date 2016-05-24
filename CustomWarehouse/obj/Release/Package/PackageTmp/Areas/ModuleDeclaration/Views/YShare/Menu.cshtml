@@ -1,0 +1,208 @@
+﻿@model int
+@{
+    int tabfocus = Model;
+    string _tab1 = "", _tab2 = "", _tab3 = "", _tab4 = "", _tab41 = "", _tab5 = "", _tab6 = "", _tab7 = "", _tab8 = "", _tab9 = "";
+    if (tabfocus == 1)
+    {
+        _tab1 = "active";
+    }
+    else if (tabfocus == 2)
+    {
+        _tab2 = "active";
+    }
+    else if (tabfocus == 3)
+    {
+        _tab3 = "active";
+    }
+    else if (tabfocus == 4)
+    {
+        _tab4 = "active";
+    }
+    else if (tabfocus == 41)
+    {
+        _tab41 = "active";
+    }
+    else if (tabfocus == 5)
+    {
+        _tab5 = "active";
+    }
+    else if (tabfocus == 6)
+    {
+        _tab6 = "active";
+    }
+    else if (tabfocus == 7)
+    {
+        _tab7 = "active";
+    }
+    else if (tabfocus == 8)
+    {
+        _tab8 = "active";
+    }
+    else if (tabfocus == 9)
+    {
+        _tab9 = "active";
+    }
+
+}
+
+<style>
+    .dv_warning {
+        background-color: red;
+        color: white;
+        /*width: initial;*/
+        float: right;
+    }
+
+    .dv_sub_warning {
+        position: absolute;
+        right: 2px;
+    }
+
+        .dv_sub_warning span {
+            background-color: #e61d1d;
+            padding: 0px 4px;
+            font-weight: 600;
+            font-size: 12px;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+        }
+
+    .dv_hidden_warning {
+        display: none;
+    }
+</style>
+
+<input type="hidden" id="txtValue_Warning" value="" />
+<div id="dv_menu_user" class="classWrapperSidebar col-2" style="width: 18%">
+    <ul class="classSidebarNav">
+        <li class="classSidebarBrand">
+            <p>
+                Tờ khai nhập
+            </p>
+        </li>
+        <li class="@_tab1">
+            <a href="/ModuleDeclaration/List/ListImport">Danh sách tờ khai nhập</a>
+        </li>
+
+        <li class="@_tab2">
+            <a href="/ModuleDeclaration/Waiting/Add">Khai báo tờ khai nhập</a>
+        </li>
+        <li class="@_tab3">
+            <a href="/ModuleDeclaration/Waiting/ListImport">Tờ khai nhập chờ duyệt <div class="dv_warning" id="a_pending"><div class="dv_sub_warning">@*<span>1234</span>*@</div></div></a>
+        </li>
+        <li class="@_tab4">
+            <a href="/ModuleDeclaration/Refuse/ListImport">Tờ khai nhập từ chối duyệt <div class="dv_warning" id="a_decline"><div class="dv_sub_warning">@*<span>1234</span>*@</div></div></a>
+        </li>
+        <li class="@_tab41">
+            <a href="/ModuleDeclaration/List/LiquidationList">Thanh lý tờ khai <div class="dv_warning" id="a_release"><div class="dv_sub_warning">@*<span>1234</span>*@</div></div></a>
+        </li>
+        <li class="classSidebarBrand">
+            <p>
+                Phiếu xuất kho
+            </p>
+        </li>
+        <li class="@_tab5">
+            <a href="/ModuleDeclaration/ExportList/List">Danh sách phiếu xuất kho</a>
+        </li>
+        <li class="@_tab6">
+            <a href="/ModuleDeclaration/ExportWaiting/Add">Khai báo phiếu xuất kho</a>
+        </li>
+        <li class="@_tab7">
+            <a href="/ModuleDeclaration/ExportWaiting/List">Phiếu xuất kho chờ duyệt <div class="dv_warning" id="a_pending_exp"><div class="dv_sub_warning">@*<span>1234</span>*@</div></div></a>
+        </li>
+        <li class="@_tab8">
+            <a href="/ModuleDeclaration/ExportRefuse/List">Phiếu xuất từ chối duyệt <div class="dv_warning" id="a_decline_exp"><div class="dv_sub_warning">@*<span>1234</span>*@</div></div></a>
+        </li> 
+    </ul>
+</div>
+
+<script>
+    $(document).ready(function () {
+        ShowWarning();
+    });
+
+    //var intervalTimeWarning = $("#txtTime_Reload_Warning").val();
+    var intervalWarning;
+
+    function LoadWarning() {
+        try {
+            intervalWarning = setInterval("ShowWarning()", 30000);
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function ShowWarning() {
+        try {
+            GetData();
+            var data = $("#txtValue_Warning").val();
+            //alert(data);
+            var arr_data = data.split('|');
+            //alert(arr_data[1]);
+            if (Number(arr_data[0]) == 0) {
+                $("#a_pending").addClass("dv_hidden_warning");
+            }
+            else {
+                if (arr_data[0].length == 1)
+                    arr_data[0] = "0" + arr_data[0];
+                $("#a_pending").removeClass("dv_hidden_warning");
+                $("#a_pending .dv_sub_warning").html("<span>" + arr_data[0] + "</span>");
+            }
+            if (Number(arr_data[1]) == 0) {
+                $("#a_decline").addClass("dv_hidden_warning");
+            }
+            else {
+                if (arr_data[1].length == 1) {
+                    arr_data[1] = "0" + arr_data[1];
+                }
+                $("#a_decline").removeClass("dv_hidden_warning");
+                $("#a_decline .dv_sub_warning").html("<span>" + arr_data[1] + "</span>");
+              
+            }
+
+            if (Number(arr_data[2]) == 0) {
+                $("#a_pending_exp").addClass("dv_hidden_warning");
+            } else {
+                if (arr_data[2].length == 1) arr_data[2] = "0" + arr_data[2]
+
+                $("#a_pending_exp").removeClass("dv_hidden_warning");
+                $("#a_pending_exp .dv_sub_warning").html("<span>" + arr_data[2] + "</span>");
+            }
+            if (Number(arr_data[3]) == 0) {
+                $("#a_decline_exp").addClass("dv_hidden_warning");
+            } else {
+                if (arr_data[3].length == 1) arr_data[3] = "0" + arr_data[3]
+                $("#a_decline_exp").removeClass("dv_hidden_warning");
+                $("#a_decline_exp .dv_sub_warning").html("<span>" + arr_data[3] + "</span>");
+            }
+            if (Number(arr_data[4]) == 0) {
+                $("#a_decline_exp").addClass("dv_hidden_warning");
+            } else {
+                if (arr_data[4].length == 1) arr_data[4] = "0" + arr_data[4]
+                $("#a_release").removeClass("dv_hidden_warning");
+                $("#a_release .dv_sub_warning").html("<span>" + arr_data[4] + "</span>");
+            }
+        } catch (e) {
+            console(e);
+        }
+    }
+
+    function GetData() {
+        try {
+            $.ajax({
+                type: 'POST',
+                url: '/ModuleDeclaration/List/LoadDataWarning',
+                data: {},
+                async: false, cache: false, traditional: true,
+                success: function (data) {
+                    $("#txtValue_Warning").val(data.value);
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+</script>
+

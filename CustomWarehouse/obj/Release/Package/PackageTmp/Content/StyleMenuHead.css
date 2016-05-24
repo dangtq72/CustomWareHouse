@@ -1,0 +1,604 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+    min-height: 100%;
+    width: 100%;
+}
+
+body {
+    background: url(../Content/Images/main_background.jpg) repeat;
+    overflow-x: hidden;
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    position: relative;
+    float: left;
+}
+ 
+/*===================phần trên menu==================================*/
+.top {
+    height: 36px;
+    background: url(../Content/Images/header_bg1.png) repeat-x;
+    width: 100%;
+}
+
+.top_content {
+    margin: 0 auto;
+    text-align: right;
+    width: 980px;
+    z-index: 9;
+}
+
+    .top_content ul {
+        float: left;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    .top_content li {
+        border-left: 1px solid #1f1f1f;
+        display: inline;
+        padding: 9px 10px;
+    }
+
+        .top_content li:last-child {
+            border-right: 1px solid #1f1f1f;
+        }
+
+    .top_content a span {
+        color: #ccc;
+        text-decoration: none;
+        font-family: Arial;
+        font-size: 11pt;
+        line-height: 36px;
+        z-index: 10;
+    }
+
+        .top_content a span:hover {
+            background: url(~/Content/Images/header_hover.png);
+            color: #FFF;
+        }
+
+/*======================================menu=====================================*/
+.menu {
+    height: 81px;
+    margin: 0 auto;
+    background: url(../Content/Images/menu_bg.png) repeat-x;
+}
+
+.menucontent {
+    margin: 0 auto;
+    width: 1000px;
+}
+
+.menuleft {
+    float: left;
+    width: auto;
+}
+
+.menuright {
+    float: right;
+    text-align: right;
+    width: auto;
+}
+
+/* Menu Container */
+.nav {
+    background: transparent;
+    cursor: default;
+    display: inline-block;
+    position: relative;
+    z-index: 500;
+    vertical-align: middle;
+}
+
+    .nav a {
+        text-decoration: none;
+    }
+
+    .nav li {
+        list-style: none;
+    }
+
+    /* Menu List */
+    .nav > li {
+        display: block;
+        float: left;
+        width: auto;
+    }
+
+    .nav,
+    .nav a,
+    .nav ul,
+    .nav li,
+    .nav div,
+    .nav form,
+    .nav input {
+        margin: 0;
+        padding: 0;
+        border: none;
+        outline: none;
+    }
+
+        /* Menu Links */
+        .nav > li > a {
+            border: none;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            color: #FFF;
+            display: block;
+            font-family: 'Segoe UI',Arial;
+            font-weight: 400;
+            font-size: 12px;
+            margin: 0 0 2px 0;
+            position: relative;
+            padding: 10px 10px 8px 10px;
+            transition: all .1s ease;
+            -moz-transition: all .1s ease;
+            -ms-transition: all .1s ease;
+            -o-transition: all .1s ease;
+            -webkit-transition: all .1s ease;
+            vertical-align: middle;
+            white-space: nowrap;
+            z-index: 510;
+        }
+
+        .nav > li:hover > a {
+            background: #75a81b;
+        }
+
+        .nav > li > a > ul {
+            text-align: center;
+            line-height: 20px;
+        }
+
+        /* Menu Dropdown */
+        .nav > li > div {
+            background: #f8f5ec;
+            border: 1px solid #d7d7d7;
+            border-radius: 0 3px 3px 3px;
+            box-shadow: 5px 5px 5px #888888;
+            display: block;
+            right: 0;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            top: 80px;
+            transition: all .1s ease .15s;
+            visibility: hidden;
+            max-width: 1000px;
+            min-width: 1000px;
+            z-index: 1000;
+            -webkit-transition: all .1s ease .15s;
+            -moz-transition: all .1s ease .15s;
+            -o-transition: all .1s ease .15s;
+            -ms-transition: all .1s ease .15s;
+            width: auto;
+        }
+
+        .nav > li:hover > div {
+            opacity: 1;
+            overflow: visible;
+            visibility: visible;
+        }
+
+        /* Menu Content Styles */
+        .nav .nav-column {
+            float: left;
+            width: auto;
+            padding: 2%;
+            text-align: left;
+        }
+
+            .nav .nav-column > a {
+                margin: 5px 0 5px 0;
+                line-height: 18px;
+                font-family: 'Segoe UI',Helvetica, Arial, sans-serif;
+                font-weight: 400;
+                font-size: 14px;
+                color: #ce211a;
+                text-transform: uppercase;
+            }
+
+            .nav .nav-column a.orange {
+                color: #ff722b;
+            }
+
+            .nav .nav-column li a {
+                display: block;
+                line-height: 26px;
+                font-family: 'Segoe UI', Arial, sans-serif;
+                font-size: 13px;
+                color: #333;
+            }
+
+                .nav .nav-column li a:hover {
+                    color: #333;
+                }
+
+/*=======================================menu mới==================================*/
+#cssmenu > ul {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+}
+
+    #cssmenu:before,
+    #cssmenu:after,
+    #cssmenu > ul:before,
+    #cssmenu > ul:after {
+        content: "";
+        display: table;
+    }
+
+    #cssmenu:after,
+    #cssmenu > ul:after {
+        clear: both;
+    }
+
+#cssmenu {
+    width: auto;
+    zoom: 1;
+}
+
+    #cssmenu > ul {
+        background: #5C9701;
+        margin: 0;
+        padding: 0;
+        position: relative;
+    }
+
+        #cssmenu > ul li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #cssmenu > ul > li {
+            float: left;
+            position: relative;
+        }
+
+            #cssmenu > ul > li > a {
+                padding: 10px 15px;
+                display: block;
+                color: white;
+                font-size: 13px;
+                text-decoration: none;
+                text-align: center;
+                text-shadow: 0 -1px 0 #c28130;
+                text-shadow: 0 -1px 0 rgba(151, 99, 33, 0.43);
+                line-height: 40px;
+            }
+
+                #cssmenu > ul > li > a > ul {
+                    line-height: 20px;
+                    text-align: center;
+                }
+
+
+            #cssmenu > ul > li:hover > a {
+                background: #75a81b;
+            }
+
+            #cssmenu > ul > li > a > span {
+                display: block;
+                line-height: 19px;
+            }
+
+            #cssmenu > ul > li.active > a,
+            #cssmenu > ul > li > a:active {
+                background: #84c510;
+            }
+        /* Childs */
+        #cssmenu > ul ul {
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+            top: 120px;
+            background: #FFF;
+            margin: 0;
+            padding: 0;
+            z-index: 1000;
+            -webkit-transition: all 0.3s 0s ease-in-out;
+            -moz-transition: all 0.3s 0s ease-in-out;
+            -ms-transition: all 0.3s 0s ease-in-out;
+            -o-transition: all 0.3s 0s ease-in-out;
+            transition: all 0.3s 0s ease-in-out;
+            -webkit-box-shadow: 0 10px 10px 5px rgba(50, 50, 50, 0.5);
+            -moz-box-shadow: 0 10px 10px 5px rgba(50, 50, 50, 0.5);
+            box-shadow: 0 10px 10px 5px rgba(50, 50, 50, 0.5);
+        }
+
+        #cssmenu > ul li:hover ul {
+            opacity: 1;
+            visibility: visible;
+            margin: 0;
+            color: #000;
+            z-index: 2;
+            top: 78px;
+            left: 0;
+        }
+
+        #cssmenu > ul ul:before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            width: 100%;
+            height: 20px;
+            background: transparent;
+        }
+
+        #cssmenu > ul ul li {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+
+            #cssmenu > ul ul li a {
+                padding: 8px 25px;
+                display: block;
+                color: #000;
+                font-size: 13px;
+                text-decoration: none;
+                /*text-transform: uppercase;*/
+                width: auto;
+                min-width: 150px;
+                border-left: 4px solid transparent;
+                -webkit-transition: all 0.05s ease-in-out;
+                -moz-transition: all 0.05s ease-in-out;
+                -ms-transition: all 0.05s ease-in-out;
+                transition: all 0.05s ease-in-out;
+                text-align: left;
+                /*text-shadow: 0 -1px 0 #c28130;*/
+                /*text-shadow: 0 -1px 0 rgba(151, 99, 33, 0.43);*/
+                white-space: nowrap;
+            }
+
+                #cssmenu > ul ul li a:hover {
+                    border-left: 4px solid #333;
+                    background: #abc6a1;
+                }
+
+                #cssmenu > ul ul li a:active {
+                    background: url(images/menu-bg.png) repeat;
+                }
+/*========================================end menu mới================================*/
+
+
+/*======================================navigator=================================*/
+.navigator {
+    background: url(../Content/Images/bg.png) repeat;
+    width: 100%;
+}
+
+.navigator_content {
+    width: 98%;
+    border: 1px solid #d1cec5;
+    /*border-radius: 5px;*/
+    min-height: 40px;
+    margin: 0 auto;
+    margin-top: 10px;
+    background: #FFF;
+    text-align: left;
+}
+
+.navigator_container {
+    margin: 1px;
+    background: #f6f3ef;
+    border-radius: 5px;
+    z-index: 10;
+    min-height: 40px;
+    text-align: left;
+    line-height: 40px;
+}
+
+/*======================================container=================================*/
+.divMainContainer {
+    min-height: 300px;
+    margin: 0 auto;
+    margin-top: 10px;
+    width: 1000px;
+}
+
+/*.divMainContent
+{
+    /*background: #FFF;*/
+/*margin: 1px;
+    /*border-radius: 5px;*/
+/*width: 976px;
+    min-height: 100%;
+    overflow: hidden;
+    z-index: 10;
+}*/
+
+
+.divMainContent {
+    /*background: #FFF;*/
+    margin: auto;
+    /*border-radius: 5px;*/
+    width: 1000px;
+    min-height: 100%;
+    /*overflow: hidden;*/
+    z-index: 10;
+}
+
+/*======================================footer=================================*/
+footer {
+    background: url(/Content/images/line_HNX1.png) no-repeat;
+    background-size: 100% 10px;
+    /*background: none repeat scroll 0 0 rgba(60, 60, 60, 0.4);*/
+    display: block;
+    margin: 0 auto;
+    padding-top: 10px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+}
+
+.footer_content {
+    margin: 0 auto;
+    /*height: 160px;*/
+    /*line-height: 160px;*/
+    vertical-align: middle;
+    z-index: 10;
+    width: 1000px;
+}
+
+.social {
+    float: right;
+    padding: 15px 10px 10px 0;
+}
+
+    .social ul {
+        list-style: none;
+    }
+
+        .social ul li {
+            display: inline;
+            line-height: 25px;
+            text-align: left;
+        }
+
+            .social ul li p {
+                color: #006699;
+                font-size: 14pt;
+                font-weight: 600;
+                line-height: 30px;
+                padding: 0 0 10px 0;
+            }
+
+        .social ul#socialcontent li a {
+            display: block;
+            background: url(../Content/images/sprite.png);
+            float: left;
+            height: 40px;
+            width: 40px;
+        }
+
+        .social ul#socialcontent li.facebook a {
+            background-position: 0px 0px;
+        }
+
+            .social ul#socialcontent li.facebook a:hover {
+                background-position: -40px 0px;
+            }
+
+        .social ul#socialcontent li.twitter a {
+            background-position: -80px 0px;
+        }
+
+            .social ul#socialcontent li.twitter a:hover {
+                background-position: -120px 0px;
+            }
+
+        .social ul#socialcontent li.googleplus a {
+            background-position: -160px 0px;
+        }
+
+            .social ul#socialcontent li.googleplus a:hover {
+                background-position: -200px 0px;
+            }
+
+        .social ul#socialcontent li.email a {
+            background-position: -240px 0px;
+        }
+
+            .social ul#socialcontent li.email a:hover {
+                background-position: -280px 0px;
+            }
+
+.footer_info {
+    float: left;
+    padding: 15px 0 10px 10px;
+}
+
+    .footer_info ul {
+        list-style: none;
+    }
+
+        .footer_info ul li {
+            display: block;
+            line-height: 25px;
+            text-align: left;
+        }
+
+            .footer_info ul li p {
+                font-weight: 600;
+                color: #006699;
+                font-size: 14pt;
+                line-height: 30px;
+            }
+
+            .footer_info ul li label {
+                color: #495463;
+                font-weight: 500;
+            }
+
+/*===========================hiệu ứng thay đổi ảnh=================================*/
+@keyframes FadeInOut {
+    0% {
+        opacity: 1;
+    }
+
+    45% {
+        opacity: 1;
+    }
+
+    55% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+#slideshadow {
+    background: #ccc;
+    height: 300px;
+    margin: 0 auto;
+    position: relative;
+    width: 990px;
+    z-index: 2;
+    box-shadow: inset 25px 0px 25px -25px #000, inset -25px 0px 25px -25px #000;
+    -moz-box-shadow: inset 25px 0px 25px -25px #000, inset -25px 0px 25px -25px #000;
+    -webkit-box-shadow: inset 25px 0px 25px -25px #000, inset -25px 0px 25px -25px #000;
+}
+
+    #slideshadow img {
+        position: absolute;
+        left: 5px;
+        /*top:0;*/
+        margin: 0 auto;
+        -webkit-transition: opacity 1s ease-in-out;
+        -moz-transition: opacity 1s ease-in-out;
+        -o-transition: opacity 1s ease-in-out;
+        transition: opacity 1s ease-in-out;
+        z-index: 1;
+    }
+
+        #slideshadow img.img_top {
+            animation-name: FadeInOut;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            animation-duration: 5s;
+            animation-direction: alternate;
+        }
+
+/*#slideshadow img.top:hover
+            {
+                opacity: 0;
+            }*/
+
+/*========================================end hiệu ứng======================================*/
+
+

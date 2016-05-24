@@ -1,0 +1,38 @@
+﻿@using CW_Info;
+@{
+    Categories_Info _Categories_Info = new Categories_Info();
+    if (ViewBag.obj != null)
+    {
+        _Categories_Info = ViewBag.obj;
+    }
+}
+<br />
+
+<div class="" style="padding-left: 20px;">
+    <div class="col-11" style="margin-left: 10px;padding: 0;">
+        <table class=" clsTableForView ">
+            <tbody>
+                <tr>
+                    <td>Tên sản phẩm</td>
+                    <td>@_Categories_Info.Category_Name</td>
+                </tr>
+
+                <tr>
+                    <td style="vertical-align:top">Mã sản phẩm</td>
+                    <td style="white-space:normal">@_Categories_Info.Category_Code</td>
+                </tr>
+                <tr>
+                    <td>Đơn vị</td>
+                    <td>@_Categories_Info.Unit</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+    <div class="form-group">
+        <div class="col-11" style="border-top: 1px solid #7b68ee;margin-left:10px;margin-top: 10px;padding-top: 10px;padding-left: 0;padding-right: 0;">
+            <input type="button" class="classBtn classBtn-Default" value="Thoát" onclick="CloseViewCategory()" style="width: auto;float: right" />
+        </div>
+    </div>
+</div>

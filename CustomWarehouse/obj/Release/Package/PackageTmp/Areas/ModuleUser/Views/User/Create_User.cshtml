@@ -1,0 +1,409 @@
+﻿@model CW_Info.User_Info
+@using CustomWarehouse;
+@using CW_Info;
+@{
+    ViewBag.Title = "Tạo tài khoản";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    List<Custom_Info> _lstCustom = DataMemory.c_lst_Custom;
+    List<AllcodeInfo> lstType = CustomWarehouse.DataMemory.AllCode_GetBy_CdNameCdType("USER", "TYPE");
+
+    //List<Issuers_Info> lstIssuer = DataMemory.Get_LisIssuers();
+}
+
+
+<link href="~/Scripts/datepicker/ui-lightness/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
+<script src="~/Scripts/datepicker/jquery.ui.datepicker-vi.js"></script>
+<script src="~/Scripts/EvotingForm.js"></script>
+<link href="~/Content/StyleForm.css" rel="stylesheet" />
+<link href="~/Scripts/ComboCheckList/multiple-select.css" rel="stylesheet" />
+<script src="~/Scripts/ComboCheckList/jquery.multiple.select_new.js"></script>
+<style>
+    .ms-drop.bottom {
+        width: 100% !important;
+    }
+
+    .hide_img {
+        display: none !important;
+    }
+</style>
+@*<script src="~/Scripts/jquery.validate.min.js"></script>*@
+@Html.Partial("PartialViewMenuUser", 1)
+
+<div class="classWrapperContent col-9-plus">
+
+    <p class="p_title">TẠO TÀI KHOẢN</p>
+    <div class="clsNote">
+        (Các thông tin có gắn <i class="redspan"> *</i> là bắt buộc)
+    </div>
+    @Html.Hidden("txtDateTimeNow", @DateTime.Now.Date.ToString("dd/MM/yyyy"), new { @id = "txtDateTimeNow" })
+    @using (Html.BeginForm("Create_User", "User", FormMethod.Post, new { @id = "formUser", @autocomplete = "off" }))
+    {
+        <div class="form-horizontal" style="padding-left:12%">
+            <input type="text" style="display:none" />  @*để loại bỏ tự động fill user password của trình duyệt*@
+            <input type="password" style="display:none" /> @*để loại bỏ tự động fill user password của trình duyệt*@
+            <div class="form-group">
+                <p class="col-offset-1-plus col-2-plus control-label">
+                    Tên tài khoản<i class="redspan">*</i>
+                </p>
+                <div class="col-5">
+                    @Html.TextBoxFor(m => m.User_Name, new { @id = "txtUserName", @maxlength = 50, @class = "form-control", @autocomplete = "off" })
+                </div>
+            </div>
+            <div class="form-group">
+                <p class="col-offset-1-plus col-2-plus control-label">
+
+                    Mật khẩu<i class="redspan">*</i>
+                </p>
+                <div class="col-5">
+                    @Html.TextBoxFor(m => m.Password, new { @id = "txtPassword", @type = "password", @maxlength = 50, @class = "form-control" })
+                </div>
+                <span id="divWarningCapsLock" style="color: red;" class="col-3"></span>
+            </div>
+            <div class="form-group">
+                <p class="col-offset-1-plus col-2-plus control-label">
+                    Nhập lại mật khẩu<i class="redspan">*</i>
+                </p>
+                <div class="col-5">
+                    <input type="password" id="txtRePassword" class="form-control" maxlength="50" />
+                </div>
+                <span id="divWarningCapsLock2" style="color: red;" class="col-3"></span>
+            </div>
+            <div class="form-group">
+                <p class="col-offset-1-plus col-2-plus control-label">
+                    Tên đầy đủ<i class="redspan">*</i>
+                </p>
+                <div class="col-5">
+                    @Html.TextBoxFor(m => m.Full_Name, new { @id = "txtFullName", @maxlength = 50, @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <p class="col-offset-1-plus col-2-plus control-label">
+                    Số điện thoại<i class="redspan">*</i>
+                </p>
+                <div class="col-5">
+                    @Html.TextBoxFor(m => m.Phone, new { @id = "txtPhone", @maxlength = 30, @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <p class="col-offset-1-plus col-2-plus control-label">
+                    Email<i class="redspan">*</i>
+                </p>
+                <div class="col-5">
+                    @Html.TextBoxFor(m => m.Email, new { @id = "txtEmail", @maxlength = 50, @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <p class="col-offset-1-plus col-2-plus control-label">
+                    Loại người dùng<i class="redspan">*</i>
+                </p>
+                <div class="col-5">
+                    @Html.DropDownListFor(m => m.User_Type, new SelectList(lstType, "CDVAL", "CONTENT"), new { @id = "cboType", @class = "form-control", @style = "height: 26px;" })
+                </div>
+            </div>
+            <div class="form-group d_tcph" style="display: none">
+                <p class="col-offset-1-plus col-2-plus control-label">
+                    Đơn vị Hải quan<i class="redspan">*</i>
+                </p>
+                <div class="col-5">
+                    @Html.DropDownListFor(m => m.Custom_Id, new SelectList(_lstCustom, "Custom_Id", "Custom_Name"), new { @id = "cboCustom" })
+                </div>
+            </div>
+            <div class="form-group">
+                <p class="col-offset-1-plus col-2-plus control-label"></p>
+                <div class="col-5">
+                    <hr style="margin-left: 0;margin-top: 0;width: 90%" />
+                    <div style="width: 90%; position: relative">
+                        <input id="btnReset" type="reset" class="classBtn classBtn-Default" value="Làm mới " style="position: absolute; right: 80px" />
+                        <input id="btnSave" type="submit" class="classBtn classBtn-Default " value="Lưu" style="position: absolute; right: 0" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script>
+    $(document).ready(function () {
+
+        $(".d_tcph").css("display", "block");
+
+        $('#cboCustom').multipleSelect({
+            width: '90%', filter: true, isdatastring: true, single: true
+        });
+
+        $("#cboType").on("change", function () {
+            var val = $(this).val();
+            if (val == 1) {
+                $(".d_tcph").css("display", "block");
+            }
+            else {
+                $(".d_tcph").css("display", "none");
+            }
+
+        });
+
+
+        $('#txtPassword').keypress(function (e) {
+            checkCapsLock(e, '#divWarningCapsLock');
+        });
+        $('#txtRePassword').keypress(function (e) {
+            checkCapsLock(e, '#divWarningCapsLock2');
+        });
+        $("#txtUserName").focus();
+
+        $('#txtPrimaryDate').click(function () {
+            $(this).datepicker('show');
+        });
+        $('#btnReset').click(function (e) {
+            $('#txtUserName').focus();
+            $('#lblPrimaryCode').html("Số CMND<i class=\"redspan\">*</i>");
+        });
+
+        $("#formUser").submit(function (e) {
+            e.preventDefault();
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            var j_username = $('#txtUserName').val().trim();
+            var j_password = $('#txtPassword').val();
+            var j_repassword = $('#txtRePassword').val();
+            var j_fullname = $('#txtFullName').val().trim();
+            var j_email = $("#txtEmail").val().trim();
+            var j_phone = $("#txtPhone").val().trim();
+            var j_type = $('#cboType').val().trim();
+            var j_CustomId = -1;
+            if (j_type == 1) {
+                j_CustomId = $('#cboType').val().trim();
+            }
+
+            // Kiểm tra user name
+            if (j_username == "") {
+                jAlert("THÔNG BÁO", "Tên tài khoản không được bỏ trống!", function () {
+                    $("#txtUserName").val('');
+                    $("#txtUserName").focus();
+
+                });
+                return false;
+            }
+            // Kiểm tra username có dấu cách không
+            if (j_username.indexOf(" ") != -1) {
+                jAlert("THÔNG BÁO", "Tên tài khoản không chứa dấu cách!", function () {
+                    $("#txtUserName").focus();
+
+                });
+                return false;
+            }
+            //Kiểm tra ký tự đặc biệt user name
+            if (!isValid(j_username)) {
+                jAlert("THÔNG BÁO", "Tên tài khoản không được chứa ký tự đặc biệt!", function () {
+                    $("#txtUserName").focus();
+
+                });
+                return false;
+            }
+
+            // Kiểm tra tiếng việt
+            if (!checkUnicode(j_username)) {
+                jAlert("THÔNG BÁO", "Tên tài khoản không chứa ký tự tiếng việt có dấu!", function () {
+                    $("#txtUserName").focus();
+
+                });
+                return false;
+            }
+            // Kiểm tra mật khẩu trống
+            if (j_password == "") {
+                jAlert("THÔNG BÁO", "Mật khẩu không được bỏ trống!", function () {
+                    $("#txtPassword").focus();
+
+                });
+                return false;
+            }
+            // Kiểm tra mật khẩu toàn dấu cách
+            if (j_password.trim() == "") {
+                jAlert("THÔNG BÁO", "Mật khẩu không để toàn dấu cách!", function () {
+                    $("#txtPassword").val('');
+                    $("#txtPassword").focus();
+
+                });
+                return false;
+            }
+            // Kiểm tra mật có dấu cách không
+            if (j_password.indexOf(" ") != -1) {
+                jAlert("THÔNG BÁO", "Mật khẩu không chứa dấu cách!", function () {
+                    $("#txtPassword").focus();
+
+                });
+                return false;
+            }
+            // Kiểm tra độ dài mật khẩu
+            if (j_password.length < 8) {
+                jAlert("THÔNG BÁO", "Mật khẩu phải có ít nhất 8 ký tự, trong đó bao gồm 2 loại ký tự chữ và ký tự số", function () {
+                    $('#txtPassword').focus();
+
+                });
+                return false;
+            }
+            // Kiểm tra tiếng việt trong mật khẩu
+            if (checkUnicode(j_password) == false) {
+                jAlert("THÔNG BÁO", "Mật khẩu không chứa ký tự tiếng việt có dấu!", function () {
+                    $('#txtPassword').focus();
+
+                });
+                return false;
+            }
+            // Kiểm tra định dạng có kí tự chữ và kí tự số
+            if (!checkPassword(j_password)) {
+                jAlert("THÔNG BÁO", "Mật khẩu không đúng định dạng. Mật khẩu bao gồm 2 loại ký tự chữ và ký tự số!", function () {
+                    $('#txtPassword').focus();
+
+                });
+                return false;
+            }
+
+            // Kiểm tra nhập lại mật khẩu trống
+            if (j_repassword == "") {
+                jAlert("THÔNG BÁO", "Chưa nhập lại mật khẩu!", function () {
+                    $("#txtRePassword").focus();
+
+                });
+                return false;
+            }
+            // Kiểm tra Pass và Repass có giống nhau không
+            if (j_password != j_repassword) {
+                jAlert("THÔNG BÁO", "Nhập lại mật khẩu không chính xác!", function () {
+                    $('#txtRePassword').focus();
+
+                });
+                return false;
+            }
+            // Kiểm tra rỗng họ tên đầy đủ
+            if (j_fullname.trim() == "") {
+                jAlert("THÔNG BÁO", "Tên đầy đủ không được bỏ trống!", function () {
+                    $("#txtFullName").val('');
+                    $("#txtFullName").focus();
+
+                });
+                return false;
+            }
+
+            // Kiem tra phone bỏ trống
+            if (j_phone == "") {
+                jAlert("THÔNG BÁO", "Số điện thoại không được bỏ trống!", function () {
+                    $("#txtPhone").val('');
+                    $("#txtPhone").focus();
+
+                });
+                return false;
+            }
+            if (!validateTel(j_phone)) {
+                jAlert("THÔNG BÁO", "Số điện thoại không chính xác!", function () {
+                    $("#txtPhone").focus();
+
+                });
+                return false;
+            }
+            // Kiểm tra email bỏ trống
+            if (j_email == "") {
+                jAlert("THÔNG BÁO", "Email không được bỏ trống!", function () {
+                    $("#txtEmail").focus();
+
+                });
+                return false;
+            }
+            // Kiểm tra email nhập vào có hợp lệ hay không
+            if (!validateEmail(j_email)) {
+                jAlert("THÔNG BÁO", "Email không hợp lệ!", function () {
+                    $("#txtEmail").focus();
+
+                });
+                return false;
+            }
+
+            // Kiểm tra rỗng số đăng ký sở hữu
+            if (j_type == "") {
+                jAlert("THÔNG BÁO", "Loại người dùng không được để trống!!!", function () { });
+                return false;
+            }
+
+            var form = $("#formUser");
+            // Thêm cái này để về 1 định dạng sau ko cần tìm kiểu reg
+            var phone_new = FormatPhone(j_phone);
+            $.ajax({
+                type: "POST",
+                url: "/ModuleUser/User/Create_User",
+                data: {
+                    p_username: j_username,
+                    p_password: j_password,
+                    p_fullname: j_fullname,
+                    p_type: j_type,
+                    p_Custom_Id: j_CustomId,
+                    p_phone: phone_new,
+                    p_email: j_email
+                },
+                cache: false,
+                traditional: true
+            }).done(function (data) {
+                if (data.success == 1) {
+                    jAlert("Thông báo", "Tên tài khoản đã tồn tại!", function () {
+                        $('#txtUserName').focus();
+                    });
+                }
+                else if (data.success == 0) {
+                    jAlert("Thông báo", "Tạo mới tài khoản thành công!", function () {
+                        $('#btnReset').click();
+                    });
+                }
+                else if (data.success == -1) {
+                    jAlert("Thông báo", "Đã có lỗi xảy ra");
+                    return false;
+                }
+
+            });
+        });
+
+    });
+
+    function validateEmail(email) {
+        var reg = /^\w+([-+.']\w+)*@@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+        if (reg.test(email)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function checkPassword(p_val) {
+        var re = /(?=.*\d)(?=.*[A-z]).{8,}/;
+        return re.test(p_val);
+    }
+
+    // Kiểm tra tiếng việt
+    function checkUnicode(p_val) {
+        var p_val_lower = p_val.toLowerCase();
+        var VietNamKey = "áàạảãâấầậẩẫăắằặẳẵéèẹẻẽêếềệểễóòọỏõôốồộổỗơớờợởỡúùụủũưứừựửữíìịỉĩđýỳỵỷỹ";
+        for (var i = 0; i < p_val.length; i++) {
+            if (VietNamKey.indexOf(p_val_lower[i]) != -1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Kiểm tra CapsLock khi nhập mật khẩu
+
+    function checkCapsLock(e, div) {
+
+        var capsLockON;
+        keyCode = e.keyCode ? e.keyCode : e.which;
+        shiftKey = e.shiftKey ? e.shiftKey : ((keyCode == 16) ? true : false);
+        if (((keyCode >= 65 && keyCode <= 90) && !shiftKey) || ((keyCode >= 97 && keyCode <= 122) && shiftKey)) {
+            capsLockON = true;
+        } else {
+            capsLockON = false;
+        }
+        if (!capsLockON)
+            $(div).text("");
+        else
+            $(div).text("CAPS LOCK is on");
+    }
+</script>

@@ -1,0 +1,4 @@
+D:\Working\CustomWareHouse\Program\CW_Info\bin\Release\CW_Info.dll
+D:\Working\CustomWareHouse\Program\CW_Info\bin\Release\CW_Info.pdb
+D:\Working\CustomWareHouse\Program\CW_Info\obj\Release\CW_Info.dll
+D:\Working\CustomWareHouse\Program\CW_Info\obj\Release\CW_Info.pdb

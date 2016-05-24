@@ -1,0 +1,81 @@
+﻿@using CW_Info
+@{
+    Groups_Info pGroupInfo = new Groups_Info();
+    if (ViewData["pInfo"] != null)
+    {
+        pGroupInfo = (Groups_Info)ViewData["pInfo"];
+    }
+    if (pGroupInfo.lstUserOfGroupInfo == null)
+    {
+        pGroupInfo.lstUserOfGroupInfo = new List<User_Info>();
+    }
+}
+<style>
+    .divPopupHeader {
+        padding-left: 240px;
+    }
+
+    table th {
+        background-color: #cfcfcf;
+    }
+</style>
+<div id="div_wrap_popup" style="overflow: auto; max-height: 250px;">
+    <div class="divBigCtrlTitle">
+        Tên nhóm:
+    </div>
+    <div class="divBigCtrlContent clssBold ">
+        <label>@pGroupInfo.Group_Name</label>
+    </div>
+    <div style="clear: both"></div>
+    <div class="divBigCtrlTitle ">
+        Ghi chú:
+    </div>
+    <div class="divBigCtrlContent clssBold">
+        <label>@pGroupInfo.Note</label>
+    </div>
+    <div style="clear: both"></div>
+
+    <br />
+    @if (pGroupInfo.lstUserOfGroupInfo.Count > 0)
+    {
+        <p class="p_title" style="margin: 0 1%; width: 98%; background-color: #a8a8a8">Danh sách user thuộc nhóm</p>
+        <table class="_tablelist" style="height: auto; margin: 0 1%; width: 98%">
+            <thead>
+                <tr>
+                    <th class="clssSTT" style="width: 40px">STT</th>
+                    <th>Tài khoản</th>
+                    <th>Họ và tên</th>
+                    <th>Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody class="_TableBody">
+                @{
+                    int No = 0;
+                    foreach (User_Info info in pGroupInfo.lstUserOfGroupInfo)
+                    {
+                        ++No;
+                        <tr class="tbColorRows">
+                            <td>@No</td>
+                            <td style="text-align: left">
+                                @info.User_Name
+                            </td>
+                            <td style="text-align: left">@info.Full_Name</td>
+                            <td style="text-align: center">@info.Status_Name</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+                    }
+                    else
+                    {
+                        <div style="height: auto; margin: 0 1%; width: 98%; text-align: center;">
+                            Nhóm chưa có thành viên nào
+                        </div>
+                    }
+</div>
+<hr style="width: 100%;margin-top: 10px;margin-left: 0" />
+<div class="clsRight">
+    <input type="button" name="name" value="Thoát" onclick="CloseDivAllStock('divWrapperPopupGroupUserDetail')" style="margin-right: 10px" />
+
+</div>

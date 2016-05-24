@@ -1,0 +1,397 @@
+﻿@using CW_Info;
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "Phân quyền dữ liệu Kho";
+    string _Mess = "";
+    if (ViewBag.Mess != null)
+    {
+        _Mess = ViewBag.Mess;
+    }
+    string _user_name = "";
+    decimal _user_id = 0;
+    if (ViewBag.UserName != null)
+    {
+        _user_name = ViewBag.UserName;
+    }
+    if (ViewBag.User_id != null)
+    {
+        _user_id = ViewBag.User_id;
+    }
+
+    List<WareHouse_Info> _List = new List<WareHouse_Info>();
+    if (ViewBag.List != null)
+    {
+        _List = ViewBag.List;
+    }
+    System.Collections.Hashtable _hs = new System.Collections.Hashtable();
+    if (ViewBag.HsException != null)
+    {
+        _hs = ViewBag.HsException;
+    }
+    System.Collections.Hashtable _hsExitsed = new System.Collections.Hashtable();
+}
+<style>
+    .hide {
+        display: none;
+    }
+
+    #d_ListPackage {
+        float: left;
+    }
+
+    .divSearchContent {
+        height: 47px;
+    }
+
+    .divDataList {
+        float: left;
+    }
+</style>
+
+@Html.Partial("PartialViewMenuUser", 2)
+<div class="classWrapperContent col-9-plus">
+    <p class="p_title">PHÂN QUYỀN DỮ LIỆU KHO</p>
+    <div class="divSearchContent">
+        <ul></ul>
+        <ul>
+            <li>
+                <label style="margin-left: 10px">Tài khoản:</label>
+            </li>
+            <li>
+                <label><b> @_user_name</b></label>
+            </li>
+        </ul>
+        <div style="float:right">
+            <input type="button" value="Lưu" style="margin-right:5px;" onclick="UserWareHouseInsert()" />
+            <input type="button" value="Hủy" style="margin-right:5px;" onclick="Cancel()" />
+        </div>
+    </div>
+    <div id="d_ListPackage" style="float: left;">
+        @Html.Partial("_PartialWareHouseData")
+    </div>
+    <div style="display:none">
+        <input type="text" value="@_user_id" id="_txt_user_id" />
+    </div>
+</div>
+
+<script>
+
+    jQuery(document).ready(function ($) {
+
+        if (window.history && window.history.pushState) {
+
+            $(window).on('popstate', function () {
+                var hashLocation = location.hash;
+                var hashSplit = hashLocation.split("#!/");
+                var hashName = hashSplit[1];
+
+                if (hashName !== '') {
+                    var hash = window.location.hash;
+                    if (hash === '') {
+                        location.href = "/ModuleUser/User/UserList";
+                    }
+                }
+            });
+
+            window.history.pushState('forward', null, './#forward');
+        }
+
+    });
+    function ReSTT(divtd) {
+        $(divtd).each(function (i, e) {
+            $(this).text(i + 1);
+        });
+    }
+    function funcCheckBoxNot() {
+
+        var lenSelect = $("#div_NotInUser tr:not(.hide) input[type=checkbox]:checked").not("#checkAll").length;
+        var lenShow = $("#div_NotInUser tr:not(.hide) input[type=checkbox]").not("#checkAll").length;
+        if (lenSelect == lenShow && lenShow != 0) {
+            $("#checkAll").prop("checked", true);
+        } else {
+            $("#checkAll").prop("checked", false);
+        }
+
+    }
+    function funcCheckBoxIn() {
+
+        var lenSelect = $("#div_InUser tr:not(.hide) input[type=checkbox]:checked").not("#checkAllIn").length;
+        var lenShow = $("#div_InUser tr:not(.hide) input[type=checkbox]").not("#checkAllIn").length;
+        if (lenSelect == lenShow && lenShow != 0) {
+            $("#checkAllIn").prop("checked", true);
+        } else {
+            $("#checkAllIn").prop("checked", false);
+        }
+
+    }
+    function funcClickAllNot() {
+        try {
+            if ($("#checkAll").is(":checked") == true) {
+
+                $("#div_NotInUser input[type=checkbox]").not("#checkAll").each(function () {
+                    //$(this).prop("checked", true);
+                    $("#div_NotInUser tr:not(.hide) input[type=checkbox]").prop("checked", true);
+
+                });
+            } else {
+                $("#div_NotInUser input[type=checkbox]").not("#checkAll").each(function (index, element) {
+                    $(this).prop("checked", false);
+                });
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function funcClickAllIn() {
+        try {
+            if ($("#checkAllIn").is(":checked") == true) {
+                $("#div_InUser input[type=checkbox]").not("#checkAllIn").each(function () {
+                    //$(this).prop("checked", true);
+                    $("#div_InUser tr:not(.hide) input[type=checkbox]").prop("checked", true);
+
+                });
+            } else {
+                $("#div_InUser input[type=checkbox]").not("#checkAllIn").each(function (index, element) {
+                    $(this).prop("checked", false);
+                });
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function funcKeyUpNot() {
+        try {
+            var keySearch = $("#txtSearchNotInUser").val().toLowerCase();
+            if (keySearch == "") {
+                $("#div_NotInUser input[type=checkbox]").not("#checkAll").each(function (i) {
+                    $(this).closest("tr").removeClass("hide");
+                });
+                $("#checkAll").removeAttr("disabled");
+            } else {
+                $("#div_NotInUser input[type=checkbox]").not("#checkAll").each(function (i) {
+
+                    if ($(this).val().toLowerCase().indexOf(keySearch) == -1) {
+                        $(this).closest("tr").addClass("hide");
+                    } else {
+                        $(this).closest("tr").removeClass("hide");
+                    }
+                });
+            }
+            funcCheckBoxNot();
+            ReSTT("#div_NotInUser tr:not(.hide) td:first-child");
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function funcKeyUpIn() {
+        try {
+            var keySearch = $("#txtSearchInUser").val().toLowerCase();
+            if (keySearch == "") {
+                $("#div_InUser input[type=checkbox]").not("#checkAllIn").each(function (i) {
+                    $(this).closest("tr").removeClass("hide");
+                });
+                $("#checkAllIn").removeAttr("disabled");
+            } else {
+                $("#div_InUser input[type=checkbox]").not("#checkAllIn").each(function (i) {
+
+                    if ($(this).val().toLowerCase().indexOf(keySearch) == -1) {
+                        $(this).closest("tr").addClass("hide");
+                    } else {
+                        $(this).closest("tr").removeClass("hide");
+                    }
+                });
+            }
+            funcCheckBoxIn();
+            ReSTT("#div_InUser tr:not(.hide) td:first-child");
+        } catch (e) {
+            alert(e);
+        }
+    }
+    function ShowMess() {
+        if ($("#_txtmess").val() == "1") {
+            location.reload;
+        }
+    }
+    window.onload = ShowMess;
+
+    function AddWareHouse() {
+        try {
+            var lstID = "";
+            var length = $("#div_NotInUser input:checked").not("#checkAll").length;
+            if (length == 0) {
+                jAlert("THÔNG BÁO", "Bạn chưa chọn kho nào!");
+                return false;
+            } else {
+                $("#div_NotInUser input:checked").not("#checkAll").each(function (i, element) {
+                    if (i == length - 1) {
+                        lstID += $(this).attr("id")
+                    } else {
+                        lstID += $(this).attr("id") + "|"
+                    }
+                });
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/ModuleUser/User/AddWareHouse/',
+                    dataType: "html",
+                    data: {
+                        p_WareHouse: lstID, p_key_session: '',
+                    }
+                   , async: false, cache: false, traditional: true,
+                    success: function (data) {
+                        if (data != "") {
+                            $("#d_ListPackage").html(data);
+
+                        }
+                    }
+                });
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function UserWareHouseInsert() {
+        try {
+            var _txt_user_id = $("#_txt_user_id").val();
+            var lstID = "";
+            var length = $("#div_InUser input[type=checkbox]").not("#checkAllIn").length;
+            if (length == 0) {
+                lstID = "";
+            } else {
+                $("#div_InUser  input[type=checkbox]").not("#checkAllIn").each(function (i, element) {
+                    if (i == length - 1) {
+                        lstID += $(this).attr("id");
+                    } else {
+                        lstID += $(this).attr("id") + "|";
+                    }
+                });
+            }
+
+            MessageBoxConfirm("Thông báo", "Chắc chắn muốn lưu lại thay đổi?", function () {
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/ModuleUser/User/UserWareHouseInsert/',
+                    dataType: "json",
+                    data: {
+                        p_user_id: _txt_user_id,
+                        p_list_warehouse: lstID
+                    }
+                 , cache: false, traditional: true,
+                    success: function (data) {
+                        if (data.success == true) {
+                            jAlert("Thông báo", "Cập nhật dữ liệu thành công!", function () {
+                                location.href = "/ModuleUser/User/UserList";
+                            });
+                        }
+                        else {
+                            jAlert("Thông báo", "Có lỗi xảy ra trong quá trình cập nhật dữ liệu!");
+                        }
+                    }
+                });
+            }, function () {
+                return false;
+            });
+        }
+        catch (e) {
+            jAlert("Thông báo", "Có lỗi xảy ra trong quá trình cập nhật dữ liệu!");
+        }
+    }
+
+    function RemoveWareHouse() {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            var lstID = "";
+            var length = $("#div_InUser input:checked").not("#checkAllIn").length;
+            if (length == 0) {
+                jAlert("THÔNG BÁO", "Bạn chưa chọn kho nào!");
+                return false;
+            } else {
+                $("#div_InUser input:checked").not("#checkAllIn").each(function (i, element) {
+                    if (i == length - 1) {
+                        lstID += $(this).attr("id")
+                    } else {
+                        lstID += $(this).attr("id") + "|"
+                    }
+                });
+            }
+            $.ajax({
+                type: 'POST',
+                url: '/ModuleUser/User/RemoveWareHouse/',
+                dataType: "html",
+                data: {
+                    p_WareHouse: lstID, p_key_session: '',
+                }
+                , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    if (data != "") {
+                        $("#d_ListPackage").html(data);
+                    }
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function AddAllCustom() {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            $.ajax({
+                type: 'POST',
+                url: '/ModuleUser/User/AddWareHouse/',
+                dataType: "html",
+                data: {
+                    p_Symbol: "", p_key_session: '', is_All: 1
+                }
+               , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    if (data != "") {
+                        $("#d_ListPackage").html(data);
+                    }
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function Cancel() {
+        try {
+            MessageBoxConfirm("THÔNG BÁO", "Bạn chắc chắn không muốn lưu những thay đổi vừa thực hiện?", function () {
+                window.location.href = "/ModuleUser/User/UserList";
+            }, function () {
+                return false;
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function getAllID() {
+        try {
+            var lstID = "";
+            var length = $("#div_NotInUser input:checked").not("#checkAll").length;
+            alert(length);
+            $("#div_NotInUser input:checked").not("#checkAll").each(function (i, element) {
+                if (i == length - 1) {
+                    lstID += $(this).attr("id")
+                } else {
+                    lstID += $(this).attr("id") + "|"
+                }
+            });
+            alert(lstID);
+        } catch (e) {
+            alert(e);
+        }
+    }
+</script>
+

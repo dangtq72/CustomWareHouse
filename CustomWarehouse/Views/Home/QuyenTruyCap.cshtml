@@ -1,0 +1,67 @@
+﻿@using CustomWarehouse;
+@using CW_Info;
+@{
+    ViewBag.Title = "Hệ thống quản lý kho ngoại quan";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    User_Info user = SessionData.CurrentUser;
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Thông báo</title>
+</head>
+<body>
+    <style>
+        .hide_menu {
+            display: none !important;
+        }
+    </style>
+    <input type="hidden" id="txtUrl" value="@Request.UrlReferrer" />
+
+    @if (user.User_Type == (decimal)NaviCommon.Enum_User_Type.Kho || user.User_Type == (decimal)NaviCommon.Enum_User_Type.HaiQuan)
+    {
+        @Html.Partial("PartialViewMenuUser" ,0)
+    }
+    else
+    {
+        @Html.Partial("~/Areas/ModuleContracts/Views/Shared/ContractMenu.cshtml" ,0)
+    }
+
+    @*<script>
+        var url = $("#txtUrl").val();
+        var arr = "";
+        if ($("#txtIsAdmin").val() == "1") {
+            if (url.indexOf("ModuleUserRoles") > -1 || (url.indexOf("/VSD/User/") > -1 && url.indexOf("Sync_ChangeUser") == -1)) {
+                $("#dv_menu_sync").addClass("hide_menu");
+                $("#dv_menu_risk_management").addClass("hide_menu");
+            } else if (url.indexOf("Sync_ChangeUser") > -1 || url.indexOf("/VSD/Issuers/") > -1 || url.indexOf("/VSD/Symbol/") > -1) {
+                $("#dv_menu_risk_management").addClass("hide_menu");
+                $("#dv_menu_user").addClass("hide_menu");
+            } else if (url.indexOf("RiskManagement") > -1) {
+                $("#dv_menu_sync").addClass("hide_menu");
+                $("#dv_menu_user").addClass("hide_menu");
+            } else {
+                $("#dv_menu_sync").addClass("hide_menu");
+                $("#dv_menu_risk_management").addClass("hide_menu");
+            }
+        }
+    </script>*@
+
+    <div class="classWrapperContent col-9">
+        <div style="min-height: 400px !important; background: #ffffff">
+            <br />
+            <br />
+            <br />
+            &nbsp
+            &nbsp
+            &nbsp
+            <h1 style="text-align: center; color: red; font-size: 25px">Tài khoản không có quyền truy cập vào chức năng này! &nbsp </h1>
+            <br />
+            @*  <a style="float: right; padding-right: 100px; color: blue; text-decoration: underline" href="@Request.UrlReferrer">Bấm vào để quay lại</a>*@
+        </div>
+    </div>
+
+</body>
+</html>

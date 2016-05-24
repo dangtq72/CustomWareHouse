@@ -1,0 +1,352 @@
+﻿@model IEnumerable<CW_Info.User_Info>
+@using CW_Info;
+
+@{
+    ViewBag.Title = "Danh sách Tài khoản";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    List<AllcodeInfo> lstAllStatus = CustomWarehouse.DataMemory.AllCode_GetBy_CdNameCdType("USER", "STATUS");
+    List<AllcodeInfo> lstStatus = new List<AllcodeInfo>();
+    foreach (AllcodeInfo item in lstAllStatus)
+    {
+        if (item.LstOdr < 6)
+        {
+            lstStatus.Add(item);
+        }
+    }
+
+    List<AllcodeInfo> lstType = CustomWarehouse.DataMemory.AllCode_GetBy_CdNameCdType("USER", "TYPE");
+    List<Custom_Info> _lstCustom = CustomWarehouse.DataMemory.c_lst_Custom;
+}
+
+<link href="~/Scripts/datepicker/ui-lightness/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
+<script src="~/Scripts/datepicker/jquery.ui.datepicker-vi.js"></script>
+<script src="~/Scripts/EvotingForm.js"></script>
+<style>
+    .divPopupHeader {
+        text-transform: uppercase;
+    }
+
+    .form-horizontal.form-group {
+        display: table-cell;
+        text-align: center;
+    }
+</style>
+
+@Html.Partial("PartialViewMenuUser", 2)
+<div class="classWrapperContent col-9-plus">
+    <p class="p_title">Danh sách tài khoản</p>
+    <input type="hidden" value="|-1|-1|||" name="txtKeyValue" id="txtKeyValue" />
+    <input type="hidden" value="user_name" name="txtSortColum" id="txtSortColumn" />
+    <input type="hidden" value="ASC" name="txtSortType" id="txtSortType" />
+ <div class="form-horizontal form-fix" >
+      <div class="form-group form-search"> 
+                <p class="col-2" style="width: 125px">Tên user</p>
+                <div class="col-3">
+                    <input type="text" id="txtName" class="form-control" />
+                </div> 
+                 <p class="col-2" style="width: 125px">Loại người dùng</p>
+                <div class="col-3">
+                    <select id="cboUserType" class="form-control">
+                        <option value="-1">- Tất cả -</option>
+                        @foreach (AllcodeInfo item in lstType)
+                        {
+                            <option value="@item.CdVal">@item.Content</option>
+                        }
+                    </select>
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                 <p class="col-2" style="width: 125px">Đơn vị hải quan</p>
+                   <div class="col-3">
+                    <select id="cboCustom" class="form-control">
+                        <option value="-1">- Tất cả -</option>
+                        @foreach (Custom_Info item in _lstCustom)
+                        {
+                            <option value="@item.Custom_Id">@item.Custom_Name</option>
+                        }
+                    </select>
+                </div>
+
+              <p class="col-2" style="width: 125px">Trạng thái</p>
+                <div class="col-3">
+                    <select id="cboUserStatus" class="form-control">
+                        <option value="-1">- Tất cả -</option>
+                        @foreach (AllcodeInfo item in lstStatus)
+                        {
+                            <option value="@item.CdVal">@item.Content</option>
+                        }
+                    </select>
+
+                </div>
+                    <div class="col-2">
+                    <input id="btnTimKiem" type="button" class="classBtn classBtn-Default " value="Tìm kiếm" style="width: auto" />
+                </div>
+            </div> 
+            
+    </div>
+    <hr style="margin-left: 0; margin-top: 0" />
+    <div id="divTableUser" style="overflow: auto; padding: 1px;">
+        @Html.Partial("PartialViewTableslistUser")
+    </div>
+</div>
+
+@* popup main *@
+<div id="divWrapperViewUser" class="divWrapperPopup" style="display: none; margin-top: 140px;">
+    <div class="divPopup" id="divViewUser">
+    </div>
+</div>
+
+
+@* popup 2 - password*@
+<div id="divWrapperShowSetPassword" class="divWrapperPopup" style="display: none; margin-top: 140px;">
+    <div class="divPopup2" id="divShowSetPassword">
+        @Html.Partial("P_SetPassword")
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#txtName').focus();
+        $("#btnTimKiem").click(function () {
+            Search_User(1, 1);
+        });
+        $('#txtName').keypress(function (e) {
+            if (e.which == 13) {
+                Search_User(1, 1);
+            }
+        });
+        $('#txtPhone, #txtEmail').keypress(function (e) {
+            if (e.which == 13) {
+                Search_User(1, 1);
+            }
+        });
+        $("#txtPrimaryCode").keypress(function (evt) {
+            var key = evt.which || evt.charCode || evt.keyCode || 0;
+            if (key == 13) {
+                Search_User(1, 1);
+            }
+        });
+        $('#btnSetPassword_Huy').click(function () {
+            CloseSetPassword();
+        });
+        $('#btnSetPhone_Huy').click(function () {
+            CloseSetPhone();
+        });
+
+    });
+
+
+    function page(page) {
+        Search_User(page, 0);
+    }
+
+    function Search_User(p_NumPage, p_type_num) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            var p_Name = $("#txtName").val();
+            var p_Type = $("#cboUserType").val();
+            var p_Status = $("#cboUserStatus").val();
+            var _Custom_Id = -1;
+            if (p_Type == 1 || p_Type == -1) {
+                _Custom_Id = $("#cboCustom").val();
+            }
+            var _KeySearch = "";
+            _KeySearch = p_Name + "|" + p_Type + "|" + p_Status + "|" + _Custom_Id;
+            //if (p_type_num == 1) {
+
+            //    _KeySearch = p_Name + "|" + p_Type + "|" + p_Status + "|" + _Custom_Id;
+
+            //    //Lưu lại keysearch
+            //    $("#txtKeyValue").val(_KeySearch);
+            //} else {
+            //    _KeySearch = $("#txtKeyValue").val();
+            //}
+            var p_column = $("#txtSortColumn").val();
+            var p_type_sort = $("#txtSortType").val();
+
+
+            $.ajax({
+                type: 'POST',
+                url: '/ModuleUser/User/Search_User/',
+                dataType: "html",
+                data: {
+                    p_keysearch: _KeySearch,
+                    p_CurrentPage: p_NumPage,
+                    p_column: p_column,
+                    p_type_sort: p_type_sort
+                },
+                async: true,
+                cache: false,
+                traditional: true,
+                success: function (data) {
+                    $("#divTableUser").html(data);
+                    if (p_type_num != 1) {
+                        ChangeIConSortWhenSortColumns();
+                    }
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function ShowViewUser(_id) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            $.ajax({
+                type: 'POST',
+                url: '/ModuleUser/User/ShowViewUser/',
+                dataType: "html",
+                data: {
+                    p_id: _id
+                },
+                async: false, cache: false, traditional: true,
+                success: function (data) {
+                    $("#divViewUser").html(data);
+                    ShowPopupDialog('divWrapperViewUser', 'Thông tin tài khoản', 580, 1000);
+                    $("#btnExitPopups img").attr("src", '../../../../Content/images/delete.png');
+                }
+            });
+
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+
+    function ShowSetPassword() {
+        try {
+            ShowPopupDialog2('divWrapperShowSetPassword', "Thay đổi mật khẩu", 400, 700, "txtPassword");
+            $("#btnExitPopups2 img").attr("src", '../../../../Content/images/delete.png');
+            $('#txtPassword').val('');
+            $('#txtRePassword').val('');
+            $('#divWarningCapsLock').text('');
+            $('#divWarningCapsLock2').text('');
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function CloseViewUser() {
+        try {
+            CloseDivAllStock('divWrapperViewUser');
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function CloseSetPassword() {
+        try {
+            CloseDivAllStock2('divWrapperShowSetPassword');
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function CloseSetPhone() {
+        try {
+            CloseDivAllStock2('divWrapperShowSetPhone');
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function DeleteUser(p_id) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            MessageBoxConfirm("Cảnh Báo", "Bạn chắc chắn muốn xóa tài khoản này?", function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/ModuleUser/User/Delete_User",
+                    data: { p_user_id: p_id },
+
+                    cache: false,
+                    traditional: true,
+                    success: function (data) {
+                        if (data == 1) {
+                            jAlert("Thông báo", "Xóa thành công", function () {
+                                window.location.reload();
+                            });
+
+                        } else {
+                            if (data == 0) {
+                                jAlert("Thông báo", 'Tài khoản đã bị xóa!');
+                            }
+                            if (data == -1) {
+                                jAlert("Thông báo", 'Không thể xóa!');
+                            } else {
+                                jAlert("Thông báo", "Lỗi check lại kết nối tới server");
+                            }
+                        }
+                    }
+                });
+            }, function () {
+                return false;
+            });
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+
+    function ChangeIConSortWhenSortColumns() {
+        try {
+            var _order_by = $("#txtSortColumn").val().toUpperCase();
+            var _order_type = $("#txtSortType").val().toUpperCase();
+            var _text = _order_type == 'DESC' ? $("#" + _order_by).text() + " ▼" : $("#" + _order_by).text() + " ▲";
+            $("#" + _order_by).text(_text);
+        } catch (e) {
+        }
+    }
+
+
+    function SortByCol(OrderBy) {
+        try {
+
+            OrderBy = OrderBy.toUpperCase();
+            var _order_by_old = $("#txtSortColumn").val();
+            _order_by_old = _order_by_old.toUpperCase();
+
+            if (OrderBy == _order_by_old) {
+                if ($("#txtSortType").val() == "ASC") {
+                    $("#txtSortType").val("DESC");
+                } else {
+                    $("#txtSortType").val("ASC");
+                }
+            } else {
+                $("#txtSortType").val("ASC");
+            }
+            // sort theo trường mới
+            $("#txtSortColumn").val(OrderBy);
+
+
+            // Thực hiện tìm kiếm + sort lại
+            if ($(".pagin-active").length > 0) {
+                $(".pagin-active").click();
+            } else {
+                Search_User(1, 0);
+            }
+
+
+        } catch (e) {
+            console.info(e.toString());
+        }
+    }
+</script>
+
+<style>
+  
+
+    /* style control chuot khi sort cot*/
+
+    .column-sort-cursor:hover {
+        cursor: pointer;
+    }
+</style>

@@ -1,0 +1,31 @@
+﻿ @model int
+@{
+    int tabfocus = Model;
+    string _tab1 = "", _tab2 = "", _tab3 = ""; ;
+    if (tabfocus == 1)
+    {
+        _tab1 = "active";
+    }
+    else if (tabfocus == 2)
+    {
+        _tab2 = "active";
+    }
+}
+
+<div id="dv_menu_user" class="classWrapperSidebar col-2" style="width: 18%">
+    <ul class="classSidebarNav">
+        <li class="classSidebarBrand">
+            <a href="#">
+              Hợp đồng
+            </a>
+        </li>
+       <li class="@_tab1">
+            <a href="#" onclick="">Danh sách sản phẩm</a>
+        </li> 
+        <li class="@_tab2">
+            <a href="#" onclick="">Danh sách loại sản phẩm</a>
+        </li>
+    </ul>
+</div>
+
+ 

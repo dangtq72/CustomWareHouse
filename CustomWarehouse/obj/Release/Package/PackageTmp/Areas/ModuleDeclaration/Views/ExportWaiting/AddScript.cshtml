@@ -1,0 +1,270 @@
+﻿<script>
+    $('#Declaration_Refence_Id').multipleSelect({
+        width: '90%', filter: true, single: true
+    });
+
+    function ChangeDeclaration() {
+        try {
+            var _id = $("#Declaration_Refence_Id").val();
+            if (_id != "") {
+                $.ajax({
+                    type: "POST",
+                    url: "/ModuleDeclaration/ExportWaiting/GetProductByDeclaration",
+                    data: {
+                        p_id: _id
+                    },
+                    async: true, cache: false, traditional: false,
+                    success: function (data) {
+                        if (data != null) {
+                            $("#divViewProduct").html(data);
+                        }
+
+                    }
+                });
+            }
+
+        } catch (e) {
+
+        }
+    }
+
+    function DelItem(pIdtag) {
+        try {
+            var d_messproduct = $('#d_messproduct');
+            d_messproduct.html("");
+            MessageBoxConfirm("Cảnh báo", "Bạn có chắc chắn muốn xóa sản phẩm này không?", function () {
+                var TagRemove = "#" + pIdtag.trim();
+                $(TagRemove).remove();
+                return true;
+            }, function () {
+                return false;
+            });
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    function ShowAddProduct() {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            $('#txt_sokien').val("");
+            $('#txt_soluong').val("");
+            $("#cbo_product").val("");
+            $("#_txt_product_id").val("");
+            $("#txt_so_kien_ton_kho").val("");
+            $("#txt_so_luong_ton_kho").val("");
+            $("#_txt_product_code").val("");
+            $('#txt_value').val("");
+            $('# cbo_product').val("");
+            $('#cbo_product').multipleSelect({
+                width: '90%', filter: true, single: true
+            });
+            ShowPopupDialog('divWrapperProduct', 'Thêm sản phẩm', 600, 750, '');
+            $("#btnExitPopups img").attr("src", '../../../../Content/images/delete.png');
+        } catch (e) {
+            alert(e.message);
+        }
+    }
+
+    function ChangeProduct() {
+        try {
+            var cbo_product = $("#cbo_product");
+            var _list = cbo_product.val().split('|');
+            var _txt_product_id = $("#_txt_product_id");
+            var txt_so_kien_ton_kho = $("#txt_so_kien_ton_kho");
+            var txt_so_luong_ton_kho = $("#txt_so_luong_ton_kho");
+            var txt_sokien = $("#txt_sokien");
+            var txt_soluong = $("#txt_soluong");
+            var _txt_product_code = $("#_txt_product_code");
+            _txt_product_id.val(_list[0]);
+            txt_so_kien_ton_kho.val(_list[1]);
+            txt_so_luong_ton_kho.val(_list[2]);
+            _txt_product_code.val(_list[3]);
+        } catch (e) {
+            alert(e.message);
+        }
+    }
+
+    function Addproduct() {
+        try {
+            var d_messproduct = $('#d_messproductSub');
+            d_messproduct.html("");
+            var txt_sokien = $('#txt_sokien');
+            var txt_soluong = $('#txt_soluong');
+            var cbo_product = $("#cbo_product");
+            var _txt_product_id = $("#_txt_product_id");
+            var txt_so_kien_ton_kho = $("#txt_so_kien_ton_kho");
+            var txt_so_luong_ton_kho = $("#txt_so_luong_ton_kho");
+            var _txt_product_code = $("#_txt_product_code");
+            var txt_value = $('#txt_value');
+            if (_txt_product_id.val() == "" || _txt_product_id.val() == null) {
+                d_messproduct.html("Bạn chưa chọn sản phẩm");
+                cbo_product.multipleSelect("focus");
+                return false;
+            }
+            var _check = true;
+            $('.tdproduct').each(function (i, item) {
+                if ($(item).text().trim() == _txt_product_id.val()) {
+                    _check = false;
+                }
+            });
+            if (_check == false) {
+                d_messproduct.html("Sản phẩm đã được thêm");
+                cbo_product.multipleSelect("focus");
+                return false;
+            }
+            if (txt_sokien.val().trim() == "") {
+                d_messproduct.html("Số kiện không được bỏ trống");
+                txt_sokien.focus();
+                return false;
+            }
+            if (txt_sokien.val().replace(/,/g, '') / 1 > txt_so_kien_ton_kho.val().replace(/,/g, '') / 1) {
+                d_messproduct.html("Số kiện phải nhỏ hơn hoặc bằng số kiện tồn kho");
+                txt_sokien.focus();
+                return false;
+            }
+            if (txt_soluong.val().trim() == "") {
+                d_messproduct.html("Số lượng không được bỏ trống");
+                txt_soluong.focus();
+                return false;
+            }
+            if (txt_soluong.val().replace(/,/g, '') / 1 > txt_so_luong_ton_kho.val().replace(/,/g, '') / 1) {
+                d_messproduct.html("Số lượng phải nhỏ hơn hoặc bằng số kiện tồn kho");
+                txt_soluong.focus();
+                return false;
+            }
+            if (txt_value.val().trim() == "") {
+                d_messproduct.html("Giá trị không được bỏ trống");
+                txt_value.focus();
+                return false;
+            }
+
+            var bodyTable = "  <tr class='tbColorRows' id='" + _txt_product_id.val() + "'>" +
+                   "<td style='display:none' class='tdproduct' >" + _txt_product_id.val() + "</td>" +
+                   "<td style='display:none' >" + txt_sokien.val() + "</td>" +
+                   "<td style='display:none' >" + txt_soluong.val() + "</td>" +
+                   "<td style='display:none' >" + txt_value.val() + "</td>" +
+                   "<td class='tdLeftAlign PRODUCT_CODE' >" + _txt_product_code.val() + "</td>" +
+                   "<td class='tdCenterAlign'> " + txt_sokien.val() + "</td>" +
+                   "<td class='tdCenterAlign'>" + txt_soluong.val() + "</td>" +
+                   "<td class='tdCenterAlign' >" + txt_value.val() + "</td>" +
+                   "<td class='clssCenter tdaction'>" + "<a  href='javascipt:;' onclick=\"return DelItem('" + _txt_product_id.val() + "')\"> xóa </a>" +
+                   "</td> </tr>";
+            $("#_tableProduct").append(bodyTable);
+            CloseDivAllStock('divWrapperProduct');
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function FuncAddDelaration() {
+        try {
+            var d_messAdd = $('#d_messAdd');
+            d_messAdd.html("");
+            var d_messproduct = $('#d_messproduct');
+            d_messproduct.html("");
+            var Declaration_Refence_Id = $('#Declaration_Refence_Id');
+            var Declaration_Code = $('#Declaration_Code');
+            var Register_Date = $('#Register_Date');
+            var Total_Value = $('#Total_Value');
+            var Gate = $('#Gate');
+            //var Receive_Number = $('#Receive_Number');
+            var Receive_Year = $('#Receive_Year');
+           
+            var Gate = $('#Gate');
+            var Custom_Register = $('#Custom_Register');
+            var Declaration_Type = $('#Declaration_Type');
+            if (Declaration_Code.val().trim() == "") {
+                d_messAdd.html("Số tờ khai không được bỏ trống");
+                Declaration_Code.val("");
+                Declaration_Code.focus();
+                return false;
+            }
+           
+            if (Register_Date.val().trim() == "") {
+                d_messAdd.html("Ngày đăng ký không được bỏ trống");
+                Register_Date.val("");
+                Register_Date.focus();
+                return false;
+            }
+            if (isDate_ddMMyyyy(Register_Date.val()) == false) {
+                d_messAdd.html("Ngày đăng ký không hợp lệ, định dạng ngày tháng là dd/mm/yyyy!");
+                Register_Date.focus();
+                return false;
+            }
+            if (Total_Value.val().trim() == "") {
+                d_messAdd.html("Tổng giá trị được bỏ trống");
+                Total_Value.val("");
+                Total_Value.focus();
+                return false;
+            }
+         
+            if (Receive_Year.val().trim() == "") {
+                d_messAdd.html("Năm tiếp nhận không được bỏ trống");
+                Receive_Year.val("");
+                Receive_Year.focus();
+                return false;
+            }
+            var formData = new FormData();
+            formData.append("Declaration_Refence_Id", Declaration_Refence_Id.val());
+            formData.append("Declaration_Code", Declaration_Code.val());
+            formData.append("Register_Date", Register_Date.val());
+            formData.append("Total_Value", Total_Value.val());
+            formData.append("Gate", Gate.val());
+            formData.append("Receive_Number", -1);
+            formData.append("Receive_Year", Receive_Year.val());
+            formData.append("Custom_Register", Custom_Register.val());
+            formData.append("Declaration_Type", Declaration_Type.val());
+            // lưu những sản phẩm dạng iD1,TYPE|id2,TYPE
+            var _listProduct = "";
+            var oTable = document.getElementById('_tableProduct');
+            if (oTable != null) {
+                var rowLength = oTable.rows.length;
+                if (rowLength > 1) {
+                    for (i = 1; i < rowLength; i++) { //chay tu 1 bo row dau tien la header 
+                        var oCells = oTable.rows.item(i).cells;
+                        _listProduct += "|" + oCells.item(0).innerHTML.trim() + "," + oCells.item(1).innerHTML.trim().replace(/,/g, '').trim() + ","
+                            + oCells.item(2).innerHTML.trim().replace(/,/g, '').trim() + "," + oCells.item(3).innerHTML.trim().replace(/,/g, '').trim() + "|";
+                    }
+                }
+                else {
+                    d_messproduct.html("Bạn chưa chọn sản phẩm nào");
+                    $("#PRODUC_ID").multipleSelect("focus");
+                    return false;
+                }
+            }
+            formData.append("STR_LIST_PRODUCTS", _listProduct);
+            $.ajax({
+                type: 'POST',
+                url: '/ModuleDeclaration/ExportWaiting/SaveDeralation',
+                data: formData,
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                dataType: "json",
+                async: true, cache: false, traditional: true,
+                success: function (data) {
+                    if (data.success > 0) {
+                        jAlert("Thông báo", "Cập nhật dữ liệu thành công!", function () {
+                            location.reload();
+                        });
+                    }
+                    else if (data.success == -2) {
+                        jAlert("Thông báo", "Dữ liệu bản ghi đã tồn tại trong hệ thống!");
+                        return false;
+                    }
+                    else if (data.success < 0) {
+                        jAlert("Thông báo", "Có lỗi trong quá trình cập nhật dữ liệu!");
+                        return false;
+                    }
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+</script>

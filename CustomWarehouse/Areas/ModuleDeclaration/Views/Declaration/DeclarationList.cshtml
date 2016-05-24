@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Danh sách tờ khai";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@Html.Partial("~/Areas/ModuleContracts/Views/Shared/DeclarationMenu.cshtml", 1)
+
+<div class="classWrapperContent col-9" style="width: 75.8%">
+
+    <p class="p_title ">Danh sách Tờ khai</p>
+
+    <div class="form-horizontal form-fix" style="padding-left:5%">
+        <div class="form-group">
+            <p class="col-2 control-label" style="min-width: 135px">Số tờ khai</p>
+            <div class="col-4" style="">
+                <input type="text" class="form-control" id="txtShareHolderName" placeholder="Số tờ khai" />
+            </div>
+
+            <div class="col-4" style="float:left">
+                <input id="btnTimKiem" type="button" class="classBtn classBtn-Default" value="Tìm kiếm" style="width:auto" />
+            </div>
+        </div>
+
+    </div>
+
+    <div id="divTableDeclaration" style="overflow: auto; padding: 1px;">
+        @Html.Partial("PartialViewTableslistDeclaration")
+    </div>
+
+    <div id="divWrapperViewDeclaration" class="divWrapperPopup" style="display: none;">
+        <div class="divPopup" id="divViewDeclaration">
+        </div>
+    </div>
+</div>

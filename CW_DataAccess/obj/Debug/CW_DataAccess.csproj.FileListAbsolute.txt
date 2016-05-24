@@ -1,0 +1,4 @@
+D:\Working\CustomWareHouse\Program\CW_DataAccess\bin\Debug\CW_DataAccess.dll
+D:\Working\CustomWareHouse\Program\CW_DataAccess\bin\Debug\CW_DataAccess.pdb
+D:\Working\CustomWareHouse\Program\CW_DataAccess\obj\Debug\CW_DataAccess.dll
+D:\Working\CustomWareHouse\Program\CW_DataAccess\obj\Debug\CW_DataAccess.pdb

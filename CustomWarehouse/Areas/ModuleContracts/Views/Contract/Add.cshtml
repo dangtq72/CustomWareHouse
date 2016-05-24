@@ -1,0 +1,282 @@
+﻿@using CW_Info;
+@using CW_Business;
+@model Contracts_Info
+@{
+    ViewBag.Title = "Tạo hợp đồng";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    User_Info user = CustomWarehouse.SessionData.CurrentUser;
+}
+@Html.Partial("~/Areas/ModuleContracts/Views/Shared/ContractMenu.cshtml", 2)
+<style>
+    .divCtrlTitle {
+        margin-left: 20px;
+        width: 130px;
+    }
+</style>
+<div class="classWrapperContent col-9-plus">
+    <p class="p_title">TẠO HỢP ĐỒNG</p>
+    <div class="form-horizontal" style="padding-left:12%">
+        <div id="d_messAdd" class="d_Message"></div>
+        <div class="form-group">
+            <div class="col-2 control-label">
+                <label>Số hợp hợp đồng</label><i class="redspan"> (*)</i>
+            </div>
+            <div class="col-8">
+                @Html.TextBoxFor(m => m.Contract_Code, new { id = "Contract_Code", style = "", @class = " form-control", maxlength = "50" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-2 control-label">
+                <label>Ngày đăng ký</label><i class="redspan"> (*)</i>
+            </div>
+            <div class="col-8">
+                @Html.TextBoxFor(m => m.Register_Date, new
+               {
+                   id = "Register_Date",
+                   style = "",
+                   @class = "InputDate form-control",
+                   maxlength = "50",
+                   placeholder = "dd/mm/yyyy"
+               })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-2 control-label">
+                <label>Thời hạn (ngày)</label><i class="redspan"> (*)</i>
+            </div>
+            <div class="col-8">
+                @Html.TextBoxFor(m => m.Period, new
+               {
+                   id = "Period",
+                   style = "",
+                   @class = "form-control",
+                   maxlength = "5",
+                   onkeyup = "jsFormatFloatNumber(this.value, this.id)"
+               })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-2 control-label">
+                <label>Số tiếp nhận</label><i class="redspan"> (*)</i>
+            </div>
+            <div class="col-8">
+                @Html.TextBoxFor(m => m.Receive_Number, new
+               {
+                   id = "Receive_Number",
+                   style = "",
+                   @readonly = "true",
+                   placeholder = "Hệ thống sẽ tự động sinh số tiếp nhận",
+                   @class = "form-control",
+                   maxlength = "9",
+                   onkeypress = "return isNumberKey(event)"
+               })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-2 control-label">
+                <label>Năm tiếp nhận</label><i class="redspan"> (*)</i>
+            </div>
+            <div class="col-8">
+                @Html.TextBoxFor(m => m.Receive_Year, new
+               {
+                   id = "Receive_Year",
+                   style = "",
+                   @class = "form-control",
+                   maxlength = "4",
+                   onkeypress = "return isNumberKey(event)",
+                   Value = DateTime.Now.ToString("yyyy")
+               })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-2 control-label">
+                <label>Kho</label><i class="redspan"> (*)</i>
+            </div>
+            <div class="col-8">
+                <select id="WareHouse_Id">
+                    @foreach (WareHouse_Info item in WareHouse_BL.WareHouse_GetAll())
+                    {
+                        if (Model != null && Model.WareHouse_Id == item.WareHouse_Id)
+                        {
+                            <option value="@item.WareHouse_Id" selected="selected">
+                                @item.WareHouse_Name
+                            </option>
+                        }
+                        else
+                        {
+                            <option value="@item.WareHouse_Id">
+                                @item.WareHouse_Name
+                            </option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            <div class="col-2 control-label">
+                <label>Doanh nghiệp</label><i class="redspan"> (*)</i>
+            </div>
+            <div class="col-8">
+                @Html.TextBoxFor(m => m.Contract_Code, new { id = "Business_Id", style = "", @class = " form-control", @readonly = "true", Value = @user.Full_Name })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <div class="col-2 control-label">
+                <label>Tiền tệ</label>
+            </div>
+            <div class="col-8">
+                <select id="Money_Type" class="form-control">
+                    @foreach (AllcodeInfo item in CustomWarehouse.DataMemory.AllCode_GetBy_CdNameCdType("MONEY", "TYPE"))
+                    {
+                        if (Model != null && Model.Money_Type == Convert.ToDecimal(item.CdVal))
+                        {
+                            <option value="@item.CdVal" selected="selected">
+                                @item.Content
+                            </option>
+                        }
+                        else
+                        {
+                            <option value="@item.CdVal">
+                                @item.Content
+                            </option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-2 control-label">
+            </div>
+            <div class="col-8">
+                <hr style="width:90%;margin-left:0" />
+                <div class="clsRight" style="padding-right:10%">
+                    <input class="classBtn classBtn-Default" type="button" id="btnSave" value="Lưu" onclick="SaveAddData() " style="margin-left:5px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+        $('#Contract_Code').focus();
+
+        $('#WareHouse_Id').multipleSelect({
+            width: '90%', filter: true, single: true
+        });
+        //$('#Business_Id').multipleSelect({
+        //    width: '90%', filter: true, single: true
+        //});
+    });
+
+    function SaveAddData() {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            var Contract_Code = $("#Contract_Code");
+            var Register_Date = $("#Register_Date");
+            var Period = $("#Period");
+            //var Receive_Number = $("#Receive_Number");
+            var Receive_Number = -1;
+            var Receive_Year = $("#Receive_Year");
+            var WareHouse_Id = $("#WareHouse_Id");
+            var Business_Id = '@user.User_Id';
+            var Money_Type = $("#Money_Type");
+            if (Contract_Code.val().trim() == "") {
+                jAlert("Thông báo", "Số hợp đồng không được để trống!", function () {
+                    Contract_Code.val("");
+                    Contract_Code.focus();
+                });
+                return false;
+            }
+            if (Register_Date.val().trim() == "") {
+                jAlert("Thông báo", "Ngày đăng ký không được để trống!", function () {
+                    Register_Date.val("");
+                    Register_Date.focus();
+                });
+                return false;
+            }
+            if (isDate_ddMMyyyy(Register_Date.val()) == false) {
+                d_messAdd.html("Ngày đăng ký không hợp lệ, định dạng ngày tháng là dd/mm/yyyy!");
+                Register_Date.focus();
+                return false;
+            }
+            if (Period.val().trim() == "") {
+                jAlert("Thông báo", "Thời hạn không được để trống!", function () {
+                    Period.val("");
+                    Period.focus();
+                });
+                return false;
+            }
+            //if (Receive_Number.val().trim() == "") {
+            //    jAlert("Thông báo", "Số tiếp nhận không được để trống!", function () {
+            //        Receive_Number.val("");
+            //        Receive_Number.focus();
+            //    });
+            //    return false;
+            //}
+            if (Receive_Year.val().trim() == "") {
+                jAlert("Thông báo", "Năm tiếp nhận không được để trống!", function () {
+                    Receive_Year.val("");
+                    Receive_Year.focus();
+                });
+                return false;
+            }
+            if (WareHouse_Id.val().trim() == "") {
+                jAlert("Thông báo", "Kho không được để trống!", function () {
+                    WareHouse_Id.multipleSelect("focus");
+                });
+                return false;
+            }
+            //if (Business_Id.val().trim() == "") {
+            //    jAlert("Thông báo", "Doanh nghiệp không được để trống!", function () {
+            //        Business_Id.multipleSelect("focus");
+            //    });
+            //    return false;
+            //}
+            var _ObjInfo =
+                {
+                    Contract_Code: Contract_Code.val(),
+                    Register_Date: Register_Date.val(),
+                    Period: Period.val(),
+                    Receive_Number: -1,
+                    Receive_Year: Receive_Year.val(),
+                    WareHouse_Id: WareHouse_Id.val(),
+                    WareHouse_Name: $("#WareHouse_Id option:selected").text().trim(),
+                    Business_Id: Business_Id,
+                    Money_Type: Money_Type.val(),
+                    Status: '@Convert.ToInt16(NaviCommon.Enum_Contract_Status.ChoDuyet)'
+                }
+            $.ajax({
+                type: "POST",
+                url: "/ModuleContracts/Contract/SaveAddData",
+                dataType: "json",
+                data: _ObjInfo,
+                async: false, cache: false, traditional: true,
+                success: function (data) {
+                    if (data.success == true) {
+                        jAlert("Thông báo", "Tạo hợp đồng thành công!", function () {
+                            location.reload();
+                        });
+                    }
+                    else {
+                        jAlert("Thông báo", "Số hợp đồng đã tồn tại trong hệ thống!", function () {
+                            $("#txt_Name").focus();
+                        });
+                    }
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+</script>

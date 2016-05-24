@@ -1,0 +1,102 @@
+﻿
+
+<form action="" name="frmSetPhone" id="frmSetPhone">
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-offset-1 col-5">Số điện thoại cũ</div>
+            <div class="col-5" id="txtPhoneCu"></div>
+        </div>
+        <div class="form-group">
+            <div class="col-offset-1 col-5">
+                Số điện thoại mới <i class="redspan">*</i>
+            </div>
+            <div class="col-5">
+                <input type="text" id="txtSetPhone" class="text-form" maxlength="30" width="152" />
+            </div>
+        </div>
+        <div class="clssCenter" style="margin-top:20px;">
+            <input id="btnSetPhone" type="submit" class="classBtn classBtn-Default " value="Lưu" />
+            <input id="btnSetPhone_Huy" type="button" class="classBtn classBtn-Default" value="Hủy" style="margin-left: 10px;" />
+        </div>
+    </div>
+</form>
+
+<script>
+    $(function () {
+
+        $('#frmSetPhone').submit(function (e) {
+            e.preventDefault();
+            Call_SetPhone();
+
+        });
+
+    });
+
+    function Call_SetPhone() {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            var j_phone = $("#txtSetPhone").val();
+            var j_phone_old = $("#txtView_Phone").val().trim();
+            var j_user_id = $("#txtView_UserId").val();
+            var j_user_type = $("#txtView_UserType").val();
+            if (j_phone.trim() == "") {
+                jAlert("THÔNG BÁO","Số điện thoại không được bỏ trống!",function() {
+                    $("#txtSetPhone").val('');
+
+                });
+                return false;
+            }
+            if (!validateTel(j_phone)) {
+                jAlert("THÔNG BÁO", "Số điện thoại không chính xác!",function() {
+                    $("#txtSetPhone").focus();
+                });
+                return false;
+            }
+            if (j_phone.trim() == j_phone_old) {
+                jAlert("THÔNG BÁO", "Số điện thoại mới phải khác số điện thoại cũ!",function () {
+                    $("#txtSetPhone").focus();
+                });
+                return false;
+            }
+            var phone_new = FormatPhone(j_phone);
+            $.ajax({
+                type: "POST",
+                url: "/VSD/User/SetPhone_User",
+                data: {
+                    p_user_id: j_user_id,
+                    p_phone: phone_new,
+                    p_type: j_user_type
+                },
+                cache: false,
+                traditional: true,
+                success: function (data) {
+                    if (data.success == 1) {
+                        jAlert('THÔNG BÁO', 'Thay đổi số điện thoại thành công!', function () {
+                            location.href = "UserList";
+                        });
+                    } else if (data.success == 0) {
+                        jAlert('THÔNG BÁO', 'Tài khoản đã bị xóa!', function () {
+                            location.href = "UserList";
+                        });
+                    } else if (data.success == -3) {
+                        jAlert('THÔNG BÁO', 'Số điện thoại đã tồn tại!', function () {
+                            $("#txtSetPhone").focus();
+                        });
+                    } else if (data.success == -1) {
+                        jAlert('THÔNG BÁO', "Có lỗi xảy ra vui lòng thử lại sau");
+                    }
+                }
+            });
+
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+
+
+</script>
+

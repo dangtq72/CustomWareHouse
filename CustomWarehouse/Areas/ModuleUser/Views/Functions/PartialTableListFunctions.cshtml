@@ -1,0 +1,53 @@
+﻿@using NaviObjectInfo
+@model IEnumerable<FunctionsInfo>
+<table class="_tablelist " style="">
+    <thead>
+        <tr>
+            <th class="clssSTT">STT</th>
+            <th>Mã chức năng</th>
+            <th>Tên chức năng</th>
+            <th>Loại chức năng</th>
+            <th>Mã ứng dụng</th>
+            <th>Tên hàm</th>
+            <th>Người tạo</th>
+            <th>Ngày tạo</th>
+        </tr>
+    </thead>
+    <tbody class="_TableBody">
+        @if (Model != null)
+        {
+            //int No = 0;
+            foreach (FunctionsInfo info in Model)
+            {
+                //++No;
+                <tr class="tbColorRows">
+                    <td>@info.No</td>
+                    <td style="text-align: left">
+                        <div class="context_menu">
+                            <div class="context">
+                                <h5><a href="/ModuleUserRoles/Functions/FunctionsEdit/@info.Id" onclick="">@info.Fun_Code</a> </h5>
+                                <ul>
+                                    <li><a href="/ModuleUserRoles/Functions/FunctionsAddNew">Thêm </a></li>
+                                    <li><a href="/ModuleUserRoles/Functions/FunctionsEdit/@info.Id">Sửa </a></li>
+                                    <li><a href="javascript:;" onclick=" return ConfirmDeleteFunction(@info.Id)">Xóa</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="text-align: left">@info.Fun_Name</td>
+                    <td class="" style="text-align: center">@info.Fun_Type</td>
+                    <td class="" style="text-align: center">@info.App_Code</td>
+                    <td class="" style="text-align: left">@info.ObjName</td>
+                    <td class="" style="text-align: center">@info.CreateBy</td>
+                    <td class="" style="text-align: center">@info.CreateDate</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<div class="paging">
+    <ul>
+        @Html.Raw(ViewBag.Paging)
+    </ul>
+</div>

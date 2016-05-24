@@ -1,0 +1,295 @@
+﻿@{
+    ViewBag.Title = "Danh sách sản phẩm";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@Html.Partial("~/Areas/ModuleProduct/Views/Shared/Category.cshtml", 1)
+
+<div class="classWrapperContent col-9" style="width: 75.8%">
+
+    <p class="p_title ">Danh sách sản phẩm</p>
+
+    <div class="form-horizontal form-fix" style="padding-left:5%">
+        <div class="form-group form-search">
+            <p class="col-2 control-label" style="min-width: 135px">Tên/mã sản phẩm</p>
+            <div class="col-4" style="">
+                <input type="text" class="form-control" id="txtProductName" placeholder="Tên/mã sản phẩm" />
+            </div>
+
+            <div class="col-4" style="float:left">
+                <input id="btnTimKiem" type="button" class="classBtn classBtn-Default" onclick="SearchProduct()" value="Tìm kiếm" style="width:auto" />
+            </div>
+        </div>
+
+    </div>
+
+    <div id="divTableProduct" style="overflow: auto; padding: 1px;">
+        @Html.Partial("PartialViewTableslistProduct")
+    </div>
+
+    <div id="divWrapperViewProduct" class="divWrapperPopup" style="display: none;">
+        <div class="divPopup" id="divViewProduct">
+        </div>
+    </div>
+
+    <div id="divWrapperInsertProduct" class="divWrapperPopup" style="display: none;">
+        <div class="divPopup" id="divInsertProduct">
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    function CloseViewProduct() {
+        try {
+            CloseDivAllStock('divWrapperViewProduct');
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function CloseInsertProduct() {
+        try {
+            CloseDivAllStock('divWrapperInsertProduct');
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function SearchProduct() {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            var _txtName = $("#txtProductName").val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/ModuleProduct/Product/SearchProduct/',
+                data: {
+                    p_name: _txtName
+                }
+             , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    if (data != null) {
+                        $("#divTableProduct").html(data);
+                    } else {
+                        alert("Lỗi check lại kết nối tới server");
+                    }
+                }
+            });
+
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function ShowViewProduct(_id) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/ModuleProduct/Product/ShowViewProduct/',
+                dataType: "html",
+                data: {
+                    p_id: _id
+                }
+             , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    $("#divViewProduct").html(data);
+                    ShowPopupDialog('divWrapperViewProduct', 'THÔNG TIN SẢN PHẨM', 500, 300);
+                    $("#btnExitPopups img").attr("src", '../../../../Content/images/delete.png');
+                }
+            });
+
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function PressEnterInsertProduct(e) {
+        try {
+            var code = e.keyCode || e.which;
+            if (code == 13) {
+                document.getElementById("_btnInsertProduct").click();
+            }
+        } catch (e) {
+
+        }
+    }
+
+    function ShowInsertProduct() {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/ModuleProduct/Product/ShowInsertProduct/',
+                dataType: "html" 
+             , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    $("#divInsertProduct").html(data);
+                    ShowPopupDialog('divWrapperInsertProduct', 'THÊM MỚI SẢN PHẨM', 500, 300);
+                    $("#btnExitPopups img").attr("src", '../../../../Content/images/delete.png');
+                }
+            });
+
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function UpdateProduct(_id) {
+        try {
+
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/ModuleContracts/Product/ShowViewProduct/',
+                dataType: "html",
+                data: {
+                    p_id: _id
+                }
+             , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    $("#divViewVoting").html(data);
+                    ShowPopupDialog('divWrapperViewProduct', 'THÔNG TIN SẢN PHẨM', 780, 1000);
+                    $("#btnExitPopups img").attr("src", '../../../../Content/images/delete.png');
+                }
+            });
+
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function DeleteProduct(_id) {
+        try {
+
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            MessageBoxConfirm("Thông  báo", "Bạn chắc chắn muốn xóa sản phẩm này!", function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/ModuleProduct/Product/DeleteProduct",
+                    dataType: "json",
+                    data: {
+                        p_product_id: _id
+                    },
+                    sync: false, cache: false, traditional: true,
+                    success: function (data) {
+                        if (data.success == 1) {
+                            jAlert("Thông báo", "Xóa sản phẩm thành công!", function () {
+                                window.location.reload();
+                            });
+                        } else if (data.success == 2) {
+                            jAlert("Thông báo", "Sản phẩm đang được sử dụng !", function () {
+                                CloseViewProduct();
+                                CloseInsertProduct();
+                            });
+                        } else if (data.success == -2 || data.success == -1) {
+                            jAlert("Thông báo", "Không thể Xóa sản phẩm. Vui lòng thử lại sau!", function () {
+                                CloseViewProduct();
+                                CloseInsertProduct();
+                            });
+                        }
+                    }
+                });
+            }, function () {
+                return false;
+            });
+
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function SaveProduct() {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            _product_id = 0;
+
+            var d_mess_InsertProduct = $("#d_mess_InsertProduct");
+            d_mess_InsertProduct.html("");
+
+            var _txtProductCode = $("#_txtProductCode").val();
+            var _txtProductName = $("#_txtProductName").val();
+            var _cboCategory = $("#_cboCategory").val();
+            var _txtUnit = $("#_txtUnit").val();
+            
+            if (_txtProductCode.trim() == "") {
+                d_mess_InsertProduct.html("Mã sản phẩm không được bỏ trống!");
+                _txtProductCode.val("");
+                _txtProductCode.focus();
+                return false;
+            }
+            if (_txtProductName.trim() == "") {
+                d_mess_InsertProduct.html("Tên sản phẩm không được bỏ trống!");
+                _txtProductName.val("");
+                _txtProductName.focus();
+                return false;
+            }
+            if (_txtUnit.trim() == "") {
+                d_mess_InsertProduct.html("Đơn vị không được bỏ trống!");
+                _txtUnit.val("");
+                _txtUnit.focus();
+                return false;
+            }
+            
+            MessageBoxConfirm("Thông  báo", "Bạn có muốn thêm sản phẩm này không?", function () {
+                $.ajax({
+                    type: "POST",
+                    url: '/ModuleProduct/Product/Product_Insert/',
+                    data: {
+                        p_product_code: _txtProductCode,
+                        p_product_name: _txtProductName,
+                        p_category_id: _cboCategory,
+                        p_unit: _txtUnit 
+                    },
+                    dataType: "json",
+                    async: true, cache: false, traditional: true,
+                    success: function (data) {
+                        if (data.success == 0) {
+                            jAlert("Thông báo", "Thêm mới sản phẩm thành công !!!", function () {
+                                CloseInsertProduct();
+                                location.reload();
+                            });
+                        }
+                        else if (data.success == 2) {
+                            jAlert("Thông báo", "Mã sản phẩm đã tồn tại !!!", function () {
+                                _txtProductCode.focus();
+                            });
+
+                            return false;
+                        }
+                        else {
+                            jAlert("Thông báo", "Có lỗi trong quá trình cập nhật dữ liệu !!!");
+                            return false;
+                        }
+                    }
+                });
+            }, function () {
+                return false;
+            });
+
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+</script>

@@ -1,0 +1,121 @@
+﻿@using CW_Info;
+@model CW_Info.Groups_Info
+@{
+    ViewBag.Title = "Sửa nhóm tài khoản";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+
+@Html.Partial("PartialViewMenuUser", 4)
+
+<div class="classWrapperContent col-9-plus">
+    <input type="hidden" value="@Model.Group_Id" id="txtIdGroup" />
+    <p class="p_title">SỬA NHÓM TÀI KHOẢN</p>
+    <div class="form-horizontal" style="padding-left:12%;margin-top:50px;">
+        <div class="form-group">
+            <div class="col-1-plus control-label">
+                <label>Tên nhóm</label><i class="redspan"> (*)</i>
+            </div>
+            <div class="col-8">
+                @Html.TextBoxFor(m => m.Group_Name, new { maxlength = "200", id = "txt_Name" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-1-plus control-label">
+                <label>Ghi chú</label>
+            </div>
+            <div class="col-8">
+                @Html.TextBoxFor(m => m.Note, new { maxlength = "500", id = "txt_Note" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-1-plus control-label">
+
+            </div>
+
+            <div class="col-8">
+                <input type="button" id="btnSaveGroup" value="Lưu" onclick="EditGroup()" />
+                <input type="button" value="Hủy bỏ" id="btnResetAdd" onclick="ExitEdit()">
+            </div>
+        </div>
+        @*}*@
+    </div>
+</div>
+<script>
+            $(document).ready(function () {
+                $("#txt_Name").focus();
+            });
+            $('#txt_Name').keypress(function (e) {
+                if (e.keyCode == 13) {
+                    EditGroup();
+                }
+
+            });
+            function EditGroup() {
+                try {
+                    if (CheckSessionTimeOut() == false) {
+                        return false;
+                    }
+                    var name = $("#txt_Name").val();
+                    var note = $("#txt_Note").val();
+                    var id = $("#txtIdGroup").val();
+
+
+
+                    if ($.trim(name) == "") {
+                        jAlert("Thông báo", "Tên nhóm không được để trống!", function () {
+                            $("#txt_Name").val("");
+                            $("#txt_Name").focus();
+                        });
+                        return false;
+                    }
+
+                    MessageBoxConfirm("Thông báo", "Bạn có muốn lưu thay đổi không?", function () {
+
+
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/ModuleUser/GroupsUser/GroupUserEdit",
+                            dataType: "json",
+                            data: {
+                                p_id: id,
+                                p_name: name,
+                                p_note: note
+                            },
+                            cache: false, traditional: true,
+                            success: function (data) {
+                                if (data.success > 0) {
+                                    jAlert("Thông báo", "Sửa nhóm thành công!", function () {
+                                        window.location.href = "/ModuleUser/GroupsUser/GroupUserList";
+                                    });
+                                } else if (data.success == -2) {
+                                    jAlert("Thông báo", "Tên nhóm không được phép trùng!", function () {
+                                        $("#txt_Name").focus();
+                                    });
+                                } else if (data.success == -1) {
+                                    jAlert("Thông báo", "Có lỗi xảy ra. Vui lòng thử lại sau!", function () {
+                                        $("#txt_Name").focus();
+                                    });
+                                }
+                            }
+                        });
+                    }, function () { });
+
+                } catch (e) {
+                    alert(e);
+                }
+            }
+
+            function ExitEdit() {
+                try {
+                    MessageBoxConfirm("Thông báo", "Bạn có chắc không muốn lưu thay đổi của mình?", function () {
+                        window.location.href = "/ModuleUser/GroupsUser/GroupUserList";
+                    }, function () {
+                        return false;
+                    });
+                } catch (e) {
+                    alert(e);
+                }
+            }
+</script>

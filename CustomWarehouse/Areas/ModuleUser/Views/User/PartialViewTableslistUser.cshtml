@@ -1,0 +1,78 @@
+﻿@using CW_Info;
+@{
+    int Stt = 0;
+    if (ViewBag.FromRow != null)
+    {
+        Stt = ViewBag.FromRow;
+    }
+
+    List<User_Info> _list_user = new List<User_Info>();
+    if (ViewBag.Obj != null)
+    {
+        _list_user = ViewBag.Obj;
+
+    }
+}
+<div class="table-responsive">
+    <table class="table table-bordered table-striped _tablelist" id="tblVotingList">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th id="USER_NAME" onclick="SortByCol('user_name')" class="column-sort-cursor">Tên tài khoản</th>
+                <th>Tên đầy đủ</th>
+                <th>Số ĐT</th>
+                <th>Email</th>
+
+                <th id="TYPE" onclick="SortByCol('type')" class="column-sort-cursor">Loại người dùng</th>
+                <th>Trạng thái</th>
+                <th style="min-width:250px">Chức năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @if (_list_user.Count == 0)
+                {
+                    <td colspan="10" style="text-align: center; font-size: 18px;   "><p>Không có kết quả nào</p></td>
+
+                }
+            </tr>
+
+            @foreach (User_Info item in _list_user)
+            {
+
+                <tr class="tbColorRows">
+                    <td style="display: none">@item.User_Id</td>
+                    <td class="clssCenter">@Stt</td>
+                    <td class="clssLeft">
+                        <a href="javascript:;" onclick="ShowViewUser(@item.User_Id)">@item.User_Name</a>
+                    </td>
+                    <td class="clssLeft">@item.Full_Name</td>
+                    <td class="clssLeft">@item.Phone</td>
+                    <td class="clssLeft">@item.Email</td>
+                    <td class="clssLeft">@item.Type_Name</td>
+                    <td class="clssLeft">@item.Status_Name</td>
+                    <td class="clssLeft">
+                        <a href="javascript:;" onclick="ShowViewUser(@item.User_Id)">Xem</a><span> | </span>
+                        <a href="javascript:;" onclick="DeleteUser(@item.User_Id)">Xóa</a><span> | </span>
+                        <a href="/ModuleUser/UserOfGroups/ListUserOfGroups/@item.User_Id">Xếp nhóm</a>
+                        @if (item.User_Type == (decimal)NaviCommon.Enum_User_Type.Kho)
+                        {
+                            <span> | </span> <a href="/ModuleUser/User/User_WareHouse_List/@item.User_Id">Phân quyền Kho</a>
+                        }
+                    </td>
+                </tr>
+
+                Stt++;
+            }
+        </tbody>
+    </table>
+</div>
+<div class="_ClassPage">
+    <ul>
+        @Html.Raw(ViewBag.Paging)
+    </ul>
+</div>
+
+
+
+

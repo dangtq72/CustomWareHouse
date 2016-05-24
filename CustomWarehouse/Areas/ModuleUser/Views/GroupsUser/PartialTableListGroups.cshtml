@@ -1,0 +1,52 @@
+﻿@using CW_Info
+@model IEnumerable<Groups_Info>
+
+<table class="_tablelist " style="height: auto; max-height: 400px">
+    <thead>
+        <tr>
+            <th class="clssSTT" style="width: 40px">STT</th>
+            <th style="width: 250px">Tên nhóm</th>
+            <th>Ghi chú</th>
+            <th style="width: 100px">Phân quyền</th>
+        </tr>
+    </thead>
+    <tbody class="_TableBody">
+        @if (Model.Count() > 0)
+        {
+            int No = 0;
+            foreach (Groups_Info info in Model)
+            {
+                ++No;
+                <tr class="tbColorRows">
+                    <td>@No</td>
+                    <td style="text-align: left">
+                        <div class="context_menu">
+                            <div class="context">
+                                <h5><a href="javascript:;" onclick="GroupUserDetail(@info.Group_Id)">@info.Group_Name</a> </h5>
+                                <ul>
+                                    @*Bug 77575*@
+                                    <li><a href="javascript:;" onclick="GroupUserDetail(@info.Group_Id)">Chi tiết nhóm tài khoản</a></li>
+                                    <li><a href="/ModuleUser/GroupsUser/GroupUserAddNew">Thêm </a></li>
+                                    <li><a href="/ModuleUser/GroupsUser/GroupUserEdit/@info.Group_Id">Sửa </a></li>
+                                    <li><a href="javascript:;" onclick="return ConfirmDeleteGroups(@info.Group_Id)">Xóa</a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="text-align: left">@info.Note</td>
+                    <td style="text-align: center"><a href="/ModuleUser/FunctionOfGroups/FunctionOfGroupList/@info.Group_Id" onclick="">Phân quyền</a></td>
+                </tr>
+            }
+        }
+        else
+        {
+        <tr>
+            <td colspan="4" style="text-align: center; font-size: 18px;"><p>Không có kết quả nào</p></td>
+        </tr>
+        }
+    </tbody>
+</table>
+<p style="float: right; padding: 7px; padding-right: 10px;">
+    Có tổng @Model.Count() nhóm
+</p>

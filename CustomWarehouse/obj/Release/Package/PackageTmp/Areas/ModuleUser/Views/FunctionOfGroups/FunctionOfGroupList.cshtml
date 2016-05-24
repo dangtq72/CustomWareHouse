@@ -1,0 +1,247 @@
+﻿@using CW_Info
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "Phân quyền";
+    List<Functions_Info> lstFunction = new List<Functions_Info>();
+    //System.Collections.Hashtable chshtable = new System.Collections.Hashtable();
+    string keyFuncNotInGroup = "FuncNotInGroup" + ViewBag.IDGroup;
+    if (Session[keyFuncNotInGroup] != null)
+    {
+        lstFunction = (List<Functions_Info>)Session[keyFuncNotInGroup];
+    }
+    string keyFuncInGroup = "FuncInGroup" + ViewBag.IDGroup;
+
+    Groups_Info pGroupInfo = new Groups_Info();
+    if (ViewBag.GroupInfo != null)
+    {
+        pGroupInfo = (Groups_Info)ViewBag.GroupInfo;
+    }
+}
+
+@Html.Partial("PartialViewMenuUser", 4)
+
+<div class="classWrapperContent col-9-plus">
+    <div style="display: block" id="divLstGroupsUser">
+        <p class="p_title">
+            Thêm chức năng vào nhóm: @pGroupInfo.Group_Name
+
+        </p>
+        <div id="divAllGroupFunction">
+
+            <div style="float: left; width: 99%; margin: 1% 0 1% 1%">
+                <div id="divGroupNotInUser" style="display: block; margin-top: 10px; padding: 10px">
+                    @Html.Partial("PartialFunctionNotInGroup")
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <input type="button" value="Huỷ" onclick="funcExit()" style="float: right; margin: -5px 0px 0 0;">
+    <input type="button" value="Lưu" onclick="return SaveALLFunctionToGroup(@pGroupInfo.Group_Id)" style="float: right; margin: -5px 0px 0 0;">
+
+</div>
+
+@* Style quyền  *@
+<style>
+    #divGroupNotInUser #divGroupNotInUserContain {
+        display: block;
+        border: 1px solid #b9b9b9;
+        max-height: 500px;
+        background: #FFFFFF;
+        margin-right: 10px;
+        margin-top: 3px;
+        overflow-x: auto;
+        overflow-y: scroll;
+        width: 100%;
+        padding: 3px;
+        float: left;
+    }
+
+    #divGroupNotInUser label {
+        display: block;
+    }
+
+        #divGroupNotInUser label:hover {
+            background-color: #1e90ff;
+        }
+</style>
+
+<script>
+    function funcExit() {
+        try {
+            MessageBoxConfirm("Thông báo", "Bạn chắc chắn không muốn lưu lại thay đổi?", function () {
+                window.location.href = "/ModuleUser/GroupsUser/GroupUserList";
+            }, function () {
+                return false;
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+    //Danh sach chuc nang khi nao nhấn save thì lưu toàn bộ
+    var cArrayList_Add = new Array();
+
+    function additem(arr, item) {
+        var iexists = false;
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i] === item) {
+                iexists = true;
+                break;
+            }
+        }
+        if (iexists == false) {
+            arr.push(item);
+        }
+    }
+
+    //Xoa phần tử trong nhóm
+    function remove(arr, item) {
+        var iexists = false;
+        for (var i = arr.length; i--;) {
+            if (arr[i] === item) {
+                iexists = true;
+                arr.splice(i, 1);
+            }
+        }
+    }
+
+    function SaveALLFunctionToGroup(IdGroups) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            MessageBoxConfirm("Thông báo", "Bạn có muốn lưu thay đổi không?", function () {
+
+                var lstIDFunction = "";
+                //var appcode = $("#_cboListApp").val();
+                $.each($("input[name='checkfunction']:checked"), function () {
+                    lstIDFunction += $(this).val() + ",";
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "/ModuleUser/FunctionOfGroups/AddRemoveFunctionInGroups/@pGroupInfo.Group_Id",
+                    data: { pStrFunction: lstIDFunction, pIdGroups: IdGroups },
+                    success: function (data) {
+                        if (data.success == false && data.status == -2) {
+                            jAlert("Cảnh báo", "Chức năng đã có trong nhóm");
+                        } else if (data.success == false) {
+                            jAlert("Cảnh báo", "Có lỗi trong quá trình thao tác");
+                        } else if (data.success == true) {
+                            jAlert("TB", "Phân quyền vào nhóm thành công", function () {
+                                location.href = "/ModuleUser/GroupsUser/GroupUserList";
+                            });
+                        }
+                    }
+                });
+
+            }, function () {
+                return false;
+            });
+
+
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+
+    function AddRemoveFunctionInGroup(IdFunction, IdGroups, pcheck, ptgclss) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            var tagid = pcheck.id;
+            var taggg = "." + ptgclss;
+            var _DataFilter = ptgclss.split(" ");
+            if ($(pcheck).is(':checked')) {
+                if (_DataFilter.length == 1) {
+                    $("." + _DataFilter[0]).each(function (item) {
+                        $(this).attr("checked", true);
+                    });
+                }
+                if (_DataFilter.length == 2) {
+                    $("#" + _DataFilter[1]).attr("checked", true);
+                    $("." + _DataFilter[0]).each(function (item) {
+                        $(this).attr("checked", true);
+                    });
+                }
+                if (_DataFilter.length == 3) {
+                    $("#" + _DataFilter[2]).attr("checked", true);
+                    $("#" + _DataFilter[1]).attr("checked", true);
+                    $("." + _DataFilter[0]).each(function (item) {
+                        $(this).attr("checked", true);
+                    });
+                }
+            }
+            else {
+                if (_DataFilter.length == 1) {
+                    $("." + _DataFilter[0]).each(function (item) {
+                        $(this).attr("checked", false);
+                    });
+                }
+                if (_DataFilter.length == 2) {
+
+                    $("." + _DataFilter[0]).each(function (item) {
+                        $(this).attr("checked", false);
+                    });
+                    // bỏ click thằng lv 3 thì check xem còn thằng lv 3 nào đang check ko, nếu ko còn thì bỏ thằng check cha của nó luôn
+                    var _checked = GetValueControll(_DataFilter[1], true);
+                    // nếu chỉ có đúng thằng cha đấy đang đc check thì coi như ko có thằng con nào đc check
+                    _checked = _checked.replace(/\|/g, '');
+                    if (_checked == _DataFilter[1]) {
+                        $("#" + _DataFilter[1]).attr("checked", false);
+                    }
+                }
+                if (_DataFilter.length == 3) {
+                    var _checked = GetValueControll(_DataFilter[1], true);
+                    // nếu chỉ có đúng thằng cha đấy đang đc check thì coi như ko có thằng con nào đc check
+                    _checked = _checked.replace(/\|/g, '');
+                    if (_checked == _DataFilter[1]) {
+                        $("#" + _DataFilter[1]).attr("checked", false);
+                        // kiểm tra tiếp thằng cha cấp 1 xem có thằng con cấp 2 nào đc check ko
+                        _checked = GetValueControll(_DataFilter[2], true);
+                        _checked = _checked.replace(/\|/g, '');
+                        if (_checked == _DataFilter[2]) {
+                            $("#" + _DataFilter[2]).attr("checked", false);
+                        }
+                    }
+                }
+            }
+
+            //change text khi bỏ tick chọn
+            var QuenDuocCheck = QuenCount('input[name=checkfunction]:checked');
+            var tongQuen = QuenCount('input[name=checkfunction]');
+            if (tongQuen == 0) QuenDuocCheck = 0;
+            $("#txtTongQuyen").text("Có tổng " + QuenDuocCheck + "/" + tongQuen + " quyền được chọn.");
+
+
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+    function QuenCount(ele) {
+        var lv1 = 0, lv2 = 0, lv3 = 0;
+        $(ele).each(function () {
+            var strlv = $(this).attr('class');
+            var lv = strlv.split(" ");
+            //alert(lv[0] + " " + lv[1] + " " + lv[2] +" len: " + lv.length);
+            if (lv.length == 3) {
+                lv3++;
+
+            } else if (lv.length == 2) {
+                if ($('input[name=checkfunction].' + lv[0]).not('#' + lv[0]).length == 0) {
+
+                    lv2++;
+                }
+
+            } else if (lv.length == 1) {
+                if ($('input[name=checkfunction].' + lv[0]).not('#' + lv[0]).length == 0) {
+                    lv1++;
+                }
+            }
+
+
+        });
+
+        return lv1 + lv2 + lv3;
+    }
+</script>

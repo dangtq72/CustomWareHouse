@@ -1,0 +1,478 @@
+﻿@using CustomWarehouse
+@using CW_Info
+@{
+    User_Info user = new User_Info();
+    if (ViewBag.user != null)
+    {
+        user = ViewBag.user;
+    }
+    ViewBag.Title = "Cài đặt tài khoản";
+
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@if (user.User_Type == (decimal)NaviCommon.Enum_User_Type.Kho || user.User_Type == (decimal)NaviCommon.Enum_User_Type.HaiQuan)
+{
+    @Html.Partial("PartialViewMenuUser", 0)
+}
+else
+{
+    @Html.Partial("~/Areas/ModuleContracts/Views/Shared/ContractMenu.cshtml", 0)
+}
+
+<style>
+    .change_header {
+        padding: 5px 45px !important;
+    }
+
+    .divPopupHeader b {
+        padding-left: 0px !important;
+    }
+
+    .divPopupHeader {
+        padding-left: 45px !important;
+    }
+
+    .row-label {
+        font-size: 14px;
+    }
+
+    #d_msg_inchange {
+        width: 100%;
+        color: red !important;
+        text-align: center;
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    .change_header {
+        font-size: 14px;
+    }
+
+    .center {
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+
+    .edit {
+        color: #0154b1;
+        float: right;
+    }
+
+    .edit_label {
+        display: inline;
+        cursor: pointer;
+    }
+
+
+    .col-3-7 {
+        padding-top: 5px;
+    }
+
+    .btnFormPopup {
+        float: left;
+    }
+</style>
+
+<div class="classWrapperContent col-9-plus">
+    <div class="form-row" style="font-weight: bold; font-size: 17px">
+        CÀI ĐẶT TÀI KHOẢN
+    </div>
+
+    <div class="line" style="border-color: black">
+    </div>
+    <div class="form-search" style="padding: 0px 10px;">
+        <div class="form-row center" style="background-color: #f1f1f1; min-height: 40px;">
+            <div class="row-input col-5-5" style="text-align: right;   padding: 8px 10px;">
+                Tên truy cập
+            </div>
+            <div class="row-label col-5-5" style="font-weight: bold; font-size: 14px;   padding: 7px 10px;">
+                @user.User_Name
+            </div>
+        </div>
+        <div class="form-row center" style="padding-top: 20px;">
+            <div class="row-label col-2-8">
+                Số điện thoại
+            </div>
+            <div class="row-label col-6-4" style="min-width: 60%">
+                @user.Phone
+            </div>
+        </div>
+
+        <div class="form-row center">
+            <div class="row-label col-2-8">
+                Email
+            </div>
+            <div class="row-label col-6-4" style="min-width: 60%">
+                @user.Email
+            </div>
+        </div>
+
+        <div class="form-row center">
+            <div class="row-label col-2-8">
+                Mật khẩu
+            </div>
+            <div class="row-label col-6-4" style="min-width: 60%">
+                <img src="~/Content/images/Home/matkhau.png" />
+            </div>
+            <div class="row-label col-2-8 edit">
+                <img src="~/Content/images/Home/cai_dat.png" />
+                <p id="lblEditPassword" class="edit_label">Chỉnh sửa</p>
+            </div>
+            <div class="line">
+            </div>
+        </div>
+    </div>
+
+
+    <input type="hidden" value="" name="txtKeyValue" id="txtKeyValue" />
+    <input type="hidden" value="symbol" name="txtSortColum" id="txtSortColumn" />
+    <input type="hidden" value="ASC" name="txtSortType" id="txtSortType" />
+
+    @if (user.User_Type == (decimal)NaviCommon.Enum_User_Type.Kho)
+    {
+        <div class="form-row" style="text-align: center; font-size: 18px; font-weight: bold; padding-bottom: 16px;">
+            DANH SÁCH CÁC KHO QUẢN LÝ
+        </div>
+        <div id="view_symbol" style="padding: 10px">
+            @Html.Partial("~/Views/Setting/P_TablelistCustom_WareHouse.cshtml")
+        </div>
+    }
+
+</div>
+
+@*Thay đổi mật khẩu*@
+<div id="divWrapperEditPass" class="divWrapperPopup" style="display: none; margin-top: 140px;">
+    <div class="divPopup" id="divViewEditPass">
+        <div class="form-search">
+            <div class="form-row popup-content">
+                <p class="row-input col-3-7">Mật khẩu hiện tại<i class="redspan">*</i></p>
+                <div class="row-input col-7-3">
+                    <input type="password" id="txtOldPass" class="col-10i" />
+                    <span id="divWarningCapsLock-pap1" style="color: red;display: none">CAPS LOCK is on</span>
+                </div>
+            </div>
+            <div class="form-row popup-content">
+                <p class="row-input col-3-7">Mật khẩu mới<i class="redspan">*</i></p>
+                <div class="row-input col-7-3">
+                    <input type="password" id="txtNewPass" class="col-10i" />
+                    <span id="divWarningCapsLock-pap2" style="color: red;display: none">CAPS LOCK is on</span>
+                </div>
+            </div>
+            <div class="form-row popup-content">
+                <p class="row-input col-3-7">Nhập lại mật khẩu mới<i class="redspan">*</i></p>
+                <div class="row-input col-7-3">
+                    <input type="password" id="txtReNewPass" class="col-10i" />
+                    <span id="divWarningCapsLock-pap3" style="color: red;display: none">CAPS LOCK is on</span>
+                </div>
+            </div>
+            <div class="form-row popup-content">
+                <div class="line"></div>
+                <p class="row-input col-3-7">&nbsp;</p>
+                <div class="row-input col-7-3">
+                    <input type="button" onclick="funcEditPassword()" value="Chấp nhận" class="btnFormPopup" style="margin-right: 7px; margin-left: 57%;" />
+                    <input type="button" onclick="funcExit()" value="Hủy" class="btnFormPopup" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $(" .a_menu").eq(1).parent().addClass("d_menu_active");
+
+        $("#lblEditPassword").on("click", function () {
+            funcShowPopup();
+        });
+
+        $("#txtOldPass,#txtNewPass,#txtReNewPass").keypress(function (evt) {
+            var key = evt.which || evt.charCode || evt.keyCode || 0;
+            if (key == 13) {
+                funcEditPassword();
+            }
+        });
+    });
+
+    $(function () {
+        $('#txtOldPass').keypress(function (e) {
+            checkCapsLock(e, '#divWarningCapsLock-pap1');
+        });
+        $('#txtNewPass').keypress(function (e) {
+            checkCapsLock(e, '#divWarningCapsLock-pap2');
+        });
+        $('#txtReNewPass').keypress(function (e) {
+            checkCapsLock(e, '#divWarningCapsLock-pap3');
+        });
+    });
+
+    function funcShowPopup() {
+        try {
+
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            funcResetFormMk();
+            ShowPopupDialog('divWrapperEditPass', 'THAY ĐỔI MẬT KHẨU', 850, 1000, "txtOldPass");
+            $("#btnExitPopups img").attr("src", '../../../../Content/images/delete.png');
+
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function funcExit() {
+        try {
+            CloseDivAllStock('divWrapperEditPass');
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function funcEditPassword() {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            var old_pass = $("#txtOldPass").val();
+            if (old_pass == "") {
+                jAlert("THÔNG BÁO", "Mật khẩu hiện tại không được bỏ trống!", function () {
+                    $("#txtOldPass").focus();
+                });
+                return false;
+            }
+            if ($.trim(old_pass) == "") {
+                jAlert("THÔNG BÁO", "Chưa nhập mật khẩu hiện tại!", function () {
+                    $("#txtOldPass").focus();
+                    $("#txtOldPass").val("");
+                });
+                return false;
+            }
+
+            if (old_pass.indexOf(" ") != -1) {
+                jAlert("THÔNG BÁO", "Mật khẩu hiện tại không chứa dấu cách!", function () {
+                    $("#txtOldPass").focus();
+                });
+                return false;
+            }
+
+            if (old_pass.length < 8) {
+                jAlert("THÔNG BÁO", "Mật khẩu hiện tại phải có ít nhất 8 ký tự, trong đó bao gồm 2 loại ký tự chữ và ký tự số!", function () {
+                    $('#txtOldPass').focus();
+                });
+                return false;
+            }
+
+            if (checkUnicode(old_pass) == false) {
+                jAlert("THÔNG BÁO", "Mật khẩu hiện tại không chứa ký tự tiếng việt có dấu!", function () {
+                    $('#txtOldPass').focus();
+                });
+                return false;
+            }
+
+            if (!checkPassword(old_pass)) {
+                jAlert("THÔNG BÁO", "Mật khẩu hiện tại không đúng định dạng. Mật khẩu bao gồm 2 loại ký tự chữ và ký tự số!", function () {
+                    $('#txtOldPass').focus();
+                });
+                return false;
+            }
+            //-------------------- Mk mới --------------------------
+            var new_pass = $("#txtNewPass").val();
+
+            //kiểm tra trùng mật khẩu
+            if (new_pass == old_pass) {
+                jAlert("THÔNG BÁO", "Mật khẩu mới không được trùng với mật khẩu hiện tại!", function () {
+                    $("#txtNewPass").focus();
+                });
+                return false;
+            }
+
+            if (new_pass == "") {
+                jAlert("THÔNG BÁO", "Mật khẩu mới không được bỏ trống!", function () {
+                    $("#txtNewPass").focus();
+                });
+                return false;
+            }
+
+            if ($.trim(new_pass) == "") {
+                jAlert("THÔNG BÁO", "Chưa nhập mật khẩu mới!", function () {
+                    $("#txtNewPass").focus();
+                    $("#txtNewPass").val("");
+                });
+                return false;
+            }
+
+            if (new_pass.indexOf(" ") != -1) {
+                jAlert("THÔNG BÁO", "Mật khẩu mới không chứa dấu cách!", function () {
+                    $("#txtNewPass").focus();
+                });
+                return false;
+            }
+
+            if (new_pass.length < 8) {
+                jAlert("THÔNG BÁO", "Mật khẩu mới phải có ít nhất 8 ký tự, trong đó bao gồm 2 loại ký tự chữ và ký tự số!", function () {
+                    $('#txtNewPass').focus();
+                });
+                return false;
+            }
+
+            if (checkUnicode(new_pass) == false) {
+                jAlert("THÔNG BÁO", "Mật khẩu mới không chứa ký tự tiếng việt có dấu!", function () {
+                    $('#txtNewPass').focus();
+                });
+                return false;
+            }
+
+            if (!checkPassword(new_pass)) {
+                jAlert("THÔNG BÁO", "Mật khẩu mới không đúng định dạng. Mật khẩu bao gồm 2 loại ký tự chữ và ký tự số!", function () {
+                    $('#txtNewPass').focus();
+                });
+                return false;
+            }
+            if (new_pass == old_pass) {
+                jAlert("THÔNG BÁO", "Mật khẩu mới phải khác mật khẩu hiện tại!", function () {
+                    $('#txtNewPass').focus();
+                });
+                return false;
+            }
+
+            var re_new_pass = $("#txtReNewPass").val();
+            if ($.trim(re_new_pass) == "") {
+                jAlert("THÔNG BÁO", "Hãy nhập lại mật khẩu!", function () {
+                    $("#txtReNewPass").focus();
+                    $("#txtReNewPass").val("");
+                });
+                return false;
+            }
+
+            if (new_pass !== re_new_pass) {
+                jAlert("THÔNG BÁO", "Mật khẩu mới và mật khẩu nhắc lại không khớp nhau. Vui lòng kiểm tra lại!", function () {
+                    $("#txtReNewPass").focus();
+                });
+                return false;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/Setting/EditPassword",
+                dataType: "json",
+                data: {
+                    p_old_pass: old_pass,
+                    p_new_pass: new_pass
+                },
+                sync: false, cache: false, traditional: true,
+                success: function (data) {
+                    if (data.success == 1) {
+                        jAlert("Thông báo", "Thay đổi mật khẩu thành công!", function () {
+                            funcExit();
+                        });
+                    } else if (data.success == -1) {
+                        jAlert("Thông báo", "Mật khẩu tại không đúng. Vui lòng kiểm tra lại!", function () {
+                            $("#txtOldPass").focus();
+                        });
+                    } else if (data.success == -2) {
+                        jAlert("Thông báo", "Đã có lỗi xảy ra. Vui lòng thử lại sau!", function () {
+                            $("#txtOldPass").focus();
+                        });
+                    }
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+
+    function funcResetFormMk() {
+        try {
+            $("#txtNewPass").val("");
+            $("#txtReNewPass").val("");
+            $("#txtOldPass").val("");
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function ChangeIConSortWhenSortColumns() {
+        try {
+            var _order_by = $("#txtSortColumn").val().toUpperCase();
+            var _order_type = $("#txtSortType").val().toUpperCase();
+            var _text = _order_type == 'DESC' ? $("#" + _order_by).text() + " ▼" : $("#" + _order_by).text() + " ▲";
+            $("#" + _order_by).text(_text);
+        }
+        catch (e) {
+            alert(e);
+        }
+    }
+
+    function SortByCol(OrderBy) {
+        try {
+            OrderBy = OrderBy.toUpperCase();
+            var _order_by_old = $("#txtSortColumn").val();
+            _order_by_old = _order_by_old.toUpperCase();
+
+            if (OrderBy == _order_by_old) {
+                if ($("#txtSortType").val() == "ASC") {
+                    $("#txtSortType").val("DESC");
+                }
+                else {
+                    $("#txtSortType").val("ASC");
+                }
+            }
+            else {
+                $("#txtSortType").val("ASC");
+            }
+            // sort theo trường mới
+            $("#txtSortColumn").val(OrderBy);
+
+            // Thực hiện tìm kiếm + sort lại
+            if ($(".pagin-active").length > 0) {
+                $(".pagin-active").click();
+            } else {
+                Search_WareHouse(1, 0);
+            }
+        } catch (e) {
+            console.info(e.toString());
+        }
+    }
+
+    function Search_WareHouse(p_NumPage, p_type_num) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            var Symbol = $("#txtSymbol").val();
+            var p_column = $("#txtSortColumn").val();
+            var p_type_sort = $("#txtSortType").val();
+
+
+            $.ajax({
+                type: "POST",
+                url: "/Setting/WareHouseSearch",
+                data: {
+                    pCurrentPage: p_NumPage,
+                    p_column: p_column,
+                    p_type_sort: p_type_sort
+                },
+                cache: false, traditional: true,
+                success: function (data) {
+                    if (data != null) {
+                        $("#view_symbol").html(data);
+                        ChangeIConSortWhenSortColumns();
+                    } else {
+                        jAlert("Lỗi check lại kết nối tới server");
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+
+    function jsPaging(page) {
+        Search_Symbol(page, 0);
+    }
+
+</script>

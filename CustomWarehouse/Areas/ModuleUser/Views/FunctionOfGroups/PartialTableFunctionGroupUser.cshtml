@@ -1,0 +1,114 @@
+﻿@using NaviObjectInfo
+@using System.Collections
+@{
+    List<FunctionsInfo> lstFunction = new List<FunctionsInfo>();
+    System.Collections.Hashtable chshtable = new System.Collections.Hashtable();
+    System.Collections.Hashtable chshtableCurrentUser = new System.Collections.Hashtable();
+
+    string FunctionInUser = "FunctionInUser" + ViewBag.IDGroupUser;
+    string FuncInGroup = "FuncInGroup" + ViewBag.IDGroupUser;
+
+    int idGroup = ViewBag.IDGroup;
+    if (Session[FunctionInUser] != null)
+    {
+        chshtable = (System.Collections.Hashtable)Session[FunctionInUser];
+    }
+    if (Session[FuncInGroup] != null)
+    {
+        lstFunction = (List<FunctionsInfo>)Session[FuncInGroup];
+    }
+    //HưngTd: 11-09-2015
+    Hashtable _AllFunctions = new Hashtable();
+    foreach (FunctionsInfo _item in lstFunction)
+    {
+        _AllFunctions[_item.Id] = _item;
+    }
+    //End Hưng TD: 11-09-2015
+    if (ViewBag.FunctionInUserMans != null)
+    {
+        chshtableCurrentUser = (System.Collections.Hashtable)ViewBag.FunctionInUserMans;
+    }
+
+    int CurrentUser = 0;
+    if (ViewBag.CurrentUser != null)
+    {
+        CurrentUser = (int)ViewBag.CurrentUser;
+    }
+    ViewBag.Count = 0;
+    FunctionsInfo _TempInfo = new FunctionsInfo();
+}
+
+@{
+    string styleli = "padding-left:20px";
+    string _classLv = "";
+    foreach (FunctionsInfo info in lstFunction)
+    {
+        _classLv = "";
+        _classLv += _classLv = info.Id.ToString();
+        if (info.level > 1 && info.PrId != -1)// thằng lv 2 và có cha
+        {
+            _TempInfo = (FunctionsInfo)_AllFunctions[info.PrId];
+            _classLv += " " + _TempInfo.Id.ToString();
+            // kiểm tra tiếp xem bên trên đấy còn thằng cha nào nữa ko
+            if (_TempInfo.PrId != -1)
+            {
+                _TempInfo = (FunctionsInfo)_AllFunctions[_TempInfo.PrId];
+                _classLv += " " + _TempInfo.Id.ToString();
+            }
+        }
+        _classLv.Trim();
+        if (!string.IsNullOrEmpty(info.Fun_Name))
+        {
+            string style = ""; string sdisable = "";
+            string stylesheet = "";
+            if (V_Voting.SessionData.CurrentUser.User_Id != -99)
+            {
+                if (chshtable.Contains(info.Id))
+                {
+                    style = "checked";
+                    if (CurrentUser == 1)
+                    {
+                        sdisable = "disabled=disabled";
+                        ++ViewBag.Count;
+                    }
+                }
+                else if (CurrentUser == 1)
+                {
+                    stylesheet = "display:none";
+                }
+                //nếu ko phải là user cha thì tạm thời disable cái này đi ko cho phép thay đổi chức năng sua ngày 10.08.2015
+                if (!chshtableCurrentUser.ContainsKey(info.Id))
+                {
+                    sdisable = "disabled=disabled";
+                    ++ViewBag.Count;
+                    //stylesheet = "display:none";
+                }
+            }
+            else
+            {
+                if (chshtable.Contains(info.Id))
+                {
+                    style = "checked";
+                }
+            }
+            if (info.level == 1)
+            {
+                styleli = "font-weight: bold; padding: 5px 0";
+            }
+            else if (info.level == 2)
+            {
+                styleli = "padding:5px 0 5px 20px";
+            }
+            else if (info.level == 3)
+            {
+                styleli = "padding:10px 0 10px 20px ;    margin-left: 20px";
+            }
+
+
+            <label style="@styleli ; @stylesheet ">
+                <input @style type="checkbox" style="@stylesheet" @sdisable name="functionUserGroup" class="@_classLv"
+                       value="@info.Id" id="@info.Id" onclick="return AddRemoveFunctionGroupUser(@idGroup,@ViewBag.IdUserFunc,this ,'@_classLv')" />@info.Fun_Name
+                </label>
+        }
+    }
+}

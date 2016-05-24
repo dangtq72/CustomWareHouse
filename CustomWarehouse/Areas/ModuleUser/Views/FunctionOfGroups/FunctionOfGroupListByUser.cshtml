@@ -1,0 +1,84 @@
+﻿@using NaviObjectInfo.ModuleUserRoles
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Danh sách nhóm chức năng";
+
+    GroupsInfo pGroupInfo = new GroupsInfo();
+    if (ViewBag.GroupInfo != null)
+    {
+        pGroupInfo = (GroupsInfo)ViewBag.GroupInfo;
+    }
+}
+
+@Html.Partial("PartialViewMenuUser")
+
+<div class="classWrapperContent col-9-plus">
+    <div class="divDataList">
+        <br />
+        <div style="display: block" id="divLstGroupsUser">
+            <p class="p_title">
+                Danh sách chức năng trong nhóm: @pGroupInfo.Name
+            </p>
+            <br />
+            <div id="divAllGroupFunction">
+                @Html.Partial("PartialFunctionNotInGroupByUser")
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Style quyền  *@
+<style>
+    #divAllGroupFunction {
+        display: block;
+        border: 1px solid #b9b9b9;
+        max-height: 500px;
+        background: #FFFFFF;
+        margin-right: 10px;
+        margin-top: 3px;
+        overflow-x: auto;
+        overflow-y: scroll;
+    }
+
+        #divAllGroupFunction label {
+            display: block;
+        }
+
+            #divAllGroupFunction label:hover {
+                background-color: #1e90ff;
+            }
+</style>
+
+<script>
+
+    function SaveALLFunctionToGroup(IdGroups){
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            var lstIDFunction = "";
+
+            $.each($("input[name='checkfunction']:checked"), function(){
+                lstIDFunction += $(this).val() + ",";
+            });
+            $.ajax({
+                type: "POST",
+                url: "/ModuleUserRoles/FunctionOfGroups/AddRemoveFunctionInGroups/@pGroupInfo.Id",
+                data: { pStrFunction: lstIDFunction , pIdGroups: IdGroups },
+                success: function (data) {
+                    if (data.success == false && data.status == -2) {
+                        jAlert("Cảnh báo", "Chức năng đã có trong nhóm");
+                    } else if (data.success == false) {
+                        jAlert("Cảnh báo", "Có lỗi trong quá trình thao tác");
+                    }else  if (data.success == true) {
+                        jAlert("TB", "Phân quyền vào nhóm thành công", function () {
+                            location.href = "/ModuleUserRoles/GroupsUser/GroupUserList";
+                        });
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+</script>

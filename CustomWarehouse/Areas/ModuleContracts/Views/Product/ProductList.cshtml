@@ -1,0 +1,133 @@
+﻿@{
+    ViewBag.Title = "Danh sách sản phẩm";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@Html.Partial("~/Areas/ModuleContracts/Views/Shared/Category.cshtml", 1)
+
+<div class="classWrapperContent col-9" style="width: 75.8%">
+
+    <p class="p_title ">Danh sách sản phẩm</p>
+
+    <div class="form-horizontal form-fix" style="padding-left:5%">
+        <div class="form-group">
+            <p class="col-2 control-label" style="min-width: 135px">Tên sản phẩm</p>
+            <div class="col-4" style="">
+                <input type="text" class="form-control" id="txtShareHolderName" placeholder="Tên sản phẩm" />
+            </div>
+
+            <div class="col-4" style="float:left">
+                <input id="btnTimKiem" type="button" class="classBtn classBtn-Default" value="Tìm kiếm" style="width:auto" />
+            </div>
+        </div>
+
+    </div>
+
+    <div id="divTableProduct" style="overflow: auto; padding: 1px;">
+        @Html.Partial("PartialViewTableslistProduct")
+    </div>
+
+    <div id="divWrapperViewProduct" class="divWrapperPopup" style="display: none;">
+        <div class="divPopup" id="divViewProduct">
+        </div>
+    </div>
+</div>
+
+<script>
+    function CloseViewProduct() {
+        try {
+            CloseDivAllStock('divWrapperViewProduct');
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function ShowViewProduct(_id) {
+        try {
+            //if (CheckSessionTimeOut() == false) {
+            //    return false;
+            //}
+            $.ajax({
+                type: 'POST',
+                url: '/ModuleContracts/Product/ShowViewProduct/',
+                dataType: "html",
+                data: {
+                    p_id: _id
+                }
+             , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    $("#divViewVoting").html(data);
+                    ShowPopupDialog('divWrapperViewProduct', 'THÔNG TIN SẢN PHẨM', 780, 1000);
+                    $("#btnExitPopups img").attr("src", '../../../../Content/images/delete.png');
+                }
+            });
+
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function UpdateProduct(_id) {
+        try {
+            //if (CheckSessionTimeOut() == false) {
+            //    return false;
+            //}
+            $.ajax({
+                type: 'POST',
+                url: '/ModuleContracts/Product/ShowViewProduct/',
+                dataType: "html",
+                data: {
+                    p_id: _id
+                }
+             , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    $("#divViewVoting").html(data);
+                    ShowPopupDialog('divWrapperViewProduct', 'THÔNG TIN SẢN PHẨM', 780, 1000);
+                    $("#btnExitPopups img").attr("src", '../../../../Content/images/delete.png');
+                }
+            });
+
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function DeleteProduct(_id) {
+        try {
+            //if (CheckSessionTimeOut() == false) {
+            //    return false;
+            //}
+            MessageBoxConfirm("Thông  báo", "Bạn chắc chắn muốn xóa sản phẩm này!", function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/ModuleContracts/Product/DeleteProduct",
+                    dataType: "json",
+                    data: {
+                        p_product_id: _id 
+                    },
+                    sync: false, cache: false, traditional: true,
+                    success: function (data) {
+                        if (data.success == 1) {
+                            jAlert("Thông báo", "Xóa sản phẩm thành công!", function () {
+                                window.location.reload();
+                            });
+                        } else if (data.success == 2) {
+                            jAlert("Thông báo", "Sản phẩm đang được sử dụng !", function () {
+                                CloseViewProduct();
+                            });
+                        } else if (data.success == -2) {
+                            jAlert("Thông báo", "Xóa sản phẩm. Vui lòng thử lại sau!", function () {
+                                CloseViewProduct();
+                            });
+                        }
+                    }
+                });
+            }, function () {
+                return false;
+            });
+
+        } catch (e) {
+            alert(e);
+        }
+    }
+</script>

@@ -1,0 +1,481 @@
+﻿
+.link_forgot {
+    font-style: italic;
+    cursor: pointer;
+    line-height: 36px;
+    margin-left: 20px;
+
+    /*position: absolute;
+    top: 20px;
+    left: 38px;*/
+}
+
+    .link_forgot:hover {
+        color: #e68c00;
+    }
+
+body {
+    background-color: #195CB3;
+}
+
+.menu_head {
+    width: 100%;
+    background-color: white;
+  float: left;
+    height: 46px;
+    /*padding: 0% 9% 0% 11%;*/
+}
+
+.menu_head_conetent {
+    margin: 0 auto;
+    /*margin-top: 3px;*/
+    width: 1000px;
+    height: 46px;
+    position:relative;
+}
+
+.first_head img {
+    width: 58px;
+    height: 44px;
+    float: left;
+    padding-top: 2px;
+}
+
+.first_head {
+    /*padding: 4px 0px 0px 0px;*/
+    float: left;
+  margin: auto 0px;
+    font-weight: bold;
+}
+
+.d_sub_first {
+    font-size: 12px;
+    float: left;
+    margin-left: 9px;
+     height: 44px;
+  padding-top: 5px;
+    /*margin-top: 5px;*/
+}
+
+.second_head {
+   position:absolute;
+   right:130px;
+    
+}
+
+.third_head {
+    color: black !important;
+    float: right;
+
+    /*padding-right: 14px;*/
+}
+
+    .third_head a {
+        color: black;
+    }
+
+    .third_head li {
+        list-style: none;
+    }
+
+.last_head {
+
+    float: right;
+    margin-left: 20px;
+    height: 46px;
+    line-height: 46px;
+    font-size: 12px
+ 
+}
+
+.sub_item_menu {
+    float: left;
+    /*height: 55px;*/
+    padding-right: 10px;
+  padding-left: 10px;
+}
+
+.share_item {
+}
+
+.a_menu {
+    color: black;
+    /*font-weight: bold;*/
+    font-size: 15px;
+    font-weight: 600;
+      height: 44px;
+    line-height: 44px;
+    padding: 0px 0px;
+}
+/*.clear_menu {
+            height: 55px;
+            clear:both;
+        }*/
+.d_menu_active {
+    /*padding-bottom: 15px;*/
+ border-bottom: 2px solid #DC6700 !important;
+}
+
+.clsMenu-Main-Active {
+    background: #011c3c none repeat scroll 0% 0%;
+    color: #195CB3 !important;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+.AllContent {
+    background: url('../../Content/images/Home/background.jpg') no-repeat fixed;
+    background-size: 100% 100%;
+    height: 92vh;
+    width: 100%;
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif !important;
+    min-height: 100%;
+    float: left;
+    font-size: 12px;
+}
+
+.divMainBody {
+    min-height: 542px;
+   width: 1000px;
+     margin: 0 auto;
+}
+
+.divFooter {
+    width: 100%;
+    float: left;
+    min-height: 60px;
+    background-color: #071C37;
+    color: #ffffff;
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+}
+
+.divMainLeft {
+    width: 11%;
+    float: left;
+}
+
+.divMainCenter {
+   
+    width: 100%;
+    float: left;
+}
+
+.div_intro {
+    width: 435px;
+    float: left;
+    margin: 100px 0px 0px 10px;
+}
+
+._htitle {
+    color: #ffffff;
+    width: 300px;
+    font-size: 25px;
+}
+
+._hrtitle {
+    width: 105%;
+    border: 1px solid #ffffff;
+    border-style: none none dotted;
+    color: #fff;
+    background-color: #ffffff;
+}
+
+._p_cotent {
+    text-align: justify;
+    line-height: 120%;
+    color: #ffffff;
+    font-size: 13px;
+    margin-left: 0;
+}
+
+._buttonViewMore {
+    width: 100px !important;
+    height: 30px;
+    background-color: #7F7047 !important;
+    color: #ffffff;
+}
+
+._p_footer {
+    width: 1000px;
+    margin: 0 auto;
+    text-align: left;
+    line-height: 120%;
+    color: #ffffff;
+    font-size: 14px;
+    font-family:   "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    padding: 10px 10px 0px 100px;
+}
+
+hr {
+    margin-left: 0;
+}
+
+._p_footer span {
+    width: 100%;
+}
+
+._FooterMenu {
+    float: left;
+  width: 1000px;
+  margin: 0 auto;
+  /*margin-top: 80px;*/
+  padding-left: 7px;
+     position: absolute;
+     bottom:60px;
+      left: 0;
+    right: 0;
+   
+
+}
+
+._ulfooter li {
+    background: none repeat scroll 0 0 #CACBCF;
+    border: 1px solid #c1c1c1;
+    box-sizing: border-box;
+    color: #373938;
+    cursor: pointer;
+    display: inline-block;
+    list-style: none outside none;
+    margin-left: 0px !important;
+    line-height: 16px;
+    text-align: left;
+    white-space: normal;
+    /*width: 206px;*/
+    width: 24.7%;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 1px 0px 0px 0px;
+}
+
+
+
+._menu_li_icon {
+    /*margin: 0px 27px 0px 10px;*/
+    /*width: 102%;*/
+    height: 100%;
+    width: 327px;
+}
+
+._divInfo {
+    float: left;
+   top:80px;
+   margin-left:10px;
+   margin-right: 10px;
+    position: absolute;
+    /*margin: 0px 0px 1px 0%;*/
+    border: 9px solid #ffffff;
+    /* background-color: #4ca9f7; */
+    width: 98%;
+    /*max-width: 79.4%;*/
+    min-height: 66%;
+    background: url('../../Content/images/Home/backgroundInfo.jpg') no-repeat fixed;
+    background-size: 100% 100%;
+}
+
+.divInfoLeft {
+    width: 60%;
+    float: left;
+    padding: 40px 0px 0px 50px;
+}
+
+.divInfoRight {
+    float: left;
+    width: 40%;
+    padding: 10px 0px 0px 17px;
+}
+
+.divInfoLeft img {
+    /*width:70px;*/
+}
+
+._InfoTitle {
+    color: #ffffff;
+    width: 450px;
+    font-size: 20px;
+}
+
+.divInfoLeft p {
+    text-align: justify;
+    color: #ffffff;
+    line-height: 150%;
+}
+
+.divLoginInfo {
+    width: 300px;
+    /*height: 275px;*/
+    float: right;
+    margin-right: 10px;
+}
+
+.divLoginInfoTitel {
+    background-color: #DE8801;
+    color: #ffffff;
+    padding: 5px 0px 5px 10px;
+    font-size: 18px;
+    font-weight: bold;
+    height: 36px;
+    border-radius: 4px 4px 0 0;
+}
+
+.divLoginInfoContent {
+    background-color: #ffffff;
+    padding: 5px 0px 10px 5px;
+    font-weight: bold;
+    /*min-height: 165px;*/
+    text-align: left;
+     border-radius: 0 0 4px 4px ;
+}
+
+._txtlogin {
+    border-radius: 0px !important;
+    margin-top: 10px;
+    height: 35px !important;
+    width: 281px !important;
+    margin-left: 5px;
+    padding-right:25px!important;
+}
+
+._btnLogin {
+    border-radius: 2px !important;
+    /*margin-top: 15px;*/
+    height: 30px !important;
+    width: 100px !important;
+    background-color: #E68C00 !important;
+    color: #ffffff !important;
+    font-size: 14px !important;
+    float: right;
+    margin-right: 10px;
+    border: none 1px #E68C00 !important;
+    font-weight: bold;
+}
+
+.err_msg {
+    margin-left: 10px;
+    margin-top: 5px;
+
+    margin-right: 10px;
+}
+
+#a_exit a:hover {
+    color: red !important;
+}
+
+._divtabli {
+    /*margin-left: 0px;
+    margin-right: 2%;
+    padding-bottom: 0;
+ 
+    width: 32%;
+    float: left;
+    height: auto;*/
+    margin-right: 5px;
+
+   
+   
+    float: left;
+  
+}
+
+._divtabcontent {
+    /*background: none repeat scroll 0 0 #CACBCF;
+            border: 1px solid #c1c1c1;*/
+    /*padding: 2px 0px 0px 5px;*/
+    /*margin-left: 5px;*/
+    color: #373938;
+    font-size: 13px;
+    font-weight: bold;
+    height: 85px;
+}
+
+._litabfocus {
+    font-size: 13px;
+    font-weight: bold;
+    height: 85px;
+}
+
+._divtabli:hover {
+    cursor: pointer;
+}
+
+._divtabcontent_img {
+    float: left;
+    width: 10%;
+}
+
+._divtabcontent_text {
+    width: 90%;
+    text-align: center;
+}
+
+._FooterMenuOpacity {
+    height: 70px;
+    opacity: 0.7;
+    background-color: #071C37;
+    width: 100%;
+    margin-left: 0px;
+    bottom: 30px;
+}
+
+.d_statictis {
+    max-width:440px;
+    min-width: 380px;
+    margin-left: 0px;
+    float: right;
+    margin: 90px 10px 0px 10px;
+    padding: 10px 2px 10px 10px;
+    background-color: rgba(7,28,55, 0.7);
+}
+
+    .d_statictis hr {
+        float: left;
+        width: 100%;
+    }
+
+.d_statictis_detail {
+    float: left;
+    min-width: 66%;
+    max-width:70%;
+    font-size: 14px;
+    margin-top: 5px;
+    padding: 1px 1px 1px 5px;
+}
+
+.d_statictis_detail_Number {
+    float: right;
+      min-width: 29%;
+    max-width:33%;
+    font-size: 20px;
+    font-weight: bold;
+    /*margin-top: 8px;*/
+    padding: 1px 1px 1px 5px;
+    text-align: right;
+    margin-right: 2px;
+}
+
+.d_statictis .tcph {
+    color: #FFF788;
+    border-left: 2px solid #FFF788;
+}
+
+.d_statictis .datienhanh {
+    color: #A3E90F;
+    border-left: 2px solid #A3E90F;
+}
+
+.d_statictis .codong {
+    color: #48CAFE;
+    border-left: 2px solid #48CAFE;
+}
+
+.d_statictis .tcdd {
+    color: #FE9600;
+    border-left: 2px solid #FE9600;
+}
+
+.d_statictis .pecent {
+    color: #FFFFFF;
+    border-left: 2px solid #FFFFFF;
+}

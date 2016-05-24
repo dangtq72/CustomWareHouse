@@ -1,0 +1,160 @@
+﻿.form-search {
+    float: left;
+    width: 100%;
+}
+/*Tên*/
+.row-label {
+    padding-left: 10px;
+    float: left;
+}
+
+    .row-label p {
+        padding-top: 5px;
+    }
+/* End Tên*/
+.row-input {
+    float: left;
+    padding-left: 7px !important;
+}
+
+    .row-input input, select {
+        width: 90%;
+    }
+
+/*Độ rộng 2 cột*/
+.col-1-2 {
+    width: 20%;
+}
+
+.col-2-2 {
+    width: 80%;
+}
+/*End độ rộng 2 cột*/
+/*Độ rộng 4 cột*/
+.col-1-4 {
+    width: 20%;
+}
+
+.col-2-4 {
+    width: 30%;
+}
+
+.col-2-5 {
+    width: 25%;
+}
+/* End độ rộng 4 cột*/
+/*Cặp độ rộng*/
+.col-10i {
+    width: 100% !important;
+}
+
+.col-1-9 {
+    width: 10%;
+}
+
+.col-9-1 {
+    width: 90%;
+}
+
+.col-2-8 {
+    width: 20%;
+}
+
+.col-8-2 {
+    width: 80%;
+}
+
+.col-3-7 {
+    width: 30%;
+}
+
+.col-7-3 {
+    width: 70%;
+}
+
+.col-4-6 {
+    width: 40%;
+}
+
+.col-6-4 {
+    width: 60%;
+}
+
+.col-5-5 {
+    width: 50%;
+}
+/*End cặp độ rộng*/
+.col-1-9-plus {
+    width: 15%;
+}
+
+.col-9-1-plus {
+    width: 15%;
+}
+
+.form-row {
+    width: 100%;
+    float: left;
+    padding: 4px 0px 4px 0px;
+}
+/*Form Popup*/
+.change_header {
+    padding: 5px 60px;
+    color: #274c83;
+}
+
+.popup-content {
+    padding-right: 130px;
+    padding-left: 123px;
+}
+
+hr {
+    margin-left: 7px;
+    border-color: #dedede !important;
+}
+
+.divPopupHeader, .divPopupHeader2 {
+    background-color: #1f5fa9 !important;
+    color: white !important;
+}
+
+    .divPopupHeader, .divPopupHeader2  b {
+        /* HUNGTD: rem padding-left: 60px !important;*/
+        padding-left: 60px;
+    }
+
+#btnExitPopups img {
+    margin: 0px !important;
+}
+
+#btnExitPopups2 img {
+    margin: 0px !important;
+}
+.btnFormPopup {
+    height: 30px !important;
+    width: 84px !important;
+    float: right;
+    border-radius: 4px;
+    font-size: 15px !important;
+}
+.header-content{
+    background-color: #f1f1f1;
+    padding: 2px 0px 4px 50px;
+    
+}
+.bold {
+    font-weight: bold;
+    padding-left: 5px;
+}
+.no-space{
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+.line{
+    min-height: 1px;
+    width: 100%;
+    float: left;
+    padding-bottom: 5px;
+    border-top: 1px solid  #dedede;
+}
+/**/

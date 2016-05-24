@@ -1,0 +1,12 @@
+D:\Working\CustomWareHouse\Program\NaviCommon\bin\Release\NaviCommon.dll
+D:\Working\CustomWareHouse\Program\NaviCommon\bin\Release\NaviCommon.pdb
+D:\Working\CustomWareHouse\Program\NaviCommon\bin\Release\CrystalDecisions.CrystalReports.Engine.dll
+D:\Working\CustomWareHouse\Program\NaviCommon\bin\Release\CrystalDecisions.ReportSource.dll
+D:\Working\CustomWareHouse\Program\NaviCommon\bin\Release\CrystalDecisions.Shared.dll
+D:\Working\CustomWareHouse\Program\NaviCommon\bin\Release\CW_Info.dll
+D:\Working\CustomWareHouse\Program\NaviCommon\bin\Release\ExcelPackage.dll
+D:\Working\CustomWareHouse\Program\NaviCommon\bin\Release\log4net.dll
+D:\Working\CustomWareHouse\Program\NaviCommon\bin\Release\CW_Info.pdb
+D:\Working\CustomWareHouse\Program\NaviCommon\obj\Release\NaviCommon.csprojResolveAssemblyReference.cache
+D:\Working\CustomWareHouse\Program\NaviCommon\obj\Release\NaviCommon.dll
+D:\Working\CustomWareHouse\Program\NaviCommon\obj\Release\NaviCommon.pdb
